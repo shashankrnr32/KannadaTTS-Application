@@ -34,10 +34,10 @@
 
 #Run TTS from Festvox Project
 cd $PRODIR
-./bin/do_clustergen cg_test tts tts etc/temp.txt > ~/Project/GUI/App/ignore/temp.txt 2>&1
+./bin/do_clustergen cg_test tts tts etc/temp.txt > ~/Project/GUI_sbs/App/ignore/temp.txt 2>&1
 #sleep 5
 rm etc/temp.txt
-mv $PRODIR/test/tts/kan_$2.wav ~/Project/GUI/WavFiles/NoDSP/
+mv $PRODIR/test/tts/kan_$2.wav $WAVDIR/NoDSP/kan_$2.wav
 
 #DSP -Digital Signal Processing Operations
 
@@ -61,7 +61,7 @@ b="$1"
 a="1"
 if [ "$b" -eq "$a" ]
 then
-	soundstretch ~/Project/GUI/WavFiles/NoDSP/kan_$2.wav ~/Project/GUI/WavFiles/DSP/kan_$2.wav -pitch=+2.5 -tempo=-5 > ~/Project/GUI/App/ignore/temp.txt 2>&1
+	soundstretch $WAVDIR/NoDSP/kan_$2.wav $WAVDIR/DSP/kan_$2.wav -pitch=+2.5 -tempo=-5 > ~/Project/GUI_sbs/App/ignore/temp.txt 2>&1
 fi
 
 #==============================================================================
