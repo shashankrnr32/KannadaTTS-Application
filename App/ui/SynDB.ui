@@ -47,7 +47,13 @@
    <property name="autoScrollMargin">
     <number>18</number>
    </property>
+   <property name="editTriggers">
+    <set>QAbstractItemView::NoEditTriggers</set>
+   </property>
    <property name="showGrid">
+    <bool>true</bool>
+   </property>
+   <property name="sortingEnabled">
     <bool>true</bool>
    </property>
    <property name="wordWrap">
@@ -69,7 +75,7 @@
     <number>70</number>
    </attribute>
    <attribute name="horizontalHeaderShowSortIndicator" stdset="0">
-    <bool>false</bool>
+    <bool>true</bool>
    </attribute>
    <attribute name="horizontalHeaderStretchLastSection">
     <bool>false</bool>

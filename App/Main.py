@@ -119,6 +119,7 @@ class TableView(QtGui.QDialog):
         
         #Setup Table Window UI
         QtGui.QWidget.__init__(self, parent = kwargs.get('parent'))
+        self.parent = kwargs.get('parent')
         self.ui = Ui_Dialog()
         self.ui.setupUi(self)
         
@@ -130,12 +131,15 @@ class TableView(QtGui.QDialog):
         
         #Add Data to Rows
         self.populate_data()
-    
+        
+        #When an item is double Clicked Change Media Player to that item
+        self.ui.tableWidget.itemDoubleClicked.connect(self.item_double_clicked)
+        
     def set_column_width(self):
         # =====================================================================
         # Sets Table Column Width
         # =====================================================================
-        width = [100,200,600,100,100]
+        width = [133,200,500,133,134]
         for column in range(0,5):
             self.ui.tableWidget.setColumnWidth(column,width[column])
     
@@ -143,7 +147,7 @@ class TableView(QtGui.QDialog):
         # =====================================================================
         # Creates Rows and Adds Data from Database
         # =====================================================================
-        entries = self.db.get_all_entries()
+        entries = self.db.get_all_entries_for_table()
         for entry in entries:
             rowPosition = self.ui.tableWidget.rowCount()
             self.ui.tableWidget.insertRow(rowPosition)
@@ -151,7 +155,16 @@ class TableView(QtGui.QDialog):
             for column in range(0,5):
                 self.ui.tableWidget.setItem(rowPosition,column,QtGui.QTableWidgetItem(str(entry[column])))
 
-
+    def item_double_clicked(self,item):
+        # =====================================================================
+        # Update Media Player with the double clicked item
+        # =====================================================================
+        row = item.row()
+        wav_id = self.ui.tableWidget.item(row,1).text()
+        self.parent.update_media_player(wav_id)
+        self.done(0)
+        
+        
 # =============================================================================
 # Plot Dialog Implementation
 # =============================================================================
@@ -283,6 +296,7 @@ class MyApp(QtGui.QMainWindow):
         #Media Player Configure
         self.update_media_player()
         
+        
     def action_config(self):
         # =====================================================================
         # Configure Actions
@@ -332,6 +346,9 @@ class MyApp(QtGui.QMainWindow):
         self.ui.previous_button.clicked.connect(lambda : self.update_media_player(-1))
         self.ui.next_button.clicked.connect(lambda : self.update_media_player(+1))
         self.ui.refresh_button.clicked.connect(lambda : self.update_media_player(0))
+        
+        #Spinbox When +- buttons are pressed
+        self.ui.rating.valueChanged.connect(self.update_rating)
         
     def show_status(self,msg,t = 1000):
         # =====================================================================
@@ -517,7 +534,6 @@ class MyApp(QtGui.QMainWindow):
         # =====================================================================
         # Updates Media Player Text, Audio
         # =====================================================================
-        
         try:
             if wav_id == 0:
                 #Last Entry : Default and Refresh Button
@@ -533,6 +549,9 @@ class MyApp(QtGui.QMainWindow):
                 #Next Entry
                 copy_entry =  self.entry[:]
                 self.entry = self.syn_db.get_next_entry(self.entry[0])[0]
+            else:
+                self.entry = self.syn_db.get_entry(wav_id)[0]
+                copy_entry =  self.entry[:]
             
             if len(self.entry) == 0:
                 #If Database is empty or No Entry is retrieved
@@ -548,12 +567,24 @@ class MyApp(QtGui.QMainWindow):
                 else:
                     self.audio.setCurrentSource(Phonon.MediaSource('/{}/NoDSP/kan_{}.wav'.format(os.environ['WAVDIR'],self.entry[1])))
             
-                #Text
+                #Set Text in Text Browser
                 self.ui.text_view.setPlainText(self.entry[2])
+                
+                #Set Rating in Spinbox
+                self.ui.rating.setValue(self.entry[5])
         
-        except:
-            pass
+        except Exception as e:
+            print(e)
     
+    def update_rating(self,val):
+        # =====================================================================
+        # Updates Rating Everytime spinbox Changes
+        # =====================================================================
+        self.syn_db.update_rating(self.entry[0],val)
+        
+        #Retrive Changed Entry
+        self.entry = self.syn_db.get_entry(self.entry[1])[0]
+        
     
     def about(self,index):
         # =====================================================================
@@ -561,15 +592,14 @@ class MyApp(QtGui.QMainWindow):
         # =====================================================================
         self.about_page = AboutDialog(parent = self)
         self.about_page.set_focus(index)
-        self.about_page.show()
+        self.about_page.exec()
         
     def showTable(self):
         # =====================================================================
         # Show Table of All Synthesized Text
         # =====================================================================
         self.table_view = TableView(parent = self)
-        self.table_view.show()
-
+        self.table_view.exec()
     
     def plot_display(self,index):
         # =====================================================================
@@ -577,7 +607,7 @@ class MyApp(QtGui.QMainWindow):
         # =====================================================================
         self.plot_view = PlotView(parent = self)
         self.plot_view.set_focus(index)
-        self.plot_view.show()
+        self.plot_view.exec()
 
 
 def setEnv():

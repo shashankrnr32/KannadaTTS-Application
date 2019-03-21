@@ -971,7 +971,7 @@
      <enum>QFrame::Plain</enum>
     </property>
     <property name="textInteractionFlags">
-     <set>Qt::NoTextInteraction</set>
+     <set>Qt::TextSelectableByKeyboard|Qt::TextSelectableByMouse</set>
     </property>
    </widget>
    <widget class="QPushButton" name="refresh_button">

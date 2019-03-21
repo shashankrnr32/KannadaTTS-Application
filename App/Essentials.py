@@ -59,12 +59,20 @@ class Database:
         #Establish Connection to DB
         self.conn = sqlite3.connect(database)
         self.cursor = self.conn.cursor()
-        
+    
+    def get_entry(self,wid):
+        # =====================================================================
+        # Retrieves the entry with id =`wid`
+        # =====================================================================
+        entry = self.cursor.execute('SELECT * FROM kan WHERE wav_id=?',(wid,))
+        return list(entry)
+    
+    
     def get_last_entry(self):
         #======================================================================
         #Retrieves The Last Entry of the Database
         #======================================================================
-        entry = self.cursor.execute('SELECT * FROM kan WHERE   id = (SELECT MAX(id) FROM kan);')
+        entry = self.cursor.execute('SELECT * FROM kan WHERE id = (SELECT MAX(id) FROM kan);')
         return list(entry)
     
     def get_next_entry(self,wid):
@@ -81,11 +89,15 @@ class Database:
         entry = self.cursor.execute('SELECT * FROM kan WHERE id = (SELECT MAX(id) FROM kan WHERE id<?);',(wid,))      
         return list(entry)
     
-    def get_all_entries(self):
+    def get_all_entries_for_table(self):
         #======================================================================
         #Retrieves All Entries for Table View
         #======================================================================
         return self.cursor.execute('SELECT id,wav_id,txt,dsp,rating FROM kan;')
+
+    def update_rating(self,wid,val):
+        self.cursor.execute('UPDATE kan SET rating=? WHERE id=?',(val,wid))
+        self.conn.commit()
     
     def add_entry(self,kan_txt, wav_id, dsp = True, reverse_id = -1):
         #======================================================================
