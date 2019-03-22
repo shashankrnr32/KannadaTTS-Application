@@ -1,7 +1,7 @@
 #!/bin/sh
 
 # =============================================================================
-# Copyright (C) 2019  Shashank Sharma, Varun S S
+# Copyright (C) 2019 Shashank Sharma
 # 
 #     This program is free software: you can redistribute it and/or modify
 #     it under the terms of the GNU General Public License as published by
@@ -21,7 +21,7 @@
 # =============================================================================
 #Developer : 
 #
-#	Primary Code :Varun S S(varunsridhar614@gmail.com)
+#	Primary Code : Varun S S(varunsridhar614@gmail.com)
 #	Production Code : Shashank Sharma(shashankrnr32@gmail.com)
 #
 #Description : 
@@ -34,7 +34,7 @@
 
 #Run TTS from Festvox Project
 cd $PRODIR
-./bin/do_clustergen cg_test tts tts etc/temp.txt > ~/Project/GUI_sbs/App/ignore/temp.txt 2>&1
+./bin/do_clustergen cg_test tts tts etc/temp.txt > $APP/ignore/temp.txt 2>&1
 #sleep 5
 rm etc/temp.txt
 mv $PRODIR/test/tts/kan_$2.wav $WAVDIR/NoDSP/kan_$2.wav
@@ -61,7 +61,7 @@ b="$1"
 a="1"
 if [ "$b" -eq "$a" ]
 then
-	soundstretch $WAVDIR/NoDSP/kan_$2.wav $WAVDIR/DSP/kan_$2.wav -pitch=+2.5 -tempo=-5 > ~/Project/GUI_sbs/App/ignore/temp.txt 2>&1
+	soundstretch $WAVDIR/NoDSP/kan_$2.wav $WAVDIR/DSP/kan_$2.wav -pitch=+2.5 -tempo=-5 > $APP/ignore/temp.txt 2>&1
 fi
 
 #==============================================================================

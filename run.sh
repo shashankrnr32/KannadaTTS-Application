@@ -1,7 +1,7 @@
 #!/bin/sh
 
 # =============================================================================
-# Copyright (C) 2019  Shashank Sharma, Varun S S
+# Copyright (C) 2019  Shashank Sharma
 # 
 #     This program is free software: you can redistribute it and/or modify
 #     it under the terms of the GNU General Public License as published by
@@ -27,7 +27,7 @@ clear
 echo ==========================================
 echo Kannada Speech Synthesis $VERSION
 echo ==========================================
-echo "Copyright (C) 2019  Shashank Sharma, Varun S S
+echo "Copyright (C) 2019  Shashank Sharma
 This program comes with ABSOLUTELY NO WARRANTY.
 This is free software, and you are welcome 
 to redistribute it under certain conditions.
@@ -84,7 +84,13 @@ fi
 python3 -c "import google.cloud.translate"
 if [ $? -eq 1 ];
 then
-   pip3 install google-cloud-translate
+	pip3 install google-cloud-translate
+fi
+
+python3 -c "import pysptk"
+if [ $? -eq 1 ];
+then
+	pip3 install google-cloud-translate
 fi
 
 #python-qt4 For User Interface

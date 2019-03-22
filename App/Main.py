@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 # =============================================================================
-# Copyright (C) 2019  Shashank Sharma, Varun S S
+# Copyright (C) 2019 Shashank Sharma
 # 
 #     This program is free software: you can redistribute it and/or modify
 #     it under the terms of the GNU General Public License as published by
@@ -23,7 +23,7 @@
 #           - User Interface
 #           - Kannada to English Translate
 #           - SQLite Database Implementation
-#           - Media Player
+#           - Media Player Integration
 #           - About Window
 #           - Table Window
 #           - Plot Window
@@ -37,13 +37,19 @@
 
 #INBUILT
 import sys,time,os,shutil
-from PyQt4 import QtCore, QtGui,Qt
+from PyQt4 import QtCore, QtGui
 from PyQt4.phonon import Phonon
+import scipy.io.wavfile as wave
+import numpy as np
+import gc
+import pysptk.sptk as sptk
 
 #PLOTS
 from matplotlib.backends.backend_qt4agg import FigureCanvasQTAgg as FigureCanvas
 from matplotlib.backends.backend_qt4agg import NavigationToolbar2QT as NavigationToolbar
 from matplotlib.figure import Figure
+import matplotlib
+matplotlib.use('Agg')
 
 #UI
 from Application import Ui_MainWindow
@@ -177,6 +183,13 @@ class PlotView(QtGui.QDialog):
         self.ui = Ui_PlotDialog()
         self.ui.setupUi(self)
         
+        self.entry = kwargs.get('parent').entry
+        
+        if bool(self.entry[3]):
+            (self.fs,self.samples) = wave.read('{}/DSP/kan_{}.wav'.format(os.environ['WAVDIR'],self.entry[1]))
+        else:
+            (self.fs,self.samples) = wave.read('{}/NoDSP/kan_{}.wav'.format(os.environ['WAVDIR'],self.entry[1]))
+        
         #Define 3 Figures
         self.figure0 = Figure()
         self.figure1 = Figure()
@@ -185,7 +198,14 @@ class PlotView(QtGui.QDialog):
         self.plot_wave()
         self.plot_spectrum()
         self.plot_pitch()
-      
+    
+    def __del__(self):
+        del self
+        
+        # Collect Garbage because of Matplotlib Bug
+        gc.collect()
+        
+    
     def set_focus(self,index):
         # =====================================================================
         # Sets Tab Focus based on Button
@@ -205,9 +225,20 @@ class PlotView(QtGui.QDialog):
 
         #Create axis and clear Previous figure
         ax = self.figure0.add_subplot(111)
-        ax.clear()
+        ax.cla()
+        ax.grid(linestyle = '--')
 
-        #Extract Data and Plot Wave
+        
+        y_axis = self.samples/max(self.samples)
+        x_axis = np.arange(0,len(y_axis)/self.fs,1/self.fs)
+        
+        #Plot x vs y
+        ax.plot(x_axis, y_axis)
+        
+        ax.set_title('Waveform {}'.format(self.entry[1]), fontfamily = 'Manjari')
+        
+        ax.set_xlabel('Time (s)', fontfamily = 'Manjari')
+        ax.set_ylabel('Normalized Amplitude (V)', fontfamily = 'Manjari')
         
         #Show Canvas
         self.canvas.draw()
@@ -225,9 +256,22 @@ class PlotView(QtGui.QDialog):
         
         #Create axis and clear Previous figure
         ax = self.figure1.add_subplot(111)
-        ax.clear()
+        ax.cla()
+        ax.grid(linestyle = '--')
 
-        #Extract Data and Plot Wave
+        signal = self.samples/max(self.samples) 
+        spectrum, freqs, line = ax.magnitude_spectrum(signal, Fs = self.fs, scale = 'dB')
+        
+        #Particularly for Axis configuration
+        spectrum_db = 20*np.log10(spectrum)
+        ax.set_ylim([max(min(spectrum_db)-5,-100),max(spectrum_db)+5])
+        
+        # Audacity Style Plot
+        ax.fill_between(freqs,spectrum_db,-110)
+
+        ax.set_title('Magnitude Spectrum {}'.format(self.entry[1]), fontfamily = 'Manjari')
+        ax.set_xlabel('Frequency (Hz)', fontfamily = 'Manjari')
+        ax.set_ylabel('Magnitude (dB)', fontfamily = 'Manjari')
         
         #Show Canvas
         self.canvas.draw()
@@ -245,10 +289,20 @@ class PlotView(QtGui.QDialog):
         
         #Create axis and clear Previous figure
         ax = self.figure2.add_subplot(111)
-        ax.clear()
-
-        #Extract Data and Plot Wave
-
+        ax.cla()
+        ax.grid(linestyle = '--')
+        
+        
+        sig = self.samples.astype('float32')
+        y_axis = sptk.rapt(sig,self.fs,250,float(120),float(400))
+        x_axis = np.linspace(0,len(sig)/self.fs,len(y_axis))
+        
+        ax.plot(x_axis,y_axis)
+        ax.set_ylim([120,400])
+        ax.set_title('Pitch Contour {}'.format(self.entry[1]), fontfamily = 'Manjari')
+        ax.set_xlabel('Time (s)', fontfamily = 'Manjari')
+        ax.set_ylabel('Pitch (Hz)', fontfamily = 'Manjari')
+        
         #Show Canvas
         self.canvas.draw()
         
@@ -600,7 +654,7 @@ class MyApp(QtGui.QMainWindow):
                 #Set Rating in Spinbox
                 self.ui.rating.setValue(self.entry[5])
         
-        except Exception as e:
+        except :#Exception as e:
             pass
     
     def update_rating(self,val):
@@ -647,7 +701,7 @@ class MyApp(QtGui.QMainWindow):
         self.plot_view = PlotView(parent = self)
         
         # Delete Object On Closing
-        self.plot_view.setAttribute(55)
+        #self.plot_view.setAttribute(55)
         
         #Set Focus to correct Tab
         self.plot_view.set_focus(index)
