@@ -21,7 +21,7 @@
 #Developer : Shashank Sharma
 #Description : Executable File for GUI Application
 # =============================================================================
-VERSION="v0.11"
+VERSION="v0.12"
 
 clear
 echo ==========================================
@@ -30,9 +30,10 @@ echo ==========================================
 echo "Copyright (C) 2019  Shashank Sharma, Varun S S
 This program comes with ABSOLUTELY NO WARRANTY.
 This is free software, and you are welcome 
-to redistribute it under certain conditions."
+to redistribute it under certain conditions.
+
+-i : Project Information        -v : Project Version"
 echo ==========================================
-echo 
 if [ "$1" = "-help" ];
 then
 	echo -i \: Project Information
@@ -41,21 +42,21 @@ fi
 if [ "$1" = "-i" ];
 then
 	echo "Kannada Speech Synthesis is submitted as a part of final year project by
-	1. Shashank Sharma (shashankrnr32@gmail.com)
-	2. Srinivas N M (srinivasnm471@gmail.com)
-	3. Thilak M (reddythilak13@gmail.com)
-	4. Varun S S (varunsridhar614@gmail.com)"
+	1. Shashank Sharma (shashankrnr32@gmail.com)		2. Srinivas N M (srinivasnm471@gmail.com)
+	3. Thilak M (reddythilak13@gmail.com)			4. Varun S S (varunsridhar614@gmail.com)"
 	echo
-	echo Under the guidance of Sadashiva V Chakrasali, Asst. Prof., Dept. of E\&C, MSRIT, Bangalore
-	echo	
+	echo "Under the guidance of Sadashiva V Chakrasali, Asst. Prof., Dept. of E&C, MSRIT, Bangalore"	
 	echo ==========================================
-	echo List of Open Source Frameworks and Libraries Used
-	echo 1. Festival Speech Synthesis System \(http\:\/\/www.cstr.ed.ac.uk\/projects\/festival\/\)
-	echo 2. Festvox \(http\:\/\/festvox.org\/\)
-	echo 3. Edinburgh Speech Tools \(http\:\/\/www.cstr.ed.ac.uk\/projects\/speech_tools\/\)
-	echo 4. Speech Processing Toolkit \(http\:\/\/sp-tk.sourceforge.net\/\)
-	echo 5. Soundtouch Audio Processing Library \(http\:\/\/surina.net\/soundtouch\/\)
+	echo "List of Open Source Frameworks and Libraries Used"
+	echo "1. Festival Speech Synthesis System (http://www.cstr.ed.ac.uk/projects/festival/)"
+	echo "2. Festvox (http://festvox.org/)"
+	echo "3. Edinburgh Speech Tools (http://www.cstr.ed.ac.uk/projects/speech_tools/)"
+	echo "4. Speech Processing Toolkit (http://sp-tk.sourceforge.net/)"
+	echo "5. Soundtouch Audio Processing Library (http://surina.net/soundtouch/)"
 	echo ==========================================
+	echo "This Application is a Graphical User Interface for Kannada Speech Synthesis (TTS) protected by GNU's GPL v3.0"
+	echo "To obtain trained model of Kannada TTS contact any of the developers"
+	echo ===========================================
 fi
 
 if [ "$1" = "-v" ];

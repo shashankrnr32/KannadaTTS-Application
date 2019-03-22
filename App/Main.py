@@ -37,7 +37,7 @@
 
 #INBUILT
 import sys,time,os,shutil
-from PyQt4 import QtCore, QtGui
+from PyQt4 import QtCore, QtGui,Qt
 from PyQt4.phonon import Phonon
 
 #PLOTS
@@ -296,7 +296,35 @@ class MyApp(QtGui.QMainWindow):
         #Media Player Configure
         self.update_media_player()
         
+    
+    def contextMenuEvent(self, event):
+        # =====================================================================
+        # Right Click Menu For Application
+        # =====================================================================
         
+        #Create a Menu
+        menu = QtGui.QMenu(self)
+        
+        #Create Actions
+        tableAction = menu.addAction("View All Synthesis")
+        aboutAction = menu.addAction("About Project")
+        
+        minimizeAction = menu.addAction("Minimize")
+        quitAction = menu.addAction("Quit")
+        
+        #Get the action that is clicked
+        action = menu.exec_(self.mapToGlobal(event.pos()))
+       
+        #Handle the Click Action
+        if action ==aboutAction:
+            self.about(0)
+        if action == tableAction:
+            self.showTable()
+        if action == minimizeAction:
+            self.showMinimized()
+        if action == quitAction:
+            self.close()
+            
     def action_config(self):
         # =====================================================================
         # Configure Actions
@@ -557,7 +585,6 @@ class MyApp(QtGui.QMainWindow):
                 #If Database is empty or No Entry is retrieved
                 self.entry = copy_entry[:]
                 raise Exception()
-            
             else:
                 del copy_entry
             
@@ -574,7 +601,7 @@ class MyApp(QtGui.QMainWindow):
                 self.ui.rating.setValue(self.entry[5])
         
         except Exception as e:
-            print(e)
+            pass
     
     def update_rating(self,val):
         # =====================================================================
@@ -591,7 +618,14 @@ class MyApp(QtGui.QMainWindow):
         # Opens About Window after setting it to correct focus
         # =====================================================================
         self.about_page = AboutDialog(parent = self)
+        
+        # Delete Object On Closing
+        self.about_page.setAttribute(55)
+        
+        #Set Focus to correct Tab
         self.about_page.set_focus(index)
+        
+        #Show as Modal Dialog
         self.about_page.exec()
         
     def showTable(self):
@@ -599,6 +633,11 @@ class MyApp(QtGui.QMainWindow):
         # Show Table of All Synthesized Text
         # =====================================================================
         self.table_view = TableView(parent = self)
+        
+        # Delete Object On Closing
+        self.table_view.setAttribute(55)
+        
+        #Show as Modal Dialog
         self.table_view.exec()
     
     def plot_display(self,index):
@@ -606,7 +645,14 @@ class MyApp(QtGui.QMainWindow):
         # Display Audio Analysis Window
         # =====================================================================
         self.plot_view = PlotView(parent = self)
+        
+        # Delete Object On Closing
+        self.plot_view.setAttribute(55)
+        
+        #Set Focus to correct Tab
         self.plot_view.set_focus(index)
+        
+        #Show as Modal Dialog
         self.plot_view.exec()
 
 
