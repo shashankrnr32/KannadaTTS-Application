@@ -21,7 +21,7 @@
 #Developer : Shashank Sharma
 #Description : Executable File for GUI Application
 # =============================================================================
-VERSION="v0.12"
+VERSION="v0.13"
 
 clear
 echo ==========================================

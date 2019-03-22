@@ -461,41 +461,55 @@ class MyApp(QtGui.QMainWindow):
         #Acquire Text
         kan_txt = self.ui.kan_input.toPlainText()
         
-        #Always-Unique Wave Number
-        wavenum = str(time.strftime("%Y%m%d_%H%M%S"))
+        #Search For Duplicate
+        wav_id = self.syn_db.search_duplicate(kan_txt)[0]
         
-        #Write Kannada Text to temp.txt
-        with open(os.environ['PRODIR']+'/etc/temp.txt', 'w') as temp_file:
-            temp_file.write('( kan_{} \" {} \")'.format(wavenum,kan_txt))
+        try:
+            #If Duplicate Exists
+            if len(wav_id) != 0:
+                wav_id = wav_id[0]
+                raise Exception()
+            
+            #If Duplicate Doesnt Exist
+            wav_id = 0
+            
+            #Always-Unique Wave Number
+            wavenum = str(time.strftime("%Y%m%d_%H%M%S"))
+            
+            #Write Kannada Text to temp.txt
+            with open(os.environ['PRODIR']+'/etc/temp.txt', 'w') as temp_file:
+                temp_file.write('( kan_{} \" {} \")'.format(wavenum,kan_txt))
+            
+            self.show_status('Processing...', 0)                                                                    
+            
+            #DSP option Checked/Unchecked
+            dsp = self.ui.dsp.isChecked()
+            if dsp:
+                os.system('./FestAPI.sh 1 {}'.format(wavenum))
+            else:
+                os.system('./FestAPI.sh 0 {}'.format(wavenum))
+            
+            #All Done...
+            self.show_status('Done... ({}s)'.format('%.3f'%(time.time()-start_time)),2500)                          
+            
+            #Store all Synthesized Files Database
+            if reverse:
+                self.syn_db.add_entry(kan_txt,wavenum,dsp)
+            else:
+                self.syn_db.add_entry(kan_txt,wavenum,dsp,-1)
+        except:
+            self.show_status('Duplicate Text Found..')
         
-        self.show_status('Processing...', 0)                                                                    
-        
-        #DSP option Checked/Unchecked
-        dsp = self.ui.dsp.isChecked()
-        if dsp:
-            os.system('./FestAPI.sh 1 {}'.format(wavenum))
-        else:
-            os.system('./FestAPI.sh 0 {}'.format(wavenum))
-        
-        
-        #ReEnable Buttons Again
-        self.ui.syn_button.setEnabled(True)
-        self.ui_update()
-        
-        #All Done...
-        self.show_status('Done... ({}s)'.format('%.3f'%(time.time()-start_time)),2500)                          
-        
-        #Store all Synthesized Files Database
-        if reverse:
-            self.syn_db.add_entry(kan_txt,wavenum,dsp)
-        else:
-            self.syn_db.add_entry(kan_txt,wavenum,dsp,-1)
-        
-        #Update Media Player
-        self.update_media_player()
-        
-        #Clear Input Text
-        self.reset_all()
+        finally:
+            #ReEnable Buttons Again
+            self.ui.syn_button.setEnabled(True)
+            self.ui_update()
+            
+            #Update Media Player
+            self.update_media_player(wav_id)
+            
+            #Clear Input Text
+            self.reset_all()
         
     def revSynthesize(self):
         # =====================================================================

@@ -59,6 +59,9 @@ class Database:
         self.conn = sqlite3.connect(database)
         self.cursor = self.conn.cursor()
     
+    def search_duplicate(self,txt):
+        return list(self.cursor.execute('SELECT wav_id FROM kan WHERE txt=?',(txt,)))
+    
     def get_entry(self,wid):
         # =====================================================================
         # Retrieves the entry with id =`wid`

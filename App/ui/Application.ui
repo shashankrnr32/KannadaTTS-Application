@@ -777,6 +777,9 @@
     </property>
    </widget>
    <widget class="QPushButton" name="reverse_button">
+    <property name="enabled">
+     <bool>false</bool>
+    </property>
     <property name="geometry">
      <rect>
       <x>530</x>
@@ -787,6 +790,12 @@
     </property>
     <property name="toolTip">
      <string>Synthesize Reverse Statement</string>
+    </property>
+    <property name="statusTip">
+     <string>Will be Released in Next Update</string>
+    </property>
+    <property name="whatsThis">
+     <string/>
     </property>
     <property name="autoFillBackground">
      <bool>true</bool>
@@ -882,6 +891,9 @@
     </property>
    </widget>
    <widget class="QPushButton" name="noise_red_button">
+    <property name="enabled">
+     <bool>false</bool>
+    </property>
     <property name="geometry">
      <rect>
       <x>480</x>
@@ -892,6 +904,9 @@
     </property>
     <property name="toolTip">
      <string>Reduce Noise</string>
+    </property>
+    <property name="statusTip">
+     <string>WIll be released in next update</string>
     </property>
     <property name="autoFillBackground">
      <bool>true</bool>
