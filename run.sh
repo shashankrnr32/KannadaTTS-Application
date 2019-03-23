@@ -90,7 +90,7 @@ fi
 python3 -c "import pysptk"
 if [ $? -eq 1 ];
 then
-	pip3 install google-cloud-translate
+	pip3 install pysptk
 fi
 
 #python-qt4 For User Interface
