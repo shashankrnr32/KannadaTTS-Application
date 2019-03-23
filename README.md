@@ -2,7 +2,9 @@
 
 ## Developer 
 [Shashank Sharma](shashankrnr32@gmail.com)
+
 [Varun S S](varunsridhar614@gmail.com)
+
 [Srinivas N M](srinivasnm471@gmail.com)
 
 ## Recent Updates
