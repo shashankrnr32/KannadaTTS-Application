@@ -1,6 +1,6 @@
 # Documentation
 
-## Developer 
+## Developers 
 [Shashank Sharma](shashankrnr32@gmail.com)
 
 [Varun S S](varunsridhar614@gmail.com)
