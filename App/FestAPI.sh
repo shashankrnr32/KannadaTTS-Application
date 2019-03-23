@@ -32,6 +32,10 @@
 #
 # =============================================================================
 
+#touch $PRODIR/etc/temp.txt
+mkdir -p $APP/ignore
+
+
 #Run TTS from Festvox Project
 cd $PRODIR
 ./bin/do_clustergen cg_test tts tts etc/temp.txt > $APP/ignore/temp.txt 2>&1
@@ -42,18 +46,6 @@ mv $PRODIR/test/tts/kan_$2.wav $WAVDIR/NoDSP/kan_$2.wav
 #DSP -Digital Signal Processing Operations
 
 #==============================================================================
-#Noise Removal using SOX
-#https://en.wikipedia.org/wiki/SoX
-
-
-
-
-
-#==============================================================================
-
-
-
-#==============================================================================
 #Pitch Shift using soundstretch
 #http://www.surina.net/soundtouch/
 
@@ -62,6 +54,25 @@ a="1"
 if [ "$b" -eq "$a" ]
 then
 	soundstretch $WAVDIR/NoDSP/kan_$2.wav $WAVDIR/DSP/kan_$2.wav -pitch=+2.5 -tempo=-5 > $APP/ignore/temp.txt 2>&1
-fi
+	
+	#==============================================================================
+	#Noise Removal using SOX
+	#https://en.wikipedia.org/wiki/SoX
+	sox $WAVDIR/DSP/kan_$2.wav $WAVDIR/DSP/noise-audio.wav trim 0 00:0.1
+	sox $WAVDIR/DSP/noise-audio.wav -n noiseprof $WAVDIR/DSP/noise.prof
+	mv $WAVDIR/DSP/kan_$2.wav $WAVDIR/DSP/kan_$2_temp.wav
+	sox $WAVDIR/DSP/kan_$2_temp.wav $WAVDIR/DSP/kan_$2.wav noisered $WAVDIR/DSP/noise.prof 0.21
+	#sox -v 1.5 $WAVDIR/NoDSP/kan_$2.wav $WAVDIR/NoDSP/kan_$2.wav
 
+	rm $WAVDIR/DSP/kan_$2_temp.wav
+	rm $WAVDIR/DSP/noise-audio.wav
+	rm $WAVDIR/DSP/noise.prof
+	#==============================================================================
+fi
 #==============================================================================
+
+
+
+
+
+

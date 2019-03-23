@@ -21,7 +21,7 @@
 #Developer : Shashank Sharma
 #Description : Executable File for GUI Application
 # =============================================================================
-VERSION="v0.13"
+VERSION="v0.14"
 
 clear
 echo ==========================================
@@ -70,7 +70,7 @@ echo Installing Required Packages
 # Soundstretch for Pitch Shift
 if [ $(dpkg-query -W -f='${Status}' soundstretch 2>/dev/null | grep -c "ok installed") -eq 0 ];
 then
-  sudo apt-get install nano;
+  sudo apt-get install soundstretch;
 fi
 
 
@@ -98,6 +98,13 @@ if [ $(dpkg-query -W -f='${Status}' python-qt4 2>/dev/null | grep -c "ok install
 then
    sudo apt-get install -y python-qt4 pyqt4-dev-tools python-qt4 qt4-designer python3-pyqt4.phonon
 fi
+
+#Sox Installation
+if [ $(dpkg-query -W -f='${Status}' sox 2>/dev/null | grep -c "ok installed") -eq 0 ];
+then
+   sudo apt-get install -y sox
+fi
+
 
 echo Building User Interface
 pyuic4 ui/Application.ui -o Application.py

@@ -108,7 +108,7 @@ class Database:
         
         #Read File and determine Duration of the Wave File
         if dsp:
-            fs,samples = wav.read('/{}/DSP/kan_{}.wav'.format(self.wav_path,wav_id))
+            fs,samples = wav.read('{}/DSP/kan_{}.wav'.format(self.wav_path,wav_id))
         else:
             fs,samples = wav.read('{}/NoDSP/kan_{}.wav'.format(self.wav_path,wav_id))
         
