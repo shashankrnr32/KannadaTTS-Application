@@ -4,7 +4,7 @@
 [Shashank Sharma](shashankrnr32@gmail.com)
 
 	- User Interface
-	- Kannada to English Translate
+	- Translation (en - kan)
 	- SQLite Database Implementation
 	- Media Player Integration
 	- About, Table and Plot Window
