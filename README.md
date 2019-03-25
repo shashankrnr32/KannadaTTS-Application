@@ -2,10 +2,19 @@
 
 ## Developers 
 [Shashank Sharma](shashankrnr32@gmail.com)
+	- User Interface
+	- Kannada to English Translate
+	- SQLite Database Implementation
+	- Media Player Integration
+	- About, Table and Plot Window
+	- Memory Management
+	- Production Code and Documentation
 
 [Varun S S](varunsridhar614@gmail.com)
+	- Festival API
 
 [Srinivas N M](srinivasnm471@gmail.com)
+	- Noise Removal using sox
 
 ## Recent Updates
 1. Fixed Memory Leak due to Plots
