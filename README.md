@@ -20,10 +20,11 @@
 	- Noise Removal using sox
 
 ## Recent Updates
-1. Fixed Memory Leak due to Plots
-2. The synthesize handler now checks for duplicate text in database
-3. Audio analysis plots is added now.
-4. Added Context Menu to increase responsiveness
+1. Added Spectrogram to Audio Analysis
+2. Fixed Memory Leak due to Plots
+3. The synthesize handler now checks for duplicate text in database
+4. Audio analysis plots is added now.
+5. Added Context Menu to increase responsiveness
 
 ## Features
 1. SQLite Based Database
