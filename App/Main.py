@@ -192,10 +192,14 @@ class PlotView(QtGui.QDialog):
         else:
             (self.fs,self.samples) = wave.read('{}/NoDSP/kan_{}.wav'.format(os.environ['WAVDIR'],self.entry[1]))
         
+        #Memory Management
         gc.collect()
         
     def tab_changed(self,index):
-       
+        # =====================================================================
+        # Runs Everytime Tab is changed
+        # =====================================================================
+        
         #Delete Items in Tab1
         for i in reversed(range(self.ui.plot0.count())): 
             self.ui.plot0.itemAt(i).widget().setParent(None)
@@ -222,7 +226,8 @@ class PlotView(QtGui.QDialog):
         # =====================================================================
         # Sets Tab Focus based on Button
         # =====================================================================
-        self.ui.tabWidget.setCurrentIndex(index)   
+        self.ui.tabWidget.setCurrentIndex(index)
+        self.tab_changed(index)
     
     def plot_wave(self):
         # =====================================================================
@@ -340,11 +345,17 @@ class MyApp(QtGui.QMainWindow):
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
         
+        #Connect to Synthesis Database
+        self.syn_db = sdb()
+        
         #Configure Buttons
         self.button_config()
         
         #Configure Actions of UI
         self.action_config()
+        
+        #Configure Audio
+        self.audio_config()
         
         #Configure Status Bar
         self.statusBar = QtGui.QStatusBar()
@@ -353,30 +364,8 @@ class MyApp(QtGui.QMainWindow):
         #Disable Maximize Button
         self.setWindowFlags(QtCore.Qt.WindowCloseButtonHint | QtCore.Qt.WindowMinimizeButtonHint)
         
-        #Connect to Synthesis Database
-        self.syn_db = sdb()
+        
 
-        #Defines a Audio Output Device
-        self.audio_output = Phonon.AudioOutput(Phonon.MusicCategory,self)
-        
-        #Define an Audio Object
-        self.audio = Phonon.MediaObject(self)
-        self.audio.stateChanged.connect(self.start_progress_bar)
-        self.audio.totalTimeChanged.connect(self.update_thread_time)
-        
-        #Create a Runnable Thread For Play Button
-        self.play_thread = PlayThread(seconds = 0)
-
-        #Connect Signal to Update Progress Bar
-        self.connect(self.play_thread,QtCore.SIGNAL('bar_percent'), self.update_progress_bar)
-        
-        #`audio` is the source and `audio_output` is the sink : CREATE PATH
-        Phonon.createPath(self.audio,self.audio_output)
-        
-        #Media Player Configure
-        self.update_media_player()
-        
-    
     def contextMenuEvent(self, event):
         # =====================================================================
         # Right Click Menu For Application
@@ -458,6 +447,28 @@ class MyApp(QtGui.QMainWindow):
         #Spinbox When +- buttons are pressed
         self.ui.rating.valueChanged.connect(self.update_rating)
         
+    def audio_config(self):
+        #Defines a Audio Output Device
+        self.audio_output = Phonon.AudioOutput(Phonon.MusicCategory,self)
+        
+        #Define an Audio Object
+        self.audio = Phonon.MediaObject(self)
+        self.audio.stateChanged.connect(self.start_progress_bar)
+        self.audio.totalTimeChanged.connect(self.update_thread_time)
+        
+        #Create a Runnable Thread For Play Button
+        self.play_thread = PlayThread(seconds = 0)
+
+        #Connect Signal to Update Progress Bar
+        self.connect(self.play_thread,QtCore.SIGNAL('bar_percent'), self.update_progress_bar)
+        
+        #`audio` is the source and `audio_output` is the sink : CREATE PATH
+        Phonon.createPath(self.audio,self.audio_output)
+        
+        #Media Player Configure
+        self.update_media_player()
+
+    
     def show_status(self,msg,t = 1000):
         # =====================================================================
         # Implementation of Status Bar (`msg` display for `t` milliseconds)
