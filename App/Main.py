@@ -41,6 +41,8 @@ from PyQt4 import QtCore, QtGui
 from PyQt4.phonon import Phonon
 import gc
 import numpy as np
+from scipy import signal
+import scipy.io.wavfile as wave
 
 import pysptk.sptk as sptk
 
@@ -186,7 +188,7 @@ class PlotView(QtGui.QDialog):
         self.ui.tabWidget.currentChanged.connect(self.tab_changed)
         
         self.entry = kwargs.get('parent').entry
-        import scipy.io.wavfile as wave
+        
         if bool(self.entry[3]):
             (self.fs,self.samples) = wave.read('{}/DSP/kan_{}.wav'.format(os.environ['WAVDIR'],self.entry[1]))
         else:
@@ -212,6 +214,10 @@ class PlotView(QtGui.QDialog):
         for i in reversed(range(self.ui.plot2.count())): 
             self.ui.plot2.itemAt(i).widget().setParent(None)
         
+        #Delete Items in Tab3
+        for i in reversed(range(self.ui.plot3.count())): 
+            self.ui.plot3.itemAt(i).widget().setParent(None)
+        
         #Memory Management
         gc.collect()
         
@@ -221,6 +227,9 @@ class PlotView(QtGui.QDialog):
             self.plot_spectrum()
         if index == 2:
             self.plot_pitch()
+        if index == 3:
+            self.plot_specgram()
+    
     
     def set_focus(self,index):
         # =====================================================================
@@ -337,6 +346,39 @@ class PlotView(QtGui.QDialog):
         del canvas, ax, figure, toolbar,sig, y_axis, x_axis
         gc.collect()
     
+    def plot_specgram(self):
+        # =====================================================================
+        # Plot Pitch Contour
+        # =====================================================================
+        
+        #Add Canvas Widget to Layout
+        figure = Figure()
+        canvas = FigureCanvas(figure)
+        toolbar = NavigationToolbar(canvas, self.ui.tabWidget)
+        self.ui.plot3.addWidget(canvas)
+        self.ui.plot3.addWidget(toolbar)
+        
+        #Create axis and clear Previous figure
+        ax = figure.add_subplot(111)
+        ax.clear()
+        ax.grid(linestyle = '--')
+    
+        #x_axis = np.arange(0,len(self.samples)/self.fs,1/self.fs)
+        f, t, spectrogram = signal.spectrogram(self.samples,self.fs, window = signal.get_window('hamming',256), noverlap = 128)
+        
+        ax.pcolormesh(t, f, spectrogram, cmap = 'magma')
+        ax.set_title('Pitch Contour {}'.format(self.entry[1]), fontfamily = 'Manjari')
+        ax.set_ylabel('Frequency (Hz)', fontfamily = 'Manjari')
+        ax.set_xlabel('Time (s)', fontfamily = 'Manjari')
+        ax.set_yscale('symlog')
+        
+        #Show Canvas
+        canvas.draw()
+        
+        #Memory Management
+        del canvas, ax, figure, toolbar, f, t, spectrogram
+        gc.collect()
+        
 #==============================================================================
 class MyApp(QtGui.QMainWindow):
 
@@ -434,10 +476,11 @@ class MyApp(QtGui.QMainWindow):
         self.connect(self.ui.kan_input, QtCore.SIGNAL('textChanged()'), self.kan_input_onChange)
         self.connect(self.ui.en_input, QtCore.SIGNAL('textChanged()'), self.en_input_onChange)
         
-        #Audio Analysis Button
+        #Speech Analysis Button
         self.ui.waveform_button.clicked.connect(lambda : self.plot_display(0))
         self.ui.spectrum_button.clicked.connect(lambda : self.plot_display(1))
         self.ui.pitch_button.clicked.connect(lambda : self.plot_display(2))
+        self.ui.spectrogram_button.clicked.connect(lambda: self.plot_display(3))
     
         #Previous and Next Button
         self.ui.previous_button.clicked.connect(lambda : self.update_media_player(-1))

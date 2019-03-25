@@ -1021,6 +1021,47 @@
      <bool>true</bool>
     </property>
    </widget>
+   <widget class="QPushButton" name="spectrogram_button">
+    <property name="geometry">
+     <rect>
+      <x>630</x>
+      <y>310</y>
+      <width>40</width>
+      <height>40</height>
+     </rect>
+    </property>
+    <property name="toolTip">
+     <string>View Spectrogram</string>
+    </property>
+    <property name="statusTip">
+     <string>View Spectrogram</string>
+    </property>
+    <property name="autoFillBackground">
+     <bool>true</bool>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="icon">
+     <iconset resource="AppResources.qrc">
+      <normaloff>:/img/img/spectrogram.png</normaloff>:/img/img/spectrogram.png</iconset>
+    </property>
+    <property name="iconSize">
+     <size>
+      <width>30</width>
+      <height>30</height>
+     </size>
+    </property>
+    <property name="autoDefault">
+     <bool>false</bool>
+    </property>
+    <property name="default">
+     <bool>false</bool>
+    </property>
+    <property name="flat">
+     <bool>false</bool>
+    </property>
+   </widget>
    <zorder>columnView_2</zorder>
    <zorder>listView_2</zorder>
    <zorder>rit_logo</zorder>
@@ -1054,6 +1095,7 @@
    <zorder>line_6</zorder>
    <zorder>text_view</zorder>
    <zorder>refresh_button</zorder>
+   <zorder>spectrogram_button</zorder>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">

@@ -1,5 +1,6 @@
 <RCC>
   <qresource prefix="img">
+    <file>img/spectrogram.png</file>
     <file>img/refresh.png</file>
     <file>img/noise_reduction.png</file>
     <file>img/mail.png</file>
