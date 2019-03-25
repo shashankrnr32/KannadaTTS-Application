@@ -39,17 +39,15 @@
 import sys,time,os,shutil
 from PyQt4 import QtCore, QtGui
 from PyQt4.phonon import Phonon
-import scipy.io.wavfile as wave
-import numpy as np
 import gc
+import numpy as np
+
 import pysptk.sptk as sptk
 
 #PLOTS
 from matplotlib.backends.backend_qt4agg import FigureCanvasQTAgg as FigureCanvas
 from matplotlib.backends.backend_qt4agg import NavigationToolbar2QT as NavigationToolbar
 from matplotlib.figure import Figure
-import matplotlib
-matplotlib.use('Agg')
 
 #UI
 from Application import Ui_MainWindow
@@ -64,6 +62,8 @@ from Essentials import Database as sdb
 # =============================================================================
 # Thread Implementation for Play Progress Bar 
 # =============================================================================
+
+    
 class PlayThread(QtCore.QThread):
     
     def __init__(self,seconds,parent = None):
@@ -183,28 +183,40 @@ class PlotView(QtGui.QDialog):
         self.ui = Ui_PlotDialog()
         self.ui.setupUi(self)
         
-        self.entry = kwargs.get('parent').entry
+        self.ui.tabWidget.currentChanged.connect(self.tab_changed)
         
+        self.entry = kwargs.get('parent').entry
+        import scipy.io.wavfile as wave
         if bool(self.entry[3]):
             (self.fs,self.samples) = wave.read('{}/DSP/kan_{}.wav'.format(os.environ['WAVDIR'],self.entry[1]))
         else:
             (self.fs,self.samples) = wave.read('{}/NoDSP/kan_{}.wav'.format(os.environ['WAVDIR'],self.entry[1]))
         
-        #Define 3 Figures
-        self.figure0 = Figure()
-        self.figure1 = Figure()
-        self.figure2 = Figure()
-        
-        self.plot_wave()
-        self.plot_spectrum()
-        self.plot_pitch()
-    
-    def __del__(self):
-        del self
-        
-        # Collect Garbage because of Matplotlib Bug
         gc.collect()
         
+    def tab_changed(self,index):
+       
+        #Delete Items in Tab1
+        for i in reversed(range(self.ui.plot0.count())): 
+            self.ui.plot0.itemAt(i).widget().setParent(None)
+        
+        #Delete Items in Tab2
+        for i in reversed(range(self.ui.plot1.count())): 
+            self.ui.plot1.itemAt(i).widget().setParent(None)
+        
+        #Delete Items in Tab3
+        for i in reversed(range(self.ui.plot2.count())): 
+            self.ui.plot2.itemAt(i).widget().setParent(None)
+        
+        #Memory Management
+        gc.collect()
+        
+        if index == 0:
+            self.plot_wave()
+        if index == 1:
+            self.plot_spectrum()
+        if index == 2:
+            self.plot_pitch()
     
     def set_focus(self,index):
         # =====================================================================
@@ -218,17 +230,17 @@ class PlotView(QtGui.QDialog):
         # =====================================================================
         
         #Add Canvas Widget to Layout
-        self.canvas = FigureCanvas(self.figure0)
-        self.toolbar = NavigationToolbar(self.canvas, self.ui.tabWidget)
-        self.ui.plot0.addWidget(self.canvas)
-        self.ui.plot0.addWidget(self.toolbar)
+        figure = Figure()
+        canvas = FigureCanvas(figure)
+        toolbar = NavigationToolbar(canvas, self.ui.tabWidget)
+        self.ui.plot0.addWidget(canvas)
+        self.ui.plot0.addWidget(toolbar)
 
         #Create axis and clear Previous figure
-        ax = self.figure0.add_subplot(111)
-        ax.cla()
+        ax = figure.add_subplot(111)
+        ax.clear()
         ax.grid(linestyle = '--')
 
-        
         y_axis = self.samples/max(self.samples)
         x_axis = np.arange(0,len(y_axis)/self.fs,1/self.fs)
         
@@ -241,22 +253,27 @@ class PlotView(QtGui.QDialog):
         ax.set_ylabel('Normalized Amplitude (V)', fontfamily = 'Manjari')
         
         #Show Canvas
-        self.canvas.draw()
-    
+        canvas.draw()
+        
+        #Memory Management
+        del canvas, ax, figure, toolbar, y_axis, x_axis
+        gc.collect()
+        
     def plot_spectrum(self):
         # =====================================================================
         # Plot Magnitude Spectrum
         # =====================================================================
         
         #Add Canvas Widget to Layout
-        self.canvas = FigureCanvas(self.figure1)
-        self.toolbar = NavigationToolbar(self.canvas, self.ui.tabWidget)
-        self.ui.plot1.addWidget(self.canvas)
-        self.ui.plot1.addWidget(self.toolbar)
+        figure = Figure()
+        canvas = FigureCanvas(figure)
+        toolbar = NavigationToolbar(canvas, self.ui.tabWidget)
+        self.ui.plot1.addWidget(canvas)
+        self.ui.plot1.addWidget(toolbar)
         
         #Create axis and clear Previous figure
-        ax = self.figure1.add_subplot(111)
-        ax.cla()
+        ax = figure.add_subplot(111)
+        ax.clear()
         ax.grid(linestyle = '--')
 
         signal = self.samples/max(self.samples) 
@@ -274,22 +291,27 @@ class PlotView(QtGui.QDialog):
         ax.set_ylabel('Magnitude (dB)', fontfamily = 'Manjari')
         
         #Show Canvas
-        self.canvas.draw()
-
+        canvas.draw()
+        
+        #Memory Management
+        del canvas, ax, figure, toolbar,signal, spectrum, spectrum_db
+        gc.collect()
+        
     def plot_pitch(self):
         # =====================================================================
         # Plot Pitch Contour
         # =====================================================================
         
         #Add Canvas Widget to Layout
-        self.canvas = FigureCanvas(self.figure2)
-        self.toolbar = NavigationToolbar(self.canvas, self.ui.tabWidget)
-        self.ui.plot2.addWidget(self.canvas)
-        self.ui.plot2.addWidget(self.toolbar)
+        figure = Figure()
+        canvas = FigureCanvas(figure)
+        toolbar = NavigationToolbar(canvas, self.ui.tabWidget)
+        self.ui.plot2.addWidget(canvas)
+        self.ui.plot2.addWidget(toolbar)
         
         #Create axis and clear Previous figure
-        ax = self.figure2.add_subplot(111)
-        ax.cla()
+        ax = figure.add_subplot(111)
+        ax.clear()
         ax.grid(linestyle = '--')
         
         
@@ -304,8 +326,12 @@ class PlotView(QtGui.QDialog):
         ax.set_ylabel('Pitch (Hz)', fontfamily = 'Manjari')
         
         #Show Canvas
-        self.canvas.draw()
+        canvas.draw()
         
+        #Memory Management
+        del canvas, ax, figure, toolbar,sig, y_axis, x_axis
+        gc.collect()
+    
 #==============================================================================
 class MyApp(QtGui.QMainWindow):
 
@@ -338,9 +364,9 @@ class MyApp(QtGui.QMainWindow):
         self.audio.stateChanged.connect(self.start_progress_bar)
         self.audio.totalTimeChanged.connect(self.update_thread_time)
         
-        #Create a Runnable Thread
+        #Create a Runnable Thread For Play Button
         self.play_thread = PlayThread(seconds = 0)
-        
+
         #Connect Signal to Update Progress Bar
         self.connect(self.play_thread,QtCore.SIGNAL('bar_percent'), self.update_progress_bar)
         
@@ -628,6 +654,7 @@ class MyApp(QtGui.QMainWindow):
         # =====================================================================
         # Updates Media Player Text, Audio
         # =====================================================================
+        
         try:
             if wav_id == 0:
                 #Last Entry : Default and Refresh Button
@@ -653,7 +680,7 @@ class MyApp(QtGui.QMainWindow):
                 raise Exception()
             else:
                 del copy_entry
-            
+
                 #Set Audio File
                 if bool(self.entry[3]):
                     self.audio.setCurrentSource(Phonon.MediaSource('/{}/DSP/kan_{}.wav'.format(os.environ['WAVDIR'],self.entry[1])))
@@ -665,10 +692,11 @@ class MyApp(QtGui.QMainWindow):
                 
                 #Set Rating in Spinbox
                 self.ui.rating.setValue(self.entry[5])
-        
+                 
         except :#Exception as e:
             pass
-    
+        
+        
     def update_rating(self,val):
         # =====================================================================
         # Updates Rating Everytime spinbox Changes
@@ -683,56 +711,81 @@ class MyApp(QtGui.QMainWindow):
         # =====================================================================
         # Opens About Window after setting it to correct focus
         # =====================================================================
-        self.about_page = AboutDialog(parent = self)
+        about_page = AboutDialog(parent = self)
         
         # Delete Object On Closing
-        self.about_page.setAttribute(55)
+        about_page.setAttribute(55)
         
         #Set Focus to correct Tab
-        self.about_page.set_focus(index)
+        about_page.set_focus(index)
         
         #Show as Modal Dialog
-        self.about_page.exec()
+        about_page.exec()
+        
+        #Memory Management
+        del about_page
+        gc.collect()
         
     def showTable(self):
         # =====================================================================
         # Show Table of All Synthesized Text
         # =====================================================================
-        self.table_view = TableView(parent = self)
+        table_view = TableView(parent = self)
         
         # Delete Object On Closing
-        self.table_view.setAttribute(55)
+        table_view.setAttribute(55)
         
         #Show as Modal Dialog
-        self.table_view.exec()
+        table_view.exec()
+        
+        #Memory Management
+        del table_view
+        gc.collect()
     
     def plot_display(self,index):
         # =====================================================================
         # Display Audio Analysis Window
         # =====================================================================
-        self.plot_view = PlotView(parent = self)
+        plot_view = PlotView(parent = self)
+        
+        plot_view.set_focus(index)
         
         # Delete Object On Closing
-        #self.plot_view.setAttribute(55)
-        
-        #Set Focus to correct Tab
-        self.plot_view.set_focus(index)
+        plot_view.setAttribute(55)
         
         #Show as Modal Dialog
-        self.plot_view.exec()
-
+        plot_view.exec()
+        
+        #Memory Management
+        del plot_view
+        gc.collect()
+        
 
 def setEnv():
     # =========================================================================
-    # Set Environment Variables of EST, Festvoc, SPTK, Project and App
+    # Set Environment Variables of EST, Festvox, SPTK, Project and App
     # Change Paths as needed
     # =========================================================================
-    os.environ['ESTDIR'] = '/home/shashank/Project/Main/speech_tools'
-    os.environ['FESTVOXDIR'] = '/home/shashank/Project/Main/festvox'
-    os.environ['SPTKDIR'] = '/home/shashank/Project/Main/sptk'
-    os.environ['PRODIR'] = '/home/shashank/Project/Main/cmu_indic_kan_female'
-    os.environ['WAVDIR'] = '/home/shashank/Project/GUI_sbs/WavFiles'
+    
+    #Get the current Username
+    user = os.environ['USER']
+    
+    #Project Directory
+    project_directory = '/home/{}/Project'.format(user)
+    
+    #Set Environment Variables for EST, FESTVOX and SPTK
+    os.environ['ESTDIR'] = '{}/Main/speech_tools'.format(project_directory)
+    os.environ['FESTVOXDIR'] = '{}/Main/festvox'.format(project_directory)
+    os.environ['SPTKDIR'] = '{}/Main/sptk'.format(project_directory)
+    
+    #Set Path for Trained Model [MANUAL]
+    os.environ['PRODIR'] = '/home/{}/Project/Main/cmu_indic_kan_female'.format(user)
+    
+    #Application Directory
     os.environ['APP'] = os.getcwd()
+    
+    #Wave Files Directory
+    os.environ['WAVDIR'] = os.environ['APP'] + '/../WavFiles'
 
 
 #Main Function        
