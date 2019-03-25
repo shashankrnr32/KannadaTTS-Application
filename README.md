@@ -3,12 +3,10 @@
 ## Developers 
 [Shashank Sharma](shashankrnr32@gmail.com)
 
-	- User Interface
+	- User Interface (Main, About, Table and Plot Window)
 	- Translation (en - kan)
 	- SQLite Database Implementation
 	- Media Player Integration
-	- About, Table and Plot Window
-	- Memory Management
 	- Production Code and Documentation
 
 [Varun S S](varunsridhar614@gmail.com)
@@ -37,7 +35,6 @@
 Check the Application Screenshots in the Screenshots Directory.
 
 ## Logo
-Designed by Shashank Sharma
 
 ![Icon](https://github.com/shashankrnr32/KannadaTTS_APP/blob/master/App/ui/img/Icon_PNG.png)
 

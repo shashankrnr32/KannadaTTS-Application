@@ -348,7 +348,7 @@ class PlotView(QtGui.QDialog):
     
     def plot_specgram(self):
         # =====================================================================
-        # Plot Pitch Contour
+        # Plot Spectrogram
         # =====================================================================
         
         #Add Canvas Widget to Layout
@@ -405,8 +405,6 @@ class MyApp(QtGui.QMainWindow):
         
         #Disable Maximize Button
         self.setWindowFlags(QtCore.Qt.WindowCloseButtonHint | QtCore.Qt.WindowMinimizeButtonHint)
-        
-        
 
     def contextMenuEvent(self, event):
         # =====================================================================
