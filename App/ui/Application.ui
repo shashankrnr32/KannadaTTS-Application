@@ -78,7 +78,11 @@
      </font>
     </property>
     <property name="text">
-     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:18pt; font-weight:600; color:#333333;&quot;&gt;Kannada Speech Synthesis&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+     <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Manjari'; font-size:11pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p align=&quot;center&quot; style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:18pt; font-weight:600;&quot;&gt;Kannada Speech Synthesis&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
     </property>
    </widget>
    <widget class="QCheckBox" name="dsp">
@@ -613,9 +617,9 @@
     <property name="geometry">
      <rect>
       <x>478</x>
-      <y>360</y>
+      <y>365</y>
       <width>425</width>
-      <height>29</height>
+      <height>21</height>
      </rect>
     </property>
     <property name="maximum">
@@ -691,179 +695,6 @@
      <number>5</number>
     </property>
    </widget>
-   <widget class="QPushButton" name="waveform_button">
-    <property name="geometry">
-     <rect>
-      <x>480</x>
-      <y>310</y>
-      <width>40</width>
-      <height>40</height>
-     </rect>
-    </property>
-    <property name="toolTip">
-     <string>View Waveform</string>
-    </property>
-    <property name="statusTip">
-     <string>View Waveform</string>
-    </property>
-    <property name="autoFillBackground">
-     <bool>true</bool>
-    </property>
-    <property name="styleSheet">
-     <string notr="true"/>
-    </property>
-    <property name="text">
-     <string/>
-    </property>
-    <property name="icon">
-     <iconset resource="AppResources.qrc">
-      <normaloff>:/img/img/waveform.png</normaloff>:/img/img/waveform.png</iconset>
-    </property>
-    <property name="iconSize">
-     <size>
-      <width>35</width>
-      <height>35</height>
-     </size>
-    </property>
-    <property name="autoDefault">
-     <bool>false</bool>
-    </property>
-    <property name="default">
-     <bool>false</bool>
-    </property>
-    <property name="flat">
-     <bool>false</bool>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="pitch_button">
-    <property name="geometry">
-     <rect>
-      <x>580</x>
-      <y>310</y>
-      <width>40</width>
-      <height>40</height>
-     </rect>
-    </property>
-    <property name="toolTip">
-     <string>View Pitch Contour</string>
-    </property>
-    <property name="statusTip">
-     <string>View Pitch Contour</string>
-    </property>
-    <property name="autoFillBackground">
-     <bool>true</bool>
-    </property>
-    <property name="text">
-     <string/>
-    </property>
-    <property name="icon">
-     <iconset resource="AppResources.qrc">
-      <normaloff>:/img/img/pitch_icon.png</normaloff>:/img/img/pitch_icon.png</iconset>
-    </property>
-    <property name="iconSize">
-     <size>
-      <width>30</width>
-      <height>30</height>
-     </size>
-    </property>
-    <property name="autoDefault">
-     <bool>false</bool>
-    </property>
-    <property name="default">
-     <bool>false</bool>
-    </property>
-    <property name="flat">
-     <bool>false</bool>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="reverse_button">
-    <property name="enabled">
-     <bool>false</bool>
-    </property>
-    <property name="geometry">
-     <rect>
-      <x>530</x>
-      <y>250</y>
-      <width>40</width>
-      <height>40</height>
-     </rect>
-    </property>
-    <property name="toolTip">
-     <string>Synthesize Reverse Statement</string>
-    </property>
-    <property name="statusTip">
-     <string>Will be Released in Next Update</string>
-    </property>
-    <property name="whatsThis">
-     <string/>
-    </property>
-    <property name="autoFillBackground">
-     <bool>true</bool>
-    </property>
-    <property name="text">
-     <string/>
-    </property>
-    <property name="icon">
-     <iconset resource="AppResources.qrc">
-      <normaloff>:/img/img/reverse_syn.png</normaloff>:/img/img/reverse_syn.png</iconset>
-    </property>
-    <property name="iconSize">
-     <size>
-      <width>30</width>
-      <height>30</height>
-     </size>
-    </property>
-    <property name="autoDefault">
-     <bool>false</bool>
-    </property>
-    <property name="default">
-     <bool>false</bool>
-    </property>
-    <property name="flat">
-     <bool>false</bool>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="spectrum_button">
-    <property name="geometry">
-     <rect>
-      <x>530</x>
-      <y>310</y>
-      <width>40</width>
-      <height>40</height>
-     </rect>
-    </property>
-    <property name="toolTip">
-     <string>View Magnitude Spectrum</string>
-    </property>
-    <property name="statusTip">
-     <string>View Magnitude Spectrum</string>
-    </property>
-    <property name="autoFillBackground">
-     <bool>true</bool>
-    </property>
-    <property name="text">
-     <string/>
-    </property>
-    <property name="icon">
-     <iconset resource="AppResources.qrc">
-      <normaloff>:/img/img/spectrum.png</normaloff>:/img/img/spectrum.png</iconset>
-    </property>
-    <property name="iconSize">
-     <size>
-      <width>30</width>
-      <height>30</height>
-     </size>
-    </property>
-    <property name="autoDefault">
-     <bool>false</bool>
-    </property>
-    <property name="default">
-     <bool>false</bool>
-    </property>
-    <property name="flat">
-     <bool>false</bool>
-    </property>
-   </widget>
    <widget class="Line" name="line_3">
     <property name="geometry">
      <rect>
@@ -890,50 +721,6 @@
      <enum>Qt::Horizontal</enum>
     </property>
    </widget>
-   <widget class="QPushButton" name="noise_red_button">
-    <property name="enabled">
-     <bool>false</bool>
-    </property>
-    <property name="geometry">
-     <rect>
-      <x>480</x>
-      <y>250</y>
-      <width>40</width>
-      <height>40</height>
-     </rect>
-    </property>
-    <property name="toolTip">
-     <string>Reduce Noise</string>
-    </property>
-    <property name="statusTip">
-     <string>WIll be released in next update</string>
-    </property>
-    <property name="autoFillBackground">
-     <bool>true</bool>
-    </property>
-    <property name="text">
-     <string/>
-    </property>
-    <property name="icon">
-     <iconset resource="AppResources.qrc">
-      <normaloff>:/img/img/noise_reduction.png</normaloff>:/img/img/noise_reduction.png</iconset>
-    </property>
-    <property name="iconSize">
-     <size>
-      <width>30</width>
-      <height>30</height>
-     </size>
-    </property>
-    <property name="autoDefault">
-     <bool>false</bool>
-    </property>
-    <property name="default">
-     <bool>false</bool>
-    </property>
-    <property name="flat">
-     <bool>false</bool>
-    </property>
-   </widget>
    <widget class="Line" name="line_5">
     <property name="geometry">
      <rect>
@@ -955,6 +742,9 @@
       <width>441</width>
       <height>16</height>
      </rect>
+    </property>
+    <property name="lineWidth">
+     <number>1</number>
     </property>
     <property name="orientation">
      <enum>Qt::Horizontal</enum>
@@ -1021,36 +811,46 @@
      <bool>true</bool>
     </property>
    </widget>
-   <widget class="QPushButton" name="spectrogram_button">
+   <widget class="QPushButton" name="analysis_button">
     <property name="geometry">
      <rect>
-      <x>630</x>
+      <x>480</x>
       <y>310</y>
-      <width>40</width>
+      <width>148</width>
       <height>40</height>
      </rect>
     </property>
+    <property name="font">
+     <font>
+      <weight>50</weight>
+      <bold>false</bold>
+      <stylestrategy>PreferAntialias</stylestrategy>
+      <kerning>true</kerning>
+     </font>
+    </property>
     <property name="toolTip">
-     <string>View Spectrogram</string>
+     <string>Audio Analysis</string>
     </property>
     <property name="statusTip">
-     <string>View Spectrogram</string>
+     <string>Audio Analysis and Plots</string>
+    </property>
+    <property name="layoutDirection">
+     <enum>Qt::LeftToRight</enum>
     </property>
     <property name="autoFillBackground">
-     <bool>true</bool>
+     <bool>false</bool>
     </property>
     <property name="text">
-     <string/>
-    </property>
-    <property name="icon">
-     <iconset resource="AppResources.qrc">
-      <normaloff>:/img/img/spectrogram.png</normaloff>:/img/img/spectrogram.png</iconset>
+     <string>Audio Anaysis</string>
     </property>
     <property name="iconSize">
      <size>
       <width>30</width>
       <height>30</height>
      </size>
+    </property>
+    <property name="checkable">
+     <bool>false</bool>
     </property>
     <property name="autoDefault">
      <bool>false</bool>
@@ -1084,18 +884,13 @@
    <zorder>stop_button</zorder>
    <zorder>play_progress</zorder>
    <zorder>rating</zorder>
-   <zorder>waveform_button</zorder>
-   <zorder>pitch_button</zorder>
-   <zorder>reverse_button</zorder>
-   <zorder>spectrum_button</zorder>
    <zorder>line_3</zorder>
    <zorder>line_4</zorder>
-   <zorder>noise_red_button</zorder>
    <zorder>line_5</zorder>
    <zorder>line_6</zorder>
    <zorder>text_view</zorder>
    <zorder>refresh_button</zorder>
-   <zorder>spectrogram_button</zorder>
+   <zorder>analysis_button</zorder>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
@@ -1127,8 +922,20 @@
     </property>
     <addaction name="actionSynthesized_Text"/>
    </widget>
+   <widget class="QMenu" name="menuTheme">
+    <property name="title">
+     <string>Theme</string>
+    </property>
+    <addaction name="actionGTK"/>
+    <addaction name="actionWindows"/>
+    <addaction name="actionPlastique"/>
+    <addaction name="actionMotif"/>
+    <addaction name="actionCleanlooks"/>
+    <addaction name="actionCDE"/>
+   </widget>
    <addaction name="menuView"/>
    <addaction name="menuAbout"/>
+   <addaction name="menuTheme"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
   <action name="actionDevelopers">
@@ -1157,6 +964,57 @@
    </property>
    <property name="softKeyRole">
     <enum>QAction::NoSoftKey</enum>
+   </property>
+  </action>
+  <action name="actionGTK">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="checked">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>GTK</string>
+   </property>
+  </action>
+  <action name="actionWindows">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Windows</string>
+   </property>
+  </action>
+  <action name="actionPlastique">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Plastique</string>
+   </property>
+  </action>
+  <action name="actionMotif">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Motif</string>
+   </property>
+  </action>
+  <action name="actionCleanlooks">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Cleanlooks</string>
+   </property>
+  </action>
+  <action name="actionCDE">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>CDE</string>
    </property>
   </action>
  </widget>

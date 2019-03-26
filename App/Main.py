@@ -43,7 +43,6 @@ import gc
 import numpy as np
 from scipy import signal
 import scipy.io.wavfile as wave
-
 import pysptk.sptk as sptk
 
 #PLOTS
@@ -387,6 +386,9 @@ class MyApp(QtGui.QMainWindow):
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
         
+        #Application Object
+        self.app = kwargs.get('app')
+
         #Connect to Synthesis Database
         self.syn_db = sdb()
         
@@ -405,6 +407,8 @@ class MyApp(QtGui.QMainWindow):
         
         #Disable Maximize Button
         self.setWindowFlags(QtCore.Qt.WindowCloseButtonHint | QtCore.Qt.WindowMinimizeButtonHint)
+    
+    
 
     def contextMenuEvent(self, event):
         # =====================================================================
@@ -439,12 +443,43 @@ class MyApp(QtGui.QMainWindow):
         # Configure Actions
         # =====================================================================
         
+        #About Window
         self.ui.actionAbout_Project.triggered.connect(lambda: self.about(0))
         self.ui.actionDevelopers.triggered.connect(lambda: self.about(1))
         self.ui.actionMentor.triggered.connect(lambda: self.about(2))
         self.ui.actionLicense.triggered.connect(lambda: self.about(3))
+        
+        #Table Window
         self.ui.actionSynthesized_Text.triggered.connect(lambda: self.showTable())
  
+        #Theme Selector
+        self.ui.actionGTK.triggered.connect(lambda: self.theme_select('GTK+'))
+        self.ui.actionWindows.triggered.connect(lambda: self.theme_select('Windows'))
+        self.ui.actionPlastique.triggered.connect(lambda: self.theme_select('Plastique'))
+        self.ui.actionMotif.triggered.connect(lambda: self.theme_select('Motif'))
+        self.ui.actionCleanlooks.triggered.connect(lambda: self.theme_select('Cleanlooks'))
+        self.ui.actionCDE.triggered.connect(lambda: self.theme_select('CDE'))
+    
+    def theme_select(self,theme):
+        # =====================================================================
+        # Handler function to select theme
+        # =====================================================================
+        theme_list = {
+                'GTK+': self.ui.actionGTK, 
+                'Windows' : self.ui.actionWindows, 
+                'Plastique': self.ui.actionPlastique, 
+                'Motif' : self.ui.actionMotif,
+                'Cleanlooks' : self.ui.actionCleanlooks,
+                'CDE' : self.ui.actionCDE
+                      }
+        
+        for (k,v) in theme_list.items():
+            if theme == k:
+                self.app.setStyle(k)
+                v.setChecked(True)
+            else:
+                v.setChecked(False)
+
     def button_config(self):
         # =====================================================================
         # Configure Buttons
@@ -474,12 +509,9 @@ class MyApp(QtGui.QMainWindow):
         self.connect(self.ui.kan_input, QtCore.SIGNAL('textChanged()'), self.kan_input_onChange)
         self.connect(self.ui.en_input, QtCore.SIGNAL('textChanged()'), self.en_input_onChange)
         
-        #Speech Analysis Button
-        self.ui.waveform_button.clicked.connect(lambda : self.plot_display(0))
-        self.ui.spectrum_button.clicked.connect(lambda : self.plot_display(1))
-        self.ui.pitch_button.clicked.connect(lambda : self.plot_display(2))
-        self.ui.spectrogram_button.clicked.connect(lambda: self.plot_display(3))
-    
+        #Analysis Button Configuration
+        self.analysis_button_config()
+        
         #Previous and Next Button
         self.ui.previous_button.clicked.connect(lambda : self.update_media_player(-1))
         self.ui.next_button.clicked.connect(lambda : self.update_media_player(+1))
@@ -487,7 +519,36 @@ class MyApp(QtGui.QMainWindow):
         
         #Spinbox When +- buttons are pressed
         self.ui.rating.valueChanged.connect(self.update_rating)
+    
+    def analysis_button_config(self):
+        # =====================================================================
+        # Configure Analysis Menu
+        # =====================================================================
+        menu = QtGui.QMenu(self.ui.analysis_button)
         
+        #Create Actions
+        action0 = QtGui.QAction(QtGui.QIcon('ui/img/waveform.png'), 'Waveform',self.ui.analysis_button)
+        action1 = QtGui.QAction(QtGui.QIcon('ui/img/spectrum.png'), 'Spectrum',self.ui.analysis_button)
+        action2 = QtGui.QAction(QtGui.QIcon('ui/img/pitch_icon.png'), 'Pitch Contour',self.ui.analysis_button)
+        action3 = QtGui.QAction(QtGui.QIcon('ui/img/spectrogram.png'), 'Spectrogram',self.ui.analysis_button)
+        
+        #Add Actions to Menu
+        menu.addAction(action0)
+        menu.addAction(action1)
+        menu.addAction(action2)
+        menu.addAction(action3)
+        
+        #Get the action that is clicked
+        menu.triggered.connect(self.analysis_menu_click)
+        self.ui.analysis_button.setMenu(menu)
+        
+    def analysis_menu_click(self,action):
+        # =====================================================================
+        # Handler for Analysis MenuItem Click
+        # =====================================================================
+        action_list = ('Waveform', 'Spectrum', 'Pitch Contour', 'Spectrogram')
+        self.plot_display(action_list.index(action.text())) 
+
     def audio_config(self):
         #Defines a Audio Output Device
         self.audio_output = Phonon.AudioOutput(Phonon.MusicCategory,self)
@@ -849,8 +910,13 @@ if __name__ == "__main__":
     
     #Create and Start Application
     app = QtGui.QApplication(sys.argv)
-    myapp = MyApp()
+    myapp = MyApp(app = app)
     myapp.show()
+    
+    
+    
+    
+    print('Application Running...')
     
     #Remove __pycache__ Folder once execution is complete
     shutil.rmtree('./__pycache__',ignore_errors=True)

@@ -8,6 +8,7 @@
 	- SQLite Database Implementation
 	- Media Player Integration
 	- Production Code and Documentation
+	- Application Themes
 
 [Varun S S](varunsridhar614@gmail.com)
 
@@ -18,11 +19,12 @@
 	- Noise Removal using sox
 
 ## Recent Updates
-1. Added Spectrogram to Audio Analysis
-2. Fixed Memory Leak due to Plots
-3. The synthesize handler now checks for duplicate text in database
-4. Audio analysis plots is added now.
-5. Added Context Menu to increase responsiveness
+1. Now, Experience the application in 6 different themes (GTK, Windows, Motif, CDE, CleanLooks, Plastique)
+2. Added Spectrogram to Audio Analysis
+3. Fixed Memory Leak due to Plots
+4. The synthesize handler now checks for duplicate text in database
+5. Audio analysis plots is added now.
+6. Added Context Menu to increase responsiveness
 
 ## Features
 1. SQLite Based Database
@@ -30,6 +32,7 @@
 3. Easy to use UI
 4. Database View for easy selection
 5. Audio Analysis for Speech Enthusiasts
+6. Themes that you can choose
 
 ## Screenshots
 Check the Application Screenshots in the Screenshots Directory.
