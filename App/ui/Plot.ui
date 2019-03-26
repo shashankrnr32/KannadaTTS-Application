@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Audio Analysis</string>
+   <string>Analysis</string>
   </property>
   <widget class="QDialogButtonBox" name="buttonBox">
    <property name="geometry">
@@ -45,7 +45,7 @@
     <enum>QTabWidget::Rounded</enum>
    </property>
    <property name="currentIndex">
-    <number>0</number>
+    <number>4</number>
    </property>
    <widget class="QWidget" name="wave_tab">
     <attribute name="title">
@@ -161,6 +161,21 @@
        <number>2</number>
       </property>
      </layout>
+    </widget>
+   </widget>
+   <widget class="QWidget" name="tab_2">
+    <attribute name="title">
+     <string>Text Labelling</string>
+    </attribute>
+    <widget class="QTextBrowser" name="label_file">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>0</y>
+       <width>740</width>
+       <height>461</height>
+      </rect>
+     </property>
     </widget>
    </widget>
   </widget>

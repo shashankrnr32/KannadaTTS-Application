@@ -228,7 +228,8 @@ class PlotView(QtGui.QDialog):
             self.plot_pitch()
         if index == 3:
             self.plot_specgram()
-    
+        if index == 4:
+            self.plot_label()
     
     def set_focus(self,index):
         # =====================================================================
@@ -377,7 +378,9 @@ class PlotView(QtGui.QDialog):
         #Memory Management
         del canvas, ax, figure, toolbar, f, t, spectrogram
         gc.collect()
-        
+     
+    def plot_label(self):
+        pass
 #==============================================================================
 class MyApp(QtGui.QMainWindow):
 
@@ -519,6 +522,9 @@ class MyApp(QtGui.QMainWindow):
         
         #Spinbox When +- buttons are pressed
         self.ui.rating.valueChanged.connect(self.update_rating)
+        
+        #Text Analysis Config
+        self.ui.tanalysis_button.clicked.connect(lambda: self.plot_display(4))
     
     def analysis_button_config(self):
         # =====================================================================
@@ -541,7 +547,7 @@ class MyApp(QtGui.QMainWindow):
         #Get the action that is clicked
         menu.triggered.connect(self.analysis_menu_click)
         self.ui.analysis_button.setMenu(menu)
-        
+
     def analysis_menu_click(self,action):
         # =====================================================================
         # Handler for Analysis MenuItem Click
@@ -900,9 +906,9 @@ def setEnv():
     #Wave Files Directory
     os.environ['WAVDIR'] = os.environ['APP'] + '/../WavFiles'
 
-
 #Main Function        
 if __name__ == "__main__":
+    
     
     #Set Permissions and Env Variables
     setEnv()
@@ -912,9 +918,6 @@ if __name__ == "__main__":
     app = QtGui.QApplication(sys.argv)
     myapp = MyApp(app = app)
     myapp.show()
-    
-    
-    
     
     print('Application Running...')
     

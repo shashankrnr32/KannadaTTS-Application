@@ -3,7 +3,7 @@
 ## Developers 
 [Shashank Sharma](shashankrnr32@gmail.com)
 
-	- User Interface (Main, About, Table and Plot Window)
+	- User Interface (Main, About, Table and Analysis Window)
 	- Translation (en - kan)
 	- SQLite Database Implementation
 	- Media Player Integration

@@ -32,6 +32,8 @@ This program comes with ABSOLUTELY NO WARRANTY.
 This is free software, and you are welcome 
 to redistribute it under certain conditions.
 
+(https://github.com/shashankrnr32/KannadaTTS_APP)
+
 -i : Project Information        -v : Project Version"
 echo ==========================================
 if [ "$1" = "-help" ];
