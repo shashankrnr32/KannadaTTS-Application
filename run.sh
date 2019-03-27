@@ -21,8 +21,7 @@
 #Developer : Shashank Sharma
 #Description : Executable File for GUI Application
 # =============================================================================
-VERSION="v0.17"
-
+VERSION="v0.18 Beta"
 clear
 echo ==========================================
 echo Kannada Speech Synthesis $VERSION
@@ -34,7 +33,8 @@ to redistribute it under certain conditions.
 
 (https://github.com/shashankrnr32/KannadaTTS_APP)
 
--i : Project Information        -v : Project Version"
+-i : Project Information        -v : Project Version
+-s : Shortcuts"
 echo ==========================================
 if [ "$1" = "-help" ];
 then
@@ -59,6 +59,22 @@ then
 	echo "This Application is a Graphical User Interface for Kannada Speech Synthesis (TTS) protected by GNU's GPL v3.0"
 	echo "To obtain trained model of Kannada TTS contact any of the developers"
 	echo ===========================================
+fi
+if [ "$1" = "-s" ];
+then
+	echo Keyboard Shortcuts 	
+	echo 	"
+Ctrl + Space			Play Audio
+Ctrl + Shift + Space 		Stop Audio
+F5				Refresh
+Alt + Left			Previous
+Alt + Right			Next
+
+Ctrl + Enter			Synthesize
+Alt + Enter			Translate
+			
+Ctrl + Del			Delete All Text"
+	echo ===========================================	
 fi
 
 if [ "$1" = "-v" ];
@@ -112,6 +128,7 @@ echo Building User Interface
 pyuic4 ui/Application.ui -o Application.py
 pyuic4 ui/AboutWindow.ui -o AboutWindow.py
 pyuic4 ui/SynDB.ui -o SynDB.py
+pyuic4 ui/TraDB.ui -o TraDB.py
 pyuic4 ui/Plot.ui -o Plot.py
 
 echo Building Resources

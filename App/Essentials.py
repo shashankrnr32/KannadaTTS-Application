@@ -120,9 +120,27 @@ class Database:
         
         #Add Reverse ID to the reverse entry
         if reverse_id != -1:
-            self.cursor.execute('UPDATE kan SET reverse_id = ? WHERE wav_id = ?',(wav_id, reverse_id))
+            self.cursor.execute('UPDATE kan SET reverse_id = ? WHERE wav_id = ?;',(wav_id, reverse_id))
         
         #Commit Changes
         self.conn.commit()
 
+class TranslateDatabase:
+    def __init__(self,database = 'res/DB'):
         
+        #Establish Connection to DB
+        self.conn = sqlite3.connect(database)
+        self.cursor = self.conn.cursor()
+    
+    def add_new_translation(self,en_text,kan_text):
+        #Adds New Entry
+        self.cursor.execute('INSERT INTO en2kan(en_text,kan_text) VALUES (?,?);',(en_text, kan_text))      
+        
+        #Commit Changes
+        self.conn.commit()
+    
+    def get_all_entries_for_table(self):
+        #======================================================================
+        #Retrieves All Entries for Table View
+        #======================================================================
+        return self.cursor.execute('SELECT id,en_text,kan_text FROM en2kan;')

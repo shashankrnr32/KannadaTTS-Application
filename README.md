@@ -5,7 +5,7 @@
 
 	- User Interface (Main, About, Table and Analysis Window)
 	- Translation (en - kan)
-	- SQLite Database Implementation
+	- SQLite Database Implementation ( Synthesis and Translation)
 	- Media Player Integration
 	- Production Code and Documentation
 	- Application Themes
@@ -19,18 +19,20 @@
 	- Noise Removal using sox
 
 ## Recent Updates
-1. Now, Experience the application in 6 different themes (GTK, Windows, Motif, CDE, CleanLooks, Plastique)
-2. Added Spectrogram to Audio Analysis
-3. Fixed Memory Leak due to Plots
-4. The synthesize handler now checks for duplicate text in database
-5. Audio analysis plots is added now.
-6. Added Context Menu to increase responsiveness
+1. Added Keyboard Shortcut (`./run.sh -s` to view shortcuts)
+2. Added Translation Database and Translation Table View
+3. Now, Experience the application in 6 different themes (GTK, Windows, Motif, CDE, CleanLooks, Plastique)
+4. Added Spectrogram to Audio Analysis
+5. Fixed Memory Leak due to Plots
+6. The synthesize handler now checks for duplicate text in database
+7. Audio analysis plots is added now.
+8. Added Context Menu to increase responsiveness
 
 ## Features
-1. SQLite Based Database
+1. SQLite Based Database 
 2. In-App Media Player
 3. Easy to use UI
-4. Database View for easy selection
+4. Database View for easy selection (Synthesis and Translation)
 5. Audio Analysis for Speech Enthusiasts
 6. Themes that you can choose
 

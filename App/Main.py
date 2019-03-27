@@ -54,11 +54,13 @@ from matplotlib.figure import Figure
 from Application import Ui_MainWindow
 from Plot import Ui_PlotDialog
 from AboutWindow import Ui_about_dialog
-from SynDB import Ui_Dialog
+from SynDB import Ui_Dialog as SUi_dialog
+from TraDB import Ui_Dialog as TUi_dialog
 
 #SUPPORT BACKEND
 import Essentials
 from Essentials import Database as sdb
+from Essentials import TranslateDatabase as tdb
 
 # =============================================================================
 # Thread Implementation for Play Progress Bar 
@@ -118,16 +120,16 @@ class AboutDialog(QtGui.QDialog):
         self.ui.tabWidget.setCurrentIndex(index)   
 
 # =============================================================================
-# Table Dialog Implementation
+# Synthesis Table Dialog Implementation
 # =============================================================================
-class TableView(QtGui.QDialog):
+class SynTableView(QtGui.QDialog):
     
     def __init__(self, *args, **kwargs):
         
         #Setup Table Window UI
         QtGui.QWidget.__init__(self, parent = kwargs.get('parent'))
         self.parent = kwargs.get('parent')
-        self.ui = Ui_Dialog()
+        self.ui = SUi_dialog()
         self.ui.setupUi(self)
         
         #Database Object
@@ -147,7 +149,7 @@ class TableView(QtGui.QDialog):
         # Sets Table Column Width
         # =====================================================================
         width = [133,200,500,133,134]
-        for column in range(0,5):
+        for column in range(len(width)):
             self.ui.tableWidget.setColumnWidth(column,width[column])
     
     def populate_data(self):
@@ -170,7 +172,51 @@ class TableView(QtGui.QDialog):
         wav_id = self.ui.tableWidget.item(row,1).text()
         self.parent.update_media_player(wav_id)
         self.done(0)
+
+
+# =============================================================================
+# Translation Table Dialog Implementation
+# =============================================================================
+class TraTableView(QtGui.QDialog):
+    
+    def __init__(self, *args, **kwargs):
         
+        #Setup Table Window UI
+        QtGui.QWidget.__init__(self, parent = kwargs.get('parent'))
+        self.parent = kwargs.get('parent')
+        self.ui = TUi_dialog()
+        self.ui.setupUi(self)
+        
+        #Database Object
+        self.db = kwargs.get('parent').tra_db
+        
+        #Set Column Width
+        self.set_column_width()  
+        
+        #Add Data to Rows
+        self.populate_data()
+        
+        
+    def set_column_width(self):
+        # =====================================================================
+        # Sets Table Column Width
+        # =====================================================================
+        width = [100,500,500]
+        for column in range(len(width)):
+            self.ui.tableWidget.setColumnWidth(column,width[column])
+    
+    def populate_data(self):
+        # =====================================================================
+        # Creates Rows and Adds Data from Database
+        # =====================================================================
+        entries = self.db.get_all_entries_for_table()
+        for entry in entries:
+            rowPosition = self.ui.tableWidget.rowCount()
+            self.ui.tableWidget.insertRow(rowPosition)
+            self.ui.tableWidget.setRowHeight(rowPosition,40)
+            for column in range(0,3):
+                self.ui.tableWidget.setItem(rowPosition,column,QtGui.QTableWidgetItem(str(entry[column])))
+       
         
 # =============================================================================
 # Plot Dialog Implementation
@@ -385,7 +431,7 @@ class PlotView(QtGui.QDialog):
 class MyApp(QtGui.QMainWindow):
 
     def __init__(self, *args, **kwargs):
-        QtGui.QWidget.__init__(self, parent = None)
+        QtGui.QMainWindow.__init__(self, parent = None)
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
         
@@ -394,6 +440,9 @@ class MyApp(QtGui.QMainWindow):
 
         #Connect to Synthesis Database
         self.syn_db = sdb()
+        
+        #Connect to Translation Database
+        self.tra_db = tdb()
         
         #Configure Buttons
         self.button_config()
@@ -410,7 +459,6 @@ class MyApp(QtGui.QMainWindow):
         
         #Disable Maximize Button
         self.setWindowFlags(QtCore.Qt.WindowCloseButtonHint | QtCore.Qt.WindowMinimizeButtonHint)
-    
     
 
     def contextMenuEvent(self, event):
@@ -440,7 +488,7 @@ class MyApp(QtGui.QMainWindow):
             self.showMinimized()
         if action == quitAction:
             self.close()
-            
+        
     def action_config(self):
         # =====================================================================
         # Configure Actions
@@ -453,8 +501,9 @@ class MyApp(QtGui.QMainWindow):
         self.ui.actionLicense.triggered.connect(lambda: self.about(3))
         
         #Table Window
-        self.ui.actionSynthesized_Text.triggered.connect(lambda: self.showTable())
- 
+        self.ui.actionSynthesized_Text.triggered.connect(lambda: self.show_table(1))
+        self.ui.actionTranslations_Text.triggered.connect(lambda: self.show_table(-1))
+
         #Theme Selector
         self.ui.actionGTK.triggered.connect(lambda: self.theme_select('GTK+'))
         self.ui.actionWindows.triggered.connect(lambda: self.theme_select('Windows'))
@@ -462,27 +511,7 @@ class MyApp(QtGui.QMainWindow):
         self.ui.actionMotif.triggered.connect(lambda: self.theme_select('Motif'))
         self.ui.actionCleanlooks.triggered.connect(lambda: self.theme_select('Cleanlooks'))
         self.ui.actionCDE.triggered.connect(lambda: self.theme_select('CDE'))
-    
-    def theme_select(self,theme):
-        # =====================================================================
-        # Handler function to select theme
-        # =====================================================================
-        theme_list = {
-                'GTK+': self.ui.actionGTK, 
-                'Windows' : self.ui.actionWindows, 
-                'Plastique': self.ui.actionPlastique, 
-                'Motif' : self.ui.actionMotif,
-                'Cleanlooks' : self.ui.actionCleanlooks,
-                'CDE' : self.ui.actionCDE
-                      }
-        
-        for (k,v) in theme_list.items():
-            if theme == k:
-                self.app.setStyle(k)
-                v.setChecked(True)
-            else:
-                v.setChecked(False)
-
+      
     def button_config(self):
         # =====================================================================
         # Configure Buttons
@@ -675,14 +704,17 @@ class MyApp(QtGui.QMainWindow):
         self.show_status('Translating...')
         
         #Call GTranslate Module
-        kn_text = Essentials.en2kn(en_text) 
-        self.ui.kan_input.setPlainText(kn_text)
+        kan_text = Essentials.en2kn(en_text) 
+        self.ui.kan_input.setPlainText(kan_text)
         
         self.show_status('Done...')
         
         #Re-Enable Translate Button
         self.ui.translate_button.setEnabled(True)
         self.ui_update()
+        
+        #Add to Translate Database
+        self.tra_db.add_new_translation(en_text, kan_text)
         
     def reset_all(self):
         # =====================================================================
@@ -824,7 +856,26 @@ class MyApp(QtGui.QMainWindow):
         
         #Retrive Changed Entry
         self.entry = self.syn_db.get_entry(self.entry[1])[0]
+    
+    def theme_select(self,theme):
+        # =====================================================================
+        # Handler function to select theme
+        # =====================================================================
+        theme_list = {
+                'GTK+': self.ui.actionGTK, 
+                'Windows' : self.ui.actionWindows, 
+                'Plastique': self.ui.actionPlastique, 
+                'Motif' : self.ui.actionMotif,
+                'Cleanlooks' : self.ui.actionCleanlooks,
+                'CDE' : self.ui.actionCDE
+                      }
         
+        for (k,v) in theme_list.items():
+            if theme == k:
+                self.app.setStyle(k)
+                v.setChecked(True)
+            else:
+                v.setChecked(False)    
     
     def about(self,index):
         # =====================================================================
@@ -845,12 +896,14 @@ class MyApp(QtGui.QMainWindow):
         del about_page
         gc.collect()
         
-    def showTable(self):
+    def show_table(self, table):
         # =====================================================================
         # Show Table of All Synthesized Text
         # =====================================================================
-        table_view = TableView(parent = self)
-        
+        if table == 1:
+            table_view = SynTableView(parent = self)
+        elif table == -1:
+            table_view = TraTableView(parent = self)
         # Delete Object On Closing
         table_view.setAttribute(55)
         

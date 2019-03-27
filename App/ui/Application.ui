@@ -181,6 +181,9 @@ p, li { white-space: pre-wrap; }
       <height>25</height>
      </size>
     </property>
+    <property name="shortcut">
+     <string>Ctrl+Del</string>
+    </property>
     <property name="default">
      <bool>false</bool>
     </property>
@@ -273,6 +276,9 @@ p, li { white-space: pre-wrap; }
       <width>30</width>
       <height>30</height>
      </size>
+    </property>
+    <property name="shortcut">
+     <string>Ctrl+Return</string>
     </property>
     <property name="default">
      <bool>true</bool>
@@ -414,6 +420,9 @@ p, li { white-space: pre-wrap; }
       <height>25</height>
      </size>
     </property>
+    <property name="shortcut">
+     <string>Alt+Return</string>
+    </property>
    </widget>
    <widget class="QLabel" name="label">
     <property name="geometry">
@@ -469,6 +478,9 @@ p, li { white-space: pre-wrap; }
       <height>25</height>
      </size>
     </property>
+    <property name="shortcut">
+     <string>Ctrl+Del</string>
+    </property>
     <property name="default">
      <bool>false</bool>
     </property>
@@ -504,6 +516,9 @@ p, li { white-space: pre-wrap; }
       <height>40</height>
      </size>
     </property>
+    <property name="shortcut">
+     <string>Alt+Left</string>
+    </property>
     <property name="flat">
      <bool>true</bool>
     </property>
@@ -511,7 +526,7 @@ p, li { white-space: pre-wrap; }
    <widget class="QPushButton" name="next_button">
     <property name="geometry">
      <rect>
-      <x>860</x>
+      <x>861</x>
       <y>390</y>
       <width>40</width>
       <height>40</height>
@@ -535,6 +550,9 @@ p, li { white-space: pre-wrap; }
       <width>40</width>
       <height>40</height>
      </size>
+    </property>
+    <property name="shortcut">
+     <string>Alt+Right</string>
     </property>
     <property name="flat">
      <bool>true</bool>
@@ -571,6 +589,9 @@ p, li { white-space: pre-wrap; }
       <height>40</height>
      </size>
     </property>
+    <property name="shortcut">
+     <string>Ctrl+Space</string>
+    </property>
     <property name="flat">
      <bool>true</bool>
     </property>
@@ -605,6 +626,9 @@ p, li { white-space: pre-wrap; }
       <width>52</width>
       <height>52</height>
      </size>
+    </property>
+    <property name="shortcut">
+     <string>Ctrl+Shift+Space</string>
     </property>
     <property name="flat">
      <bool>true</bool>
@@ -794,6 +818,9 @@ p, li { white-space: pre-wrap; }
       <height>40</height>
      </size>
     </property>
+    <property name="shortcut">
+     <string>F5</string>
+    </property>
     <property name="flat">
      <bool>true</bool>
     </property>
@@ -956,9 +983,10 @@ p, li { white-space: pre-wrap; }
      <bool>false</bool>
     </property>
     <property name="title">
-     <string>View all</string>
+     <string>View</string>
     </property>
     <addaction name="actionSynthesized_Text"/>
+    <addaction name="actionTranslations_Text"/>
    </widget>
    <widget class="QMenu" name="menuTheme">
     <property name="title">
@@ -980,25 +1008,40 @@ p, li { white-space: pre-wrap; }
    <property name="text">
     <string>Developers</string>
    </property>
+   <property name="shortcut">
+    <string>Ctrl+D</string>
+   </property>
   </action>
   <action name="actionMentor">
    <property name="text">
     <string>Mentor</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+M</string>
    </property>
   </action>
   <action name="actionAbout_Project">
    <property name="text">
     <string>About Project</string>
    </property>
+   <property name="shortcut">
+    <string>Ctrl+P</string>
+   </property>
   </action>
   <action name="actionLicense">
    <property name="text">
     <string>License</string>
    </property>
+   <property name="shortcut">
+    <string>Ctrl+G</string>
+   </property>
   </action>
   <action name="actionSynthesized_Text">
    <property name="text">
-    <string>Synthesis</string>
+    <string>Synthesis List</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+L</string>
    </property>
    <property name="softKeyRole">
     <enum>QAction::NoSoftKey</enum>
@@ -1014,6 +1057,9 @@ p, li { white-space: pre-wrap; }
    <property name="text">
     <string>GTK</string>
    </property>
+   <property name="shortcut">
+    <string>Ctrl+1</string>
+   </property>
   </action>
   <action name="actionWindows">
    <property name="checkable">
@@ -1021,6 +1067,9 @@ p, li { white-space: pre-wrap; }
    </property>
    <property name="text">
     <string>Windows</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+2</string>
    </property>
   </action>
   <action name="actionPlastique">
@@ -1030,6 +1079,9 @@ p, li { white-space: pre-wrap; }
    <property name="text">
     <string>Plastique</string>
    </property>
+   <property name="shortcut">
+    <string>Ctrl+3</string>
+   </property>
   </action>
   <action name="actionMotif">
    <property name="checkable">
@@ -1037,6 +1089,9 @@ p, li { white-space: pre-wrap; }
    </property>
    <property name="text">
     <string>Motif</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+4</string>
    </property>
   </action>
   <action name="actionCleanlooks">
@@ -1046,6 +1101,9 @@ p, li { white-space: pre-wrap; }
    <property name="text">
     <string>Cleanlooks</string>
    </property>
+   <property name="shortcut">
+    <string>Ctrl+5</string>
+   </property>
   </action>
   <action name="actionCDE">
    <property name="checkable">
@@ -1053,6 +1111,17 @@ p, li { white-space: pre-wrap; }
    </property>
    <property name="text">
     <string>CDE</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+6</string>
+   </property>
+  </action>
+  <action name="actionTranslations_Text">
+   <property name="text">
+    <string>Translations List</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+Shift+L</string>
    </property>
   </action>
  </widget>
