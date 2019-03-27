@@ -142,6 +142,7 @@ rm AppResources_rc.py
 rm Application.py
 rm AboutWindow.py
 rm SynDB.py
+rm TraDB.py
 rm Plot.py
 
 cd ..
