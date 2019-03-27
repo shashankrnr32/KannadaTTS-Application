@@ -42,6 +42,7 @@ Kannada Speech Synthesis is submitted as the final year project which is a part 
 	- SOX integration
 
 </details>
+
 ## Recent Updates
 1. Added Keyboard Shortcut (`./run.sh -s` to view shortcuts)
 2. Added Translation Database and Translation Table View
