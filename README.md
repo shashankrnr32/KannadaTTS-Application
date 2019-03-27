@@ -7,7 +7,7 @@ Kannada Speech Synthesis is submitted as the final year project which is a part 
 <details>
 <summary>Shashank Sharma (Click to Expand)</summary>
 
-[MAIL](shashankrnr32@gmail.com)
+[MAIL](mailto:shashankrnr32@gmail.com)
 
 	Core Project 
 	- Preprocessing
@@ -26,7 +26,7 @@ Kannada Speech Synthesis is submitted as the final year project which is a part 
 <details>
 <summary>Varun S S</summary>
 
-[MAIL](varunsridhar614@gmail.com)
+[MAIL](mailto:varunsridhar614@gmail.com)
 	
 	Core Project 
 	- Testing
@@ -39,7 +39,7 @@ Kannada Speech Synthesis is submitted as the final year project which is a part 
 <details>
 <summary>Srinivas N M</summary>
 
-[MAIL](srinivasnm471@gmail.com) 
+[MAIL](mailto:srinivasnm471@gmail.com) 
 
 	Core Project 
 	- Noise Removal using SOX
@@ -50,7 +50,7 @@ Kannada Speech Synthesis is submitted as the final year project which is a part 
 </details>
 
 ## Recent Updates
-1. Added Keyboard Shortcut (`./run.sh -s` to view shortcuts)
+1. Added Keyboard Shortcuts (`./run.sh -s` to view shortcuts)
 2. Added Translation Database and Translation Table View
 3. Now, Experience the application in 6 different themes (GTK, Windows, Motif, CDE, CleanLooks, Plastique)
 4. Added Spectrogram to Audio Analysis
