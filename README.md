@@ -5,7 +5,9 @@ Kannada Speech Synthesis is submitted as the final year project which is a part 
 
 ## Developers 
 <details>
-<summary>[Shashank Sharma](shashankrnr32@gmail.com) (Click to Expand)</summary>
+<summary>Shashank Sharma (Click to Expand)</summary>
+
+[MAIL](shashankrnr32@gmail.com)
 
 	Core Project 
 	- Preprocessing
@@ -22,8 +24,10 @@ Kannada Speech Synthesis is submitted as the final year project which is a part 
 </details>
 
 <details>
-<summary>[Varun S S](varunsridhar614@gmail.com) (Click to Expand)</summary>
+<summary>Varun S S</summary>
 
+[MAIL](varunsridhar614@gmail.com)
+	
 	Core Project 
 	- Testing
 
@@ -33,7 +37,9 @@ Kannada Speech Synthesis is submitted as the final year project which is a part 
 
 </details>
 <details>
-<summary>[Srinivas N M](srinivasnm471@gmail.com) (Click to Expand)</summary>
+<summary>Srinivas N M</summary>
+
+[MAIL](srinivasnm471@gmail.com) 
 
 	Core Project 
 	- Noise Removal using SOX
