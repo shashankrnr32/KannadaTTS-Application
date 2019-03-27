@@ -41,7 +41,7 @@ Check the Application Screenshots in the Screenshots Directory.
 
 ## Logo
 
-<img source="https://github.com/shashankrnr32/KannadaTTS_APP/blob/master/App/ui/img/Icon_PNG.png" width=50 height=50>
+<img src="https://github.com/shashankrnr32/KannadaTTS_APP/blob/master/App/ui/img/Icon_PNG.png" width=50 height=50>
 
 ## Building and Starting the Application
 
