@@ -1,23 +1,47 @@
 # Documentation
 
-## Developers 
-[Shashank Sharma](shashankrnr32@gmail.com)
+## Kannada Speech Synthesis project (Core)
+Kannada Speech Synthesis is submitted as the final year project which is a part of the curriculum specified by the Department of Electronics and Communication of M S Ramaiah Institute of Technology, Bangalore. All the dependencies and frameworks which are used in the core project are mentioned in the About page of the application. Contact Developer to obtain the source and trained model of the core project.
 
+## Developers 
+<details>
+<summary>[Shashank Sharma](shashankrnr32@gmail.com) (Click to Expand)</summary>
+
+	Core Project 
+	- Preprocessing
+	- Training
+	- Pitch Shift using soundtretch
+	
+	Application
 	- User Interface (Main, About, Table and Analysis Window)
-	- Translation (en - kan)
 	- SQLite Database Implementation ( Synthesis and Translation)
 	- Media Player Integration
 	- Production Code and Documentation
 	- Application Themes
 
-[Varun S S](varunsridhar614@gmail.com)
+</details>
 
+<details>
+<summary>[Varun S S](varunsridhar614@gmail.com) (Click to Expand)</summary>
+
+	Core Project 
+	- Testing
+
+	Application
+	- Synthesis Handler
 	- Festival API
 
-[Srinivas N M](srinivasnm471@gmail.com)
+</details>
+<details>
+<summary>[Srinivas N M](srinivasnm471@gmail.com) (Click to Expand)</summary>
 
-	- Noise Removal using sox
+	Core Project 
+	- Noise Removal using SOX
+	
+	Application
+	- SOX integration
 
+</details>
 ## Recent Updates
 1. Added Keyboard Shortcut (`./run.sh -s` to view shortcuts)
 2. Added Translation Database and Translation Table View
