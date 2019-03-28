@@ -95,7 +95,7 @@ class Database:
         #======================================================================
         #Retrieves All Entries for Table View
         #======================================================================
-        return self.cursor.execute('SELECT id,wav_id,txt,dsp,rating FROM kan;')
+        return self.cursor.execute('SELECT id,wav_id,txt,dsp,rating FROM kan ORDER BY id DESC;')
 
     def update_rating(self,wid,val):
         self.cursor.execute('UPDATE kan SET rating=? WHERE id=?',(val,wid))
@@ -133,6 +133,10 @@ class TranslateDatabase:
         self.cursor = self.conn.cursor()
     
     def add_new_translation(self,en_text,kan_text):
+        # =====================================================================
+        # Add New Translation Entry to Database
+        # =====================================================================
+        
         #Adds New Entry
         self.cursor.execute('INSERT INTO en2kan(en_text,kan_text) VALUES (?,?);',(en_text, kan_text))      
         
@@ -143,4 +147,4 @@ class TranslateDatabase:
         #======================================================================
         #Retrieves All Entries for Table View
         #======================================================================
-        return self.cursor.execute('SELECT id,en_text,kan_text FROM en2kan;')
+        return self.cursor.execute('SELECT id,en_text,kan_text FROM en2kan ORDER BY id DESC;')

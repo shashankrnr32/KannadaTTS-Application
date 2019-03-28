@@ -110,11 +110,6 @@ class AboutDialog(QtGui.QDialog):
         self.ui = Ui_about_dialog()
         self.ui.setupUi(self)
         
-        #Every URL Click connects to url_clicked function
-        self.ui.about_project.setOpenLinks(False)
-        
-        #For opening URL in Firefox
-        self.desktop_services = QtGui.QDesktopServices()
         
     def set_focus(self, index):
         self.ui.tabWidget.setCurrentIndex(index)   

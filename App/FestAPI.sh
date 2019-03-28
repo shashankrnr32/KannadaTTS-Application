@@ -53,15 +53,15 @@ b="$1"
 a="1"
 if [ "$b" -eq "$a" ]
 then
-	soundstretch $WAVDIR/NoDSP/kan_$2.wav $WAVDIR/DSP/kan_$2.wav -pitch=+2.5 -tempo=-5 > $APP/ignore/temp.txt 2>&1
+	soundstretch $WAVDIR/NoDSP/kan_$2.wav $WAVDIR/DSP/kan_$2.wav -pitch=+2.75 -tempo=-5 > $APP/ignore/temp.txt 2>&1
 	
 	#==============================================================================
 	#Noise Removal using SOX
 	#https://en.wikipedia.org/wiki/SoX
-	sox $WAVDIR/DSP/kan_$2.wav $WAVDIR/DSP/noise-audio.wav trim 0 00:0.1
-	sox $WAVDIR/DSP/noise-audio.wav -n noiseprof $WAVDIR/DSP/noise.prof
-	mv $WAVDIR/DSP/kan_$2.wav $WAVDIR/DSP/kan_$2_temp.wav
-	sox $WAVDIR/DSP/kan_$2_temp.wav $WAVDIR/DSP/kan_$2.wav noisered $WAVDIR/DSP/noise.prof 0.21
+	sox $WAVDIR/DSP/kan_$2.wav $WAVDIR/DSP/noise-audio.wav trim 0 00:0.1 > $APP/ignore/temp.txt 2>&1
+	sox $WAVDIR/DSP/noise-audio.wav -n noiseprof $WAVDIR/DSP/noise.prof > $APP/ignore/temp.txt 2>&1
+	mv $WAVDIR/DSP/kan_$2.wav $WAVDIR/DSP/kan_$2_temp.wav 
+	sox $WAVDIR/DSP/kan_$2_temp.wav $WAVDIR/DSP/kan_$2.wav noisered $WAVDIR/DSP/noise.prof 0.21 > $APP/ignore/temp.txt 2>&1
 	#sox -v 1.5 $WAVDIR/NoDSP/kan_$2.wav $WAVDIR/NoDSP/kan_$2.wav
 
 	rm $WAVDIR/DSP/kan_$2_temp.wav
