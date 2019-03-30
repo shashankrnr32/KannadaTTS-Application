@@ -475,7 +475,22 @@ class PlotView(QtGui.QDialog):
         gc.collect()
      
     def plot_label(self):
+        label_string = '#\n0.11 100 pau\n'
+        
+        #Open Map File
+        with open('res/KanUnicode.map','r') as map_file:
+            unicode_map = map_file.readlines()
+        
+        #Create a dictionary of the Map
+        unicode_map_dict = dict()
+        for x in unicode_map:
+            temp_map = x.split()
+            unicode_map_dict[int(temp_map[0])] = temp_map[1]
+         
         pass
+    
+    
+    
 #==============================================================================
 class MyApp(QtGui.QMainWindow):
 
@@ -755,7 +770,6 @@ class MyApp(QtGui.QMainWindow):
         kan_txt = self.ui.kan_input.toPlainText()
         
         #Search For Duplicate
-        
         wav_id = self.syn_db.search_duplicate(kan_txt)
         
         try:
@@ -1069,6 +1083,7 @@ def setEnv():
     
     #Set Path for Trained Model [MANUAL]
     os.environ['PRODIR'] = '/home/{}/Project/Main/cmu_indic_kan_female'.format(user)
+    #os.environ['PRODIR'] = '/home/{}/Project/Main/festvox/src/clustergen'.format(user)
     
     #Application Directory
     os.environ['APP'] = os.getcwd()
