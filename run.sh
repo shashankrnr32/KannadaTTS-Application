@@ -21,7 +21,7 @@
 #Developer : Shashank Sharma
 #Description : Executable File for GUI Application
 # =============================================================================
-VERSION="v0.19 Beta"
+VERSION="v0.22 Beta"
 clear
 echo ==========================================
 echo Kannada Speech Synthesis $VERSION
