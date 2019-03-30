@@ -35,38 +35,46 @@
 #touch $PRODIR/etc/temp.txt
 mkdir -p $APP/ignore
 
-
 #Run TTS from Festvox Project
 cd $PRODIR
-./bin/do_clustergen cg_test tts tts etc/temp.txt > $APP/ignore/temp.txt 2>&1
-#sleep 5
-rm etc/temp.txt
-mv $PRODIR/test/tts/kan_$2.wav $WAVDIR/NoDSP/kan_$2.wav
 
-#DSP -Digital Signal Processing Operations
-
-#==============================================================================
-#Pitch Shift using soundstretch
-#http://www.surina.net/soundtouch/
-
-b="$1"
-a="1"
-if [ "$b" -eq "$a" ]
+if [ $1 = "-lab" ]
 then
-	soundstretch $WAVDIR/NoDSP/kan_$2.wav $WAVDIR/DSP/kan_$2.wav -pitch=+2.75 -tempo=-5 > $APP/ignore/temp.txt 2>&1
-	
-	#==============================================================================
-	#Noise Removal using SOX
-	#https://en.wikipedia.org/wiki/SoX
-	sox $WAVDIR/DSP/kan_$2.wav $WAVDIR/DSP/noise-audio.wav trim 0 00:0.1 > $APP/ignore/temp.txt 2>&1
-	sox $WAVDIR/DSP/noise-audio.wav -n noiseprof $WAVDIR/DSP/noise.prof > $APP/ignore/temp.txt 2>&1
-	mv $WAVDIR/DSP/kan_$2.wav $WAVDIR/DSP/kan_$2_temp.wav 
-	sox $WAVDIR/DSP/kan_$2_temp.wav $WAVDIR/DSP/kan_$2.wav noisered $WAVDIR/DSP/noise.prof 0.21 > $APP/ignore/temp.txt 2>&1
-	#sox -v 1.5 $WAVDIR/NoDSP/kan_$2.wav $WAVDIR/NoDSP/kan_$2.wav
+	./bin/do_build build_prompts etc/temp.txt > $APP/ignore/temp.txt 2>&1
+	mv prompt-lab/kan_$2.lab $APP/ignore/kan_$2.lab
+	mv prompt-utt/kan_$2.utt $APP/ignore/kan_$2.utt
+	exit
 
-	rm $WAVDIR/DSP/kan_$2_temp.wav
-	rm $WAVDIR/DSP/noise-audio.wav
-	rm $WAVDIR/DSP/noise.prof
+else
+	./bin/do_clustergen cg_test tts tts etc/temp.txt > $APP/ignore/temp.txt 2>&1
+	rm etc/temp.txt
+	mv $PRODIR/test/tts/kan_$2.wav $WAVDIR/NoDSP/kan_$2.wav
+
+	#DSP -Digital Signal Processing Operations
+
+	#==============================================================================
+	#Pitch Shift using soundstretch
+	#http://www.surina.net/soundtouch/
+
+	b="$1"
+	a="1"
+	if [ "$b" -eq "$a" ]
+	then
+		soundstretch $WAVDIR/NoDSP/kan_$2.wav $WAVDIR/DSP/kan_$2.wav -pitch=+2.75 -tempo=-5 > $APP/ignore/temp.txt 2>&1
+		
+		#==============================================================================
+		#Noise Removal using SOX
+		#https://en.wikipedia.org/wiki/SoX
+		sox $WAVDIR/DSP/kan_$2.wav $WAVDIR/DSP/noise-audio.wav trim 0 00:0.1 > $APP/ignore/temp.txt 2>&1
+		sox $WAVDIR/DSP/noise-audio.wav -n noiseprof $WAVDIR/DSP/noise.prof > $APP/ignore/temp.txt 2>&1
+		mv $WAVDIR/DSP/kan_$2.wav $WAVDIR/DSP/kan_$2_temp.wav 
+		sox $WAVDIR/DSP/kan_$2_temp.wav $WAVDIR/DSP/kan_$2.wav noisered $WAVDIR/DSP/noise.prof 0.21 > $APP/ignore/temp.txt 2>&1
+		#sox -v 1.5 $WAVDIR/NoDSP/kan_$2.wav $WAVDIR/NoDSP/kan_$2.wav
+
+		rm $WAVDIR/DSP/kan_$2_temp.wav
+		rm $WAVDIR/DSP/noise-audio.wav
+		rm $WAVDIR/DSP/noise.prof
+		#==============================================================================
+	fi
 	#==============================================================================
 fi
-#==============================================================================

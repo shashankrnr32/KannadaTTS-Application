@@ -1,5 +1,7 @@
 <RCC>
   <qresource prefix="img">
+    <file>img/vss.jpg</file>
+    <file>img/snm.jpg</file>
     <file>img/sbs.png</file>
     <file>img/spectrogram.png</file>
     <file>img/refresh.png</file>

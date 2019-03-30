@@ -45,7 +45,7 @@
     <enum>QTabWidget::Rounded</enum>
    </property>
    <property name="currentIndex">
-    <number>4</number>
+    <number>5</number>
    </property>
    <widget class="QWidget" name="wave_tab">
     <attribute name="title">
@@ -165,9 +165,24 @@
    </widget>
    <widget class="QWidget" name="tab_2">
     <attribute name="title">
-     <string>Text Labelling</string>
+     <string>Label File</string>
     </attribute>
     <widget class="QTextBrowser" name="label_file">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>0</y>
+       <width>740</width>
+       <height>461</height>
+      </rect>
+     </property>
+    </widget>
+   </widget>
+   <widget class="QWidget" name="tab_3">
+    <attribute name="title">
+     <string>Utterance File</string>
+    </attribute>
+    <widget class="QTextBrowser" name="utt_file">
      <property name="geometry">
       <rect>
        <x>0</x>

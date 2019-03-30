@@ -325,6 +325,8 @@ class PlotView(QtGui.QDialog):
             self.plot_specgram()
         if index == 4:
             self.plot_label()
+        if index == 5:
+            self.plot_label()
     
     def set_focus(self,index):
         # =====================================================================
@@ -462,7 +464,7 @@ class PlotView(QtGui.QDialog):
         f, t, spectrogram = signal.spectrogram(self.samples,self.fs, window = signal.get_window('hamming',256), noverlap = 128)
         
         ax.pcolormesh(t, f, spectrogram, cmap = 'magma')
-        ax.set_title('Pitch Contour {}'.format(self.entry[1]), fontfamily = 'Manjari')
+        ax.set_title('Spectrogram {}'.format(self.entry[1]), fontfamily = 'Manjari')
         ax.set_ylabel('Frequency (Hz)', fontfamily = 'Manjari')
         ax.set_xlabel('Time (s)', fontfamily = 'Manjari')
         ax.set_yscale('symlog')
@@ -475,21 +477,25 @@ class PlotView(QtGui.QDialog):
         gc.collect()
      
     def plot_label(self):
-        label_string = '#\n0.11 100 pau\n'
+        # =====================================================================
+        # Generate label and utterance
+        # =====================================================================
+       
+        #Generate Utterance and Label File
+        if 'kan_{}.lab'.format(self.entry[1]) not in os.listdir(os.environ['APP']+'/ignore/'):
+            with open(os.environ['PRODIR']+'/etc/temp.txt', 'w') as temp_file:
+                temp_file.write('( kan_{} \" {} \")'.format(self.entry[1], self.entry[2]))
+            os.system('./FestAPI.sh -lab '+self.entry[1])            
         
-        #Open Map File
-        with open('res/KanUnicode.map','r') as map_file:
-            unicode_map = map_file.readlines()
+        #Update Label Text
+        with open('{}/ignore/{}'.format(os.environ['APP'],'kan_{}.lab'.format(self.entry[1]))) as label_file:
+            label_text = label_file.read()
+            self.ui.label_file.setPlainText(label_text)
         
-        #Create a dictionary of the Map
-        unicode_map_dict = dict()
-        for x in unicode_map:
-            temp_map = x.split()
-            unicode_map_dict[int(temp_map[0])] = temp_map[1]
-         
-        pass
-    
-    
+        #Update Utterance Text
+        with open('{}/ignore/{}'.format(os.environ['APP'],'kan_{}.utt'.format(self.entry[1]))) as utt_file:
+            utt_text = utt_file.read()
+            self.ui.utt_file.setPlainText(utt_text)
     
 #==============================================================================
 class MyApp(QtGui.QMainWindow):
@@ -641,6 +647,7 @@ class MyApp(QtGui.QMainWindow):
         action2 = QtGui.QAction(QtGui.QIcon('ui/img/pitch_icon.png'), 'Pitch Contour', self.ui.analysis_button)
         action3 = QtGui.QAction(QtGui.QIcon('ui/img/spectrogram.png'), 'Spectrogram', self.ui.analysis_button)
         action4 = QtGui.QAction(QtGui.QIcon('ui/img/label.png'), 'Label File', self.ui.analysis_button)
+        action5 = QtGui.QAction(QtGui.QIcon('ui/img/utt.png'), 'Utterance File', self.ui.analysis_button)
         
         #Add Actions to Menu
         audio_analysis_menu.addAction(action0)
@@ -648,6 +655,7 @@ class MyApp(QtGui.QMainWindow):
         audio_analysis_menu.addAction(action2)
         audio_analysis_menu.addAction(action3)
         text_analysis_menu.addAction(action4)
+        text_analysis_menu.addAction(action5)
         
         menu.addMenu(audio_analysis_menu)
         menu.addMenu(text_analysis_menu)
@@ -660,7 +668,7 @@ class MyApp(QtGui.QMainWindow):
         # =====================================================================
         # Handler for Analysis MenuItem Click
         # =====================================================================
-        action_list = ('Waveform', 'Spectrum', 'Pitch Contour', 'Spectrogram','Label File')
+        action_list = ('Waveform', 'Spectrum', 'Pitch Contour', 'Spectrogram','Label File','Utterance File')
         self.plot_display(action_list.index(action.text())) 
 
     def misc_button_config(self):
@@ -1049,6 +1057,10 @@ class MyApp(QtGui.QMainWindow):
         # =====================================================================
         # Display Audio Analysis Window
         # =====================================================================
+        
+        #Show Status
+        self.show_status('Please Wait...',1500)
+        
         plot_view = PlotView(parent = self)
         
         plot_view.set_focus(index)
