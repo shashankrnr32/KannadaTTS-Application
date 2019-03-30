@@ -44,7 +44,8 @@ import numpy as np
 from scipy import signal
 import scipy.io.wavfile as wave
 import pysptk.sptk as sptk
-
+import csv
+import re
 #PLOTS
 from matplotlib.backends.backend_qt4agg import FigureCanvasQTAgg as FigureCanvas
 from matplotlib.backends.backend_qt4agg import NavigationToolbar2QT as NavigationToolbar
@@ -139,6 +140,32 @@ class SynTableView(QtGui.QDialog):
         #When an item is double Clicked Change Media Player to that item
         self.ui.tableWidget.itemDoubleClicked.connect(self.item_double_clicked)
         
+        #Export Menu
+        self.export_button_config()
+
+    def export_button_config(self):
+        menu = QtGui.QMenu(self.ui.export_button)
+        
+        #Create Actions
+        action0 = QtGui.QAction('CSV File',self.ui.export_button)
+        
+        #Add Actions to Menu
+        menu.addAction(action0)
+        
+        #Get the action that is clicked
+        menu.triggered.connect(self.export_menu_click)
+        self.ui.export_button.setMenu(menu)
+    
+    def export_menu_click(self, action):
+        if action.text() == 'CSV File':
+            entries = self.db.get_all_entries_for_table()
+            file_name = QtGui.QFileDialog.getSaveFileName(self,'Save CSV File','SynthesisList.csv')
+            row_header = [('ID','File Name', 'Kannada Text', 'DSP', 'User Rating')]
+            with open(file_name, 'w') as csv_file:
+                writer = csv.writer(csv_file)
+                writer.writerows(row_header)
+                writer.writerows(entries)
+            
     def set_column_width(self):
         # =====================================================================
         # Sets Table Column Width
@@ -191,7 +218,34 @@ class TraTableView(QtGui.QDialog):
         #Add Data to Rows
         self.populate_data()
         
+        #Export Menu
+        self.export_button_config()
+
+    def export_button_config(self):
+        menu = QtGui.QMenu(self.ui.export_button)
         
+        #Create Actions
+        action0 = QtGui.QAction('CSV File',self.ui.export_button)
+        
+        #Add Actions to Menu
+        menu.addAction(action0)
+        
+        #Get the action that is clicked
+        menu.triggered.connect(self.export_menu_click)
+        self.ui.export_button.setMenu(menu)
+    
+    def export_menu_click(self, action):
+        if action.text() == 'CSV File':
+            entries = self.db.get_all_entries_for_table()
+            file_name = QtGui.QFileDialog.getSaveFileName(self,'Save CSV File','TranslationList.csv')
+            row_header = [('ID','English Text', 'Kannada Text')]
+            with open(file_name, 'w') as csv_file:
+                writer = csv.writer(csv_file)
+                writer.writerows(row_header)
+                writer.writerows(entries)
+            
+    
+    
     def set_column_width(self):
         # =====================================================================
         # Sets Table Column Width
@@ -430,14 +484,18 @@ class MyApp(QtGui.QMainWindow):
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
         
+        
         #Application Object
         self.app = kwargs.get('app')
-
+        
         #Connect to Synthesis Database
         self.syn_db = sdb()
         
         #Connect to Translation Database
         self.tra_db = tdb()
+        
+        #Configure Audio
+        self.audio_config()
         
         #Configure Buttons
         self.button_config()
@@ -445,8 +503,7 @@ class MyApp(QtGui.QMainWindow):
         #Configure Actions of UI
         self.action_config()
         
-        #Configure Audio
-        self.audio_config()
+        
         
         #Configure Status Bar
         self.statusBar = QtGui.QStatusBar()
@@ -478,7 +535,7 @@ class MyApp(QtGui.QMainWindow):
         if action ==aboutAction:
             self.about(0)
         if action == tableAction:
-            self.showTable()
+            self.show_table(1)
         if action == minimizeAction:
             self.showMinimized()
         if action == quitAction:
@@ -539,16 +596,15 @@ class MyApp(QtGui.QMainWindow):
         #Analysis Button Configuration
         self.analysis_button_config()
         
+        #Misc Button Configuration
+        self.misc_button_config()
+        
         #Previous and Next Button
         self.ui.previous_button.clicked.connect(lambda : self.update_media_player(-1))
         self.ui.next_button.clicked.connect(lambda : self.update_media_player(+1))
         self.ui.refresh_button.clicked.connect(lambda : self.update_media_player(0))
         
-        #Spinbox When +- buttons are pressed
-        self.ui.rating.valueChanged.connect(self.update_rating)
         
-        #Text Analysis Config
-        self.ui.tanalysis_button.clicked.connect(lambda: self.plot_display(4))
     
     def analysis_button_config(self):
         # =====================================================================
@@ -556,29 +612,97 @@ class MyApp(QtGui.QMainWindow):
         # =====================================================================
         menu = QtGui.QMenu(self.ui.analysis_button)
         
+        #Create 2 submenus
+        audio_analysis_menu = QtGui.QMenu(menu)
+        audio_analysis_menu.setTitle('Audio Analysis')
+        
+        text_analysis_menu = QtGui.QMenu(menu)
+        text_analysis_menu.setTitle('Text Analysis')
+        
+        
         #Create Actions
-        action0 = QtGui.QAction(QtGui.QIcon('ui/img/waveform.png'), 'Waveform',self.ui.analysis_button)
-        action1 = QtGui.QAction(QtGui.QIcon('ui/img/spectrum.png'), 'Spectrum',self.ui.analysis_button)
-        action2 = QtGui.QAction(QtGui.QIcon('ui/img/pitch_icon.png'), 'Pitch Contour',self.ui.analysis_button)
-        action3 = QtGui.QAction(QtGui.QIcon('ui/img/spectrogram.png'), 'Spectrogram',self.ui.analysis_button)
+        action0 = QtGui.QAction(QtGui.QIcon('ui/img/waveform.png'), 'Waveform', self.ui.analysis_button)
+        action1 = QtGui.QAction(QtGui.QIcon('ui/img/spectrum.png'), 'Spectrum', self.ui.analysis_button)
+        action2 = QtGui.QAction(QtGui.QIcon('ui/img/pitch_icon.png'), 'Pitch Contour', self.ui.analysis_button)
+        action3 = QtGui.QAction(QtGui.QIcon('ui/img/spectrogram.png'), 'Spectrogram', self.ui.analysis_button)
+        action4 = QtGui.QAction(QtGui.QIcon('ui/img/label.png'), 'Label File', self.ui.analysis_button)
         
         #Add Actions to Menu
-        menu.addAction(action0)
-        menu.addAction(action1)
-        menu.addAction(action2)
-        menu.addAction(action3)
+        audio_analysis_menu.addAction(action0)
+        audio_analysis_menu.addAction(action1)
+        audio_analysis_menu.addAction(action2)
+        audio_analysis_menu.addAction(action3)
+        text_analysis_menu.addAction(action4)
+        
+        menu.addMenu(audio_analysis_menu)
+        menu.addMenu(text_analysis_menu)
         
         #Get the action that is clicked
         menu.triggered.connect(self.analysis_menu_click)
         self.ui.analysis_button.setMenu(menu)
-
+    
     def analysis_menu_click(self,action):
         # =====================================================================
         # Handler for Analysis MenuItem Click
         # =====================================================================
-        action_list = ('Waveform', 'Spectrum', 'Pitch Contour', 'Spectrogram')
+        action_list = ('Waveform', 'Spectrum', 'Pitch Contour', 'Spectrogram','Label File')
         self.plot_display(action_list.index(action.text())) 
 
+    def misc_button_config(self):
+        # =====================================================================
+        # Configure Misc Menu
+        # =====================================================================
+        menu = QtGui.QMenu(self.ui.misc_button)
+        action0 = QtGui.QAction(QtGui.QIcon('ui/img/mail.png'), 'Mail this File', self.ui.misc_button)
+        action1 = QtGui.QAction(QtGui.QIcon('ui/img/rating.png'), 'Update Rating', self.ui.misc_button)
+        
+        #Add Menu to Action
+        menu.addAction(action0)
+        menu.addAction(action1)
+        
+        #Get the Action that is clicked
+        menu.triggered.connect(self.misc_menu_click)
+        self.ui.misc_button.setMenu(menu)
+    
+    def misc_menu_click(self, action):
+        # =====================================================================
+        # Handler for Misc MenuItem Click
+        # =====================================================================
+        
+        #Choice = Mail
+        if action.text() == 'Mail this File':
+            
+            #Ask for Email ID
+            mail, ok = QtGui.QInputDialog.getText(self, "Mail Audio File", "Valid Mail ID :",
+                                                  text = 'shashankrnr32@gmail.com')
+            
+            #If Text is not Null and OK is pressed
+            if ok and mail:
+                #Check for Valid Mail ID
+                if re.match(r'[^@]+@[^@]+\.[^@]+',mail):
+                    self.show_status('Sending...', 4000)
+                    if Essentials.send_mail(mail,self.entry):
+                        #Mail Successfully sent
+                        self.show_status('Mail sent to {}'.format(mail), 2000)
+                    else:
+                        #Some Error Occurred (Error prints on Console)
+                        self.show_status('Some Error Occurred. Check Console for Details', 2000)
+                else:
+                    #Invalid Mail ID
+                    self.show_status('Invalid Mail ID',2000)
+        
+        #Choice = Rating
+        if action.text() == 'Update Rating':
+            
+            #Ask for Rating
+            rating, ok = QtGui.QInputDialog.getInt(self, 'Update Rating','Enter your Rating',
+                                                   value = self.entry[5], min = 0, max = 10)
+            
+            #If OK is pressed
+            if ok:
+                self.update_rating(rating)
+    
+    
     def audio_config(self):
         #Defines a Audio Output Device
         self.audio_output = Phonon.AudioOutput(Phonon.MusicCategory,self)
@@ -836,8 +960,6 @@ class MyApp(QtGui.QMainWindow):
                 #Set Text in Text Browser
                 self.ui.text_view.setPlainText(self.entry[2])
                 
-                #Set Rating in Spinbox
-                self.ui.rating.setValue(self.entry[5])
                  
         except :#Exception as e:
             pass

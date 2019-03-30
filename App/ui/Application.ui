@@ -665,60 +665,6 @@ p, li { white-space: pre-wrap; }
      <number>10</number>
     </property>
    </widget>
-   <widget class="QSpinBox" name="rating">
-    <property name="geometry">
-     <rect>
-      <x>637</x>
-      <y>310</y>
-      <width>101</width>
-      <height>40</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <weight>75</weight>
-      <italic>false</italic>
-      <bold>true</bold>
-      <underline>true</underline>
-     </font>
-    </property>
-    <property name="toolTip">
-     <string>User Rating</string>
-    </property>
-    <property name="autoFillBackground">
-     <bool>false</bool>
-    </property>
-    <property name="wrapping">
-     <bool>false</bool>
-    </property>
-    <property name="frame">
-     <bool>true</bool>
-    </property>
-    <property name="alignment">
-     <set>Qt::AlignCenter</set>
-    </property>
-    <property name="buttonSymbols">
-     <enum>QAbstractSpinBox::PlusMinus</enum>
-    </property>
-    <property name="specialValueText">
-     <string>Really..!!</string>
-    </property>
-    <property name="accelerated">
-     <bool>true</bool>
-    </property>
-    <property name="suffix">
-     <string> /10</string>
-    </property>
-    <property name="prefix">
-     <string/>
-    </property>
-    <property name="maximum">
-     <number>10</number>
-    </property>
-    <property name="value">
-     <number>5</number>
-    </property>
-   </widget>
    <widget class="Line" name="line_3">
     <property name="geometry">
      <rect>
@@ -830,7 +776,7 @@ p, li { white-space: pre-wrap; }
      <rect>
       <x>480</x>
       <y>310</y>
-      <width>148</width>
+      <width>200</width>
       <height>40</height>
      </rect>
     </property>
@@ -855,13 +801,16 @@ p, li { white-space: pre-wrap; }
      <bool>false</bool>
     </property>
     <property name="text">
-     <string>Audio Anaysis</string>
+     <string>Analysis</string>
     </property>
     <property name="iconSize">
      <size>
       <width>30</width>
       <height>30</height>
      </size>
+    </property>
+    <property name="shortcut">
+     <string notr="true"/>
     </property>
     <property name="checkable">
      <bool>false</bool>
@@ -876,12 +825,12 @@ p, li { white-space: pre-wrap; }
      <bool>false</bool>
     </property>
    </widget>
-   <widget class="QPushButton" name="tanalysis_button">
+   <widget class="QPushButton" name="misc_button">
     <property name="geometry">
      <rect>
-      <x>750</x>
+      <x>700</x>
       <y>310</y>
-      <width>148</width>
+      <width>200</width>
       <height>40</height>
      </rect>
     </property>
@@ -903,10 +852,10 @@ p, li { white-space: pre-wrap; }
      <enum>Qt::LeftToRight</enum>
     </property>
     <property name="autoFillBackground">
-     <bool>false</bool>
+     <bool>true</bool>
     </property>
     <property name="text">
-     <string>Text Analysis</string>
+     <string>Miscellaneous</string>
     </property>
     <property name="iconSize">
      <size>
@@ -948,14 +897,13 @@ p, li { white-space: pre-wrap; }
    <zorder>play_button</zorder>
    <zorder>stop_button</zorder>
    <zorder>play_progress</zorder>
-   <zorder>rating</zorder>
    <zorder>line_3</zorder>
    <zorder>line_4</zorder>
    <zorder>line_6</zorder>
    <zorder>text_view</zorder>
    <zorder>refresh_button</zorder>
    <zorder>analysis_button</zorder>
-   <zorder>tanalysis_button</zorder>
+   <zorder>misc_button</zorder>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
