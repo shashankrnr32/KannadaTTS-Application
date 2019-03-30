@@ -55,6 +55,7 @@ then
 	echo "3. Edinburgh Speech Tools (http://www.cstr.ed.ac.uk/projects/speech_tools/)"
 	echo "4. Speech Processing Toolkit (http://sp-tk.sourceforge.net/)"
 	echo "5. Soundtouch Audio Processing Library (http://surina.net/soundtouch/)"
+	echo "6. Sound Exchange Library(SOX)"
 	echo ==========================================
 	echo "This Application is a Graphical User Interface for Kannada Speech Synthesis (TTS) protected by GNU's GPL v3.0"
 	echo "To obtain trained model of Kannada TTS contact any of the developers"
