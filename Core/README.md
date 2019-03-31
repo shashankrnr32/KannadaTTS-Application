@@ -5,7 +5,7 @@ Compiled by [Shashank Sharma](https://www.linkedin.com/in/shashank-sharma-932701
 
 ## Ubuntu 18.04 on WSL <sup><sub>(Windows Subsystem for Linux)</sup></sub>
 
-Given Below are the steps to install and run Kannada Speech synthesis on `Ubuntu -18.04  WSL`
+Given Below are the steps to install and run Kannada Speech synthesis on `Ubuntu18.04  WSL`
 
 References in the following tutorial, 
 
