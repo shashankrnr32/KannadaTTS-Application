@@ -42,7 +42,7 @@
     <enum>QTabWidget::North</enum>
    </property>
    <property name="currentIndex">
-    <number>0</number>
+    <number>1</number>
    </property>
    <widget class="QWidget" name="about">
     <attribute name="title">
@@ -132,9 +132,19 @@ p, li { white-space: pre-wrap; }
 &lt;td&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;img src=&quot;:/img/img/sbs.png&quot; width=&quot;150&quot; height=&quot;150&quot; /&gt;&lt;/p&gt;&lt;/td&gt;
 &lt;td&gt;
-&lt;p style=&quot; margin-top:20px; margin-bottom:5px; margin-left:10px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;This part of the application i.e About page was developed at the end because its of the least importance to anybody who uses it which means I did not take that much time about putting all the points about what I did in this application. But if you see a feature that is working well in this application it is highly likely developed by me. So if anything goes wrong with application I am the primary blame. (Good Luck blaming &lt;a href=&quot;https://www.linkedin.com/in/shashank-sharma-932701108/&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;me&lt;/span&gt;&lt;/a&gt;)&lt;/p&gt;
-&lt;p style=&quot; margin-top:20px; margin-bottom:5px; margin-left:10px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;This photo you see on the left is not at all how the developer looked once he was done building the application. It is how the developer looked before he started building the application. Kindly do not ask for the one after the work. Thanks.&lt;/p&gt;
-&lt;p style=&quot; margin-top:20px; margin-bottom:5px; margin-left:10px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;If you are reading this it probably means that you care a lot about this application. Do leave a &lt;a href=&quot;mailto:shashankrnr32@gmail.com&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;mail&lt;/span&gt;&lt;/a&gt; if you like this photo coz' I am not going to reply to a bug-tracker mail. (jus' kidding)&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/body&gt;&lt;/html&gt;</string>
+&lt;p style=&quot; margin-top:20px; margin-bottom:5px; margin-left:10px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;I, Shashank Sharma, am currently studying my final year of Electronics and communication at Ramaiah Institute of Technology. If you see a feature thats working perfectly as it is supposed to, it is highly likely developed by me. &lt;/p&gt;
+&lt;p style=&quot; margin-top:20px; margin-bottom:5px; margin-left:10px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;I very much appreciate Open Source technologies and hence, this application is available for free to everyone and anyone. My areas of interest include Application development, Algoriithms, Web Technologies, UI design. &lt;/p&gt;
+&lt;p style=&quot; margin-top:20px; margin-bottom:5px; margin-left:10px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;The following features that you see in this application are developed by me. &lt;/p&gt;
+&lt;ol style=&quot;margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;&quot;&gt;&lt;li style=&quot; margin-top:5px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;User Interface (Main, About, Table and Analysis Window)&lt;/li&gt;
+&lt;li style=&quot; margin-top:5px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;SQLite Database Implementation ( Synthesis and Translation)&lt;/li&gt;
+&lt;li style=&quot; margin-top:5px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Media Player Integration&lt;/li&gt;
+&lt;li style=&quot; margin-top:5px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Production Code and Documentation&lt;/li&gt;
+&lt;li style=&quot; margin-top:5px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Application Themes&lt;/li&gt;&lt;/ol&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;I, also have personally worked on these core project features&lt;/p&gt;
+&lt;ol style=&quot;margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;&quot;&gt;&lt;li style=&quot; margin-top:5px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Preprocessing&lt;/li&gt;
+&lt;li style=&quot; margin-top:5px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Training&lt;/li&gt;
+&lt;li style=&quot; margin-top:5px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Pitch Shift using soundtretch&lt;/li&gt;
+&lt;li style=&quot; margin-top:5px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Testing on Windows Subsystem for Linux (Ubuntu 18.04)&lt;/li&gt;&lt;/ol&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/body&gt;&lt;/html&gt;</string>
        </property>
        <property name="openExternalLinks">
         <bool>true</bool>
