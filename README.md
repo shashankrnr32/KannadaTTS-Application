@@ -13,6 +13,7 @@ Kannada Speech Synthesis is submitted as the final year project which is a part 
 	- Preprocessing
 	- Training
 	- Pitch Shift using soundtretch
+	- Testing on Windows Subsystem for Linux (Ubuntu 18.04)
 	
 	Application
 	- User Interface (Main, About, Table and Analysis Window)
@@ -49,16 +50,22 @@ Kannada Speech Synthesis is submitted as the final year project which is a part 
 
 </details>
 
-## Recent Updates
-1. Added Utterance and Label Files under Text Analysis
-2. Added Keyboard Shortcuts (`./run.sh -s` to view shortcuts)
-3. Added Translation Database and Translation Table View
-4. Now, Experience the application in 6 different themes (GTK, Windows, Motif, CDE, CleanLooks, Plastique)
-5. Added Spectrogram to Audio Analysis
-6. Fixed Memory Leak due to Plots
-7. The synthesize handler now checks for duplicate text in database
+## Recent Updatesz
 
-## Features
+### Recent Updates on Core Project
+1. The core project is now tested on [Ubuntu18.04 WSL (Windows Subsystem for Linux)](https://www.microsoft.com/en-in/p/ubuntu-1804-lts/9n9tngvndl3q)
+2. Noise removal using SOX
+3. Pitch Shifting using soundstretch
+
+### Recent Updates on GUI Application
+1. Added Utterance and Label Files under Text Analysis
+2. Added Translation Database and Translation Table View
+3. Now, Experience the application in 6 different themes (GTK, Windows, Motif, CDE, CleanLooks, Plastique)
+4. Added Spectrogram to Audio Analysis
+5. Fixed Memory Leak due to Plots
+6. The synthesize handler now checks for duplicate text in database6
+
+## Features of GUI Application
 1. SQLite Based Database 
 2. In-App Media Player
 3. Easy to use UI
@@ -78,7 +85,7 @@ Designed by Shashank Sharma on [Canva](https://www.canva.com/design/DADUBs2Lr40/
 ## Building and Starting the Application
 
 ### Request for Trained Model.
-Request Developer for the trained model of synthesizing Kannada Text. Setup Backend for your machine. The backend will be hosted on Web Server in future releases.
+Request Developer for the trained model of synthesizing Kannada Text. Setup Backend for your machine. The backend will be hosted on Web Server in future releases. Check the file `Core/README.md` for installation instructions.
 
 ### Building the Application 
 

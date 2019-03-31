@@ -65,7 +65,7 @@ def send_mail(to_address, entry):
     #Determine the Server
     hosts = {
             'yahoo.com' : 'smtp.mail.yahoo.com',
-            'google.com' : 'smtp.gmail.com',
+            'gmail.com' : 'smtp.gmail.com',
             'outlook.com' : 'smtp-mail.outlook.com',
             }
     

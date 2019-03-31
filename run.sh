@@ -134,7 +134,7 @@ pyuic4 ui/Plot.ui -o Plot.py
 
 echo Building Resources
 pyrcc4 ui/AppResources.qrc  -o AppResources_rc.py -py3
-mkdir -p App/ignore
+mkdir -p ignore
 
 echo Starting Application...
 python3 Main.py
