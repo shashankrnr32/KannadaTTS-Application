@@ -50,7 +50,7 @@ Kannada Speech Synthesis is submitted as the final year project which is a part 
 
 </details>
 
-## Recent Updatesz
+## Recent Updates
 
 ### Recent Updates on Core Project
 1. The core project is now tested on [Ubuntu18.04 WSL (Windows Subsystem for Linux)](https://www.microsoft.com/en-in/p/ubuntu-1804-lts/9n9tngvndl3q)
