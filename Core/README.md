@@ -1,10 +1,9 @@
 
-# Kannada Speech Synthesis 
+# Kannada Speech Synthesis - WSL
 
 Compiled by [Shashank Sharma](https://www.linkedin.com/in/shashank-sharma-932701108/)
 
-<sub>**The following steps are mentioned for Ubuntu WSL. The same applies for any Ubuntu OS machine. </sub>
-## Ubuntu on WSL <sup><sub>(Windows Subsystem for Linux)</sup></sub>
+## Ubuntu 18.04 on WSL <sup><sub>(Windows Subsystem for Linux)</sup></sub>
 
 Given Below are the steps to install and run Kannada Speech synthesis on `Ubuntu -18.04  WSL`
 
@@ -98,3 +97,6 @@ Create a folder tree on a drive as given below. The choice of  drive is left to 
 
 		cp test/tts/kan_file_name.wav /mnt/f/IO_Kan_Syn/Output/
 6. Play the audio from the Output directory.
+
+
+Note : The following steps are mentioned for Ubuntu WSL. The same applies for any Ubuntu OS machine.
