@@ -60,7 +60,7 @@ else
 	a="1"
 	if [ "$b" -eq "$a" ]
 	then
-		soundstretch $WAVDIR/NoDSP/kan_$2.wav $WAVDIR/DSP/kan_$2.wav -pitch=+2.75 -tempo=-5 > $APP/ignore/temp.txt 2>&1
+		soundstretch $WAVDIR/NoDSP/kan_$2.wav $WAVDIR/DSP/kan_$2.wav -pitch=+3.5 -tempo=-5 > $APP/ignore/temp.txt 2>&1
 		
 		#==============================================================================
 		#Noise Removal using SOX

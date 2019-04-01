@@ -160,11 +160,12 @@ class SynTableView(QtGui.QDialog):
         if action.text() == 'CSV File':
             entries = self.db.get_all_entries_for_table()
             file_name = QtGui.QFileDialog.getSaveFileName(self,'Save CSV File','SynthesisList.csv')
-            row_header = [('ID','File Name', 'Kannada Text', 'DSP', 'User Rating')]
-            with open(file_name, 'w') as csv_file:
-                writer = csv.writer(csv_file)
-                writer.writerows(row_header)
-                writer.writerows(entries)
+            if file_name != '':
+                row_header = [('ID','File Name', 'Kannada Text', 'DSP', 'User Rating')]
+                with open(file_name, 'w') as csv_file:
+                    writer = csv.writer(csv_file)
+                    writer.writerows(row_header)
+                    writer.writerows(entries)
             
     def set_column_width(self):
         # =====================================================================
@@ -238,11 +239,12 @@ class TraTableView(QtGui.QDialog):
         if action.text() == 'CSV File':
             entries = self.db.get_all_entries_for_table()
             file_name = QtGui.QFileDialog.getSaveFileName(self,'Save CSV File','TranslationList.csv')
-            row_header = [('ID','English Text', 'Kannada Text')]
-            with open(file_name, 'w') as csv_file:
-                writer = csv.writer(csv_file)
-                writer.writerows(row_header)
-                writer.writerows(entries)
+            if file_name != '':
+                row_header = [('ID','English Text', 'Kannada Text')]
+                with open(file_name, 'w') as csv_file:
+                    writer = csv.writer(csv_file)
+                    writer.writerows(row_header)
+                    writer.writerows(entries)
             
     
     
@@ -539,6 +541,8 @@ class MyApp(QtGui.QMainWindow):
         
         #App in Full Screen
         self.showFullScreen()
+        
+        self.final_txt = ''
         
 
     def contextMenuEvent(self, event):
@@ -894,22 +898,28 @@ class MyApp(QtGui.QMainWindow):
         # =====================================================================
         # This function Runs everytime Kannada Text Changes
         # =====================================================================
-        
+         
         kan_txt = self.ui.kan_input.toPlainText()
         if kan_txt == '':
             self.ui.syn_button.setEnabled(False)
             self.ui.reset_button_1.setEnabled(False)
         else:
-            self.ui.syn_button.setEnabled(True)
-            self.ui.reset_button_1.setEnabled(True)
-            
-            #Allow only Kannada Input
-            for x in range(len(kan_txt)):
-                if ord(kan_txt[x]) in range(3200,3315) or kan_txt[x]== ' ':
-                    pass
-                else:
-                    self.ui.kan_input.setPlainText(kan_txt[:x]+kan_txt[x+1:])  
-    
+            if kan_txt != self.final_txt:
+                self.ui.syn_button.setEnabled(True)
+                self.ui.reset_button_1.setEnabled(True)
+                self.final_txt = str()
+                #Allow only Kannada Input
+                for x in range(len(kan_txt)):
+                    if ord(kan_txt[x]) in range(3200,3315) or kan_txt[x]== ' ':
+                        self.final_txt += kan_txt[x]
+                        
+                
+                self.ui.kan_input.setPlainText(self.final_txt)
+                
+                copy_cursor = self.ui.kan_input.textCursor()
+                copy_cursor.movePosition(QtGui.QTextCursor.End)
+                self.ui.kan_input.setTextCursor(copy_cursor)
+        
     def en_input_onChange(self):
         # =====================================================================
         # This function Runs everytime English Text Changes
