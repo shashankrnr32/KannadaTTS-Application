@@ -505,7 +505,7 @@ class MyApp(QtGui.QMainWindow):
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
         
-        
+        self.setGeometry
         #Application Object
         self.app = kwargs.get('app')
         
@@ -524,15 +524,22 @@ class MyApp(QtGui.QMainWindow):
         #Configure Actions of UI
         self.action_config()
         
+        #Configure Table Details
+        self.table_details_config()
         
+        #Configure Menu Bar
+        self.right_menu_bar_config()
         
         #Configure Status Bar
         self.statusBar = QtGui.QStatusBar()
         self.setStatusBar(self.statusBar)
         
-        #Disable Maximize Button
-        self.setWindowFlags(QtCore.Qt.WindowCloseButtonHint | QtCore.Qt.WindowMinimizeButtonHint)
-    
+        #Clipboard to Cut/Copy/Paste
+        self.clipboard = self.app.clipboard()
+        
+        #App in Full Screen
+        self.showFullScreen()
+        
 
     def contextMenuEvent(self, event):
         # =====================================================================
@@ -624,9 +631,7 @@ class MyApp(QtGui.QMainWindow):
         self.ui.previous_button.clicked.connect(lambda : self.update_media_player(-1))
         self.ui.next_button.clicked.connect(lambda : self.update_media_player(+1))
         self.ui.refresh_button.clicked.connect(lambda : self.update_media_player(0))
-        
-        
-    
+
     def analysis_button_config(self):
         # =====================================================================
         # Configure Analysis Menu
@@ -663,6 +668,7 @@ class MyApp(QtGui.QMainWindow):
         #Get the action that is clicked
         menu.triggered.connect(self.analysis_menu_click)
         self.ui.analysis_button.setMenu(menu)
+    
     
     def analysis_menu_click(self,action):
         # =====================================================================
@@ -725,6 +731,26 @@ class MyApp(QtGui.QMainWindow):
             if ok:
                 self.update_rating(rating)
     
+    def right_menu_bar_config(self):
+        # =====================================================================
+        # Configure Quit and Minimize Buttons
+        # =====================================================================
+        self.right_menubar = QtGui.QMenuBar(self.menuBar())
+        
+        #Quit
+        action0 = QtGui.QAction(QtGui.QIcon('ui/img/close.png'),'', self)
+        action0.triggered.connect(lambda : self.close())
+        
+        #Minimize
+        action1 = QtGui.QAction(QtGui.QIcon('ui/img/minimize.png'),'', self)
+        action1.triggered.connect(lambda : self.showMinimized())
+        
+        #First Minimize then close (LR)
+        self.right_menubar.addAction(action1)
+        self.right_menubar.addAction(action0)
+        
+        #Add Menubar to Window
+        self.menuBar().setCornerWidget(self.right_menubar)
     
     def audio_config(self):
         #Defines a Audio Output Device
@@ -748,7 +774,7 @@ class MyApp(QtGui.QMainWindow):
         self.update_media_player()
 
     
-    def show_status(self,msg,t = 1000):
+    def show_status(self,msg,t = 2500):
         # =====================================================================
         # Implementation of Status Bar (`msg` display for `t` milliseconds)
         # =====================================================================
@@ -981,11 +1007,50 @@ class MyApp(QtGui.QMainWindow):
             
                 #Set Text in Text Browser
                 self.ui.text_view.setPlainText(self.entry[2])
-                
+                self.update_table_details()
                  
         except :#Exception as e:
             pass
+    
+    def table_details_config(self):
+        # =====================================================================
+        # Configure UI of Detail Table
+        # =====================================================================
         
+        #41 : Found out from Trial and Error
+        height = 41
+       
+        #Set Equal Heights for all the rows
+        for i in range(self.ui.details_table.rowCount()):
+            self.ui.details_table.setRowHeight(i,height)
+        
+        #Word Wrap
+        self.ui.details_table.setWordWrap(True)
+        
+        #Customize Right Click Menu
+        self.ui.details_table.setContextMenuPolicy(QtCore.Qt.CustomContextMenu)
+        self.ui.details_table.customContextMenuRequested.connect(self.table_details_context_menu)
+        
+        self.ui.details_table.itemClicked.connect(self.table_details_item_selected)
+    
+    def table_details_item_selected(self, item):
+        self.show_status(item.text() + ' (Right Click to Copy) ', 0)
+        
+    
+    def table_details_context_menu(self, xy_point):
+        # =====================================================================
+        # Right Click Menu for Detail Table
+        # =====================================================================
+        self.show_status('Copied to Clipboard...', 3000)
+        self.clipboard.setText(self.ui.details_table.itemAt(xy_point).text())
+        
+    def update_table_details(self):
+        self.ui.details_table.setItem(0,0,QtGui.QTableWidgetItem(str(self.entry[0])))
+        self.ui.details_table.setItem(1,0,QtGui.QTableWidgetItem(str(self.entry[1])+ '.wav'))
+        self.ui.details_table.setItem(2,0,QtGui.QTableWidgetItem(str(os.environ['WAVDIR'])))
+        self.ui.details_table.setItem(3,0,QtGui.QTableWidgetItem(str(bool(self.entry[3]))))
+        self.ui.details_table.setItem(4,0,QtGui.QTableWidgetItem(str(self.entry[5])))
+        self.ui.details_table.setItem(5,0,QtGui.QTableWidgetItem(str(self.entry[4]) + ' s'))
         
     def update_rating(self,val):
         # =====================================================================
@@ -995,6 +1060,9 @@ class MyApp(QtGui.QMainWindow):
         
         #Retrive Changed Entry
         self.entry = self.syn_db.get_entry(self.entry[1])[0]
+        
+        #Update Details
+        self.update_table_details()
     
     def theme_select(self,theme):
         # =====================================================================
@@ -1059,7 +1127,7 @@ class MyApp(QtGui.QMainWindow):
         # =====================================================================
         
         #Show Status
-        self.show_status('Please Wait...',1500)
+        self.show_status('Please Wait...',2000)
         
         plot_view = PlotView(parent = self)
         
@@ -1100,9 +1168,8 @@ def setEnv():
     #Application Directory
     os.environ['APP'] = os.getcwd()
     
-    #Wave Files Directory
-    os.environ['WAVDIR'] = os.environ['APP'] + '/../WavFiles'
-
+    #Wave Files Directory : Change SBS to your corresponding GUI Folder
+    os.environ['WAVDIR'] = project_directory + '/SBS' + '/WavFiles'
 #Main Function        
 if __name__ == "__main__":
     
