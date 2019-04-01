@@ -63,11 +63,11 @@ import Essentials
 from Essentials import Database as sdb
 from Essentials import TranslateDatabase as tdb
 
+
+
 # =============================================================================
 # Thread Implementation for Play Progress Bar 
-# =============================================================================
-
-    
+# =============================================================================   
 class PlayThread(QtCore.QThread):
     
     def __init__(self,seconds,parent = None):
@@ -542,9 +542,12 @@ class MyApp(QtGui.QMainWindow):
         #App in Full Screen
         self.showFullScreen()
         
+        #Kannada Text
         self.final_txt = ''
         
-
+        
+        
+        
     def contextMenuEvent(self, event):
         # =====================================================================
         # Right Click Menu For Application
@@ -648,7 +651,6 @@ class MyApp(QtGui.QMainWindow):
         
         text_analysis_menu = QtGui.QMenu(menu)
         text_analysis_menu.setTitle('Text Analysis')
-        
         
         #Create Actions
         action0 = QtGui.QAction(QtGui.QIcon('ui/img/waveform.png'), 'Waveform', self.ui.analysis_button)
@@ -865,6 +867,8 @@ class MyApp(QtGui.QMainWindow):
         # Handler Function for Translate Button
         # =====================================================================
         
+        self.show_status('Please Wait...', 0)
+        
         #Disable Translate Button
         self.ui.translate_button.setEnabled(False)
         self.ui_update()
@@ -886,6 +890,7 @@ class MyApp(QtGui.QMainWindow):
         
         #Add to Translate Database
         self.tra_db.add_new_translation(en_text, kan_text)
+        
         
     def reset_all(self):
         # =====================================================================

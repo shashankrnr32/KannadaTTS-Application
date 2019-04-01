@@ -246,3 +246,5 @@ class TranslateDatabase:
         #Retrieves All Entries for Table View
         #======================================================================
         return self.cursor.execute('SELECT id,en_text,kan_text FROM en2kan ORDER BY id DESC;')
+
+
