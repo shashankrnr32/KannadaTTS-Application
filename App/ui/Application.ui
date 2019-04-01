@@ -1049,9 +1049,9 @@ p, li { white-space: pre-wrap; }
    <widget class="QLabel" name="label_2">
     <property name="geometry">
      <rect>
-      <x>580</x>
+      <x>530</x>
       <y>710</y>
-      <width>151</width>
+      <width>225</width>
       <height>12</height>
      </rect>
     </property>
@@ -1061,7 +1061,7 @@ p, li { white-space: pre-wrap; }
      </font>
     </property>
     <property name="text">
-     <string>Designed by Shashank Sharma</string>
+     <string>Designed and Developed by Shashank Sharma</string>
     </property>
     <property name="alignment">
      <set>Qt::AlignCenter</set>
