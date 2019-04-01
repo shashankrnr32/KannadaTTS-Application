@@ -1153,6 +1153,9 @@ def setEnv():
     #Get the current Username
     user = os.environ['USER']
     
+    #Repository Name
+    repo = 'KannadaTTS-Application'
+    
     #Project Directory
     project_directory = '/home/{}/Project'.format(user)
     
@@ -1168,8 +1171,9 @@ def setEnv():
     #Application Directory
     os.environ['APP'] = os.getcwd()
     
-    #Wave Files Directory : Change SBS to your corresponding GUI Folder
-    os.environ['WAVDIR'] = project_directory + '/SBS' + '/WavFiles'
+    #Wave Files Directory
+    os.environ['WAVDIR'] = project_directory + '/' + repo + '/WavFiles'
+
 #Main Function        
 if __name__ == "__main__":
     
