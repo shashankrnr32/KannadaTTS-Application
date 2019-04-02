@@ -21,7 +21,7 @@
 #Developer : Shashank Sharma
 #Description : Executable File for GUI Application
 # =============================================================================
-VERSION="v1.04 Beta"
+VERSION="v2.0 Beta"
 APPDIR="/home/$USER/Project/KannadaTTS-Application"
 clear
 echo ==========================================
@@ -32,10 +32,12 @@ This program comes with ABSOLUTELY NO WARRANTY.
 This is free software, and you are welcome 
 to redistribute it under certain conditions.
 
-(https://github.com/shashankrnr32/KannadaTTS_APP)
+Project Link 	: https://github.com/shashankrnr32/KannadaTTS-Application
 
--i : Project Information        -v : Project Version
--s : Shortcuts"
+-kan 		: Kannada Version of this application
+-i 		: Project Information
+-v 		: Project Version	
+-s 		: Shortcuts"
 echo ==========================================
 if [ "$1" = "-help" ];
 then
@@ -127,7 +129,13 @@ fi
 
 
 echo Building User Interface
-pyuic4 ui/Application.ui -o Application.py
+if [ "$1" = "-kan" ];
+then
+	echo Building Kannada Version
+	pyuic4 ui/ApplicationKan.ui -o Application.py
+else
+	pyuic4 ui/Application.ui -o Application.py
+fi
 pyuic4 ui/AboutWindow.ui -o AboutWindow.py
 pyuic4 ui/SynDB.ui -o SynDB.py
 pyuic4 ui/TraDB.ui -o TraDB.py
@@ -141,12 +149,12 @@ echo Starting Application...
 python3 Main.py
 
 echo Exiting Application...
-rm AppResources_rc.py
-rm Application.py
-rm AboutWindow.py
-rm SynDB.py
-rm TraDB.py
-rm Plot.py
+rm -f AppResources_rc.py
+rm -f Application.py
+rm -f AboutWindow.py
+rm -f SynDB.py
+rm -f TraDB.py
+rm -f Plot.py
 
 cd ..
 

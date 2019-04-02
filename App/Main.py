@@ -51,7 +51,7 @@ from matplotlib.backends.backend_qt4agg import NavigationToolbar2QT as Navigatio
 from matplotlib.figure import Figure
 
 #UI
-from Application import Ui_MainWindow
+
 from Plot import Ui_PlotDialog
 from AboutWindow import Ui_about_dialog
 from SynDB import Ui_Dialog as SUi_dialog
@@ -62,7 +62,7 @@ import Essentials
 from Essentials import Database as sdb
 from Essentials import TranslateDatabase as tdb
 
-
+from Application import Ui_MainWindow
 
 # =============================================================================
 # Thread Implementation for Play Progress Bar 
@@ -518,6 +518,7 @@ class MyApp(QtGui.QMainWindow):
 
     def __init__(self, *args, **kwargs):
         QtGui.QMainWindow.__init__(self, parent = None)
+        
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
         
@@ -559,9 +560,11 @@ class MyApp(QtGui.QMainWindow):
         #Kannada Text
         self.final_txt = ''
         
-        
-        
-        
+        #Set Application Language
+        self.lang = self.property('lang')
+        self.translate_config()
+            
+
     def contextMenuEvent(self, event):
         # =====================================================================
         # Right Click Menu For Application
@@ -571,12 +574,19 @@ class MyApp(QtGui.QMainWindow):
         menu = QtGui.QMenu(self)
         
         #Create Actions
-        tableAction = menu.addAction("View All Synthesis")
-        aboutAction = menu.addAction("About Project")
-        
-        minimizeAction = menu.addAction("Minimize")
-        quitAction = menu.addAction("Quit")
-        
+        if self.lang == 'en':
+            tableAction = menu.addAction("View All Synthesis")
+            aboutAction = menu.addAction("About Project")
+            
+            minimizeAction = menu.addAction("Minimize")
+            quitAction = menu.addAction("Quit")
+        else:
+            tableAction = menu.addAction("ಸಂಶ್ಲೇಷಣೆ ಪಟ್ಟಿಯನ್ನು ವೀಕ್ಷಿಸಿ")
+            aboutAction = menu.addAction("ಪ್ರಾಜೆಕ್ಟ್ ಬಗ್ಗೆ ಮಾಹಿತಿ")
+            
+            minimizeAction = menu.addAction("ವಿಂಡೋ ಗಾತ್ರವನ್ನು ಕಡಿಮೆ ಮಾಡಿ")
+            quitAction = menu.addAction("ನಿರ್ಗಮನ")
+            
         #Get the action that is clicked
         action = menu.exec_(self.mapToGlobal(event.pos()))
        
@@ -589,7 +599,42 @@ class MyApp(QtGui.QMainWindow):
             self.showMinimized()
         if action == quitAction:
             self.close()
+    
+    def closeEvent(self, event,  *args, **kwargs):
+        # =====================================================================
+        # Runs when close button is clicked
+        # =====================================================================
         
+        # Message Box
+        quit_msg_box = QtGui.QMessageBox()
+        if self.lang == 'en': 
+            quit_msg_box.setWindowTitle('Quit?')
+            quit_msg_box.setText("Do you want to close the Application?")
+            
+        else:
+            quit_msg_box.setWindowTitle('ನಿರ್ಗಮನ')
+            quit_msg_box.setText("ನೀವು ಅಪ್ಲಿಕೇಶನ್ನಿಂದ ನಿರ್ಗಮಿಸಲು ಬಯಸುವಿರಾ?")
+        
+        quit_msg_box.setStandardButtons(QtGui.QMessageBox.Yes | QtGui.QMessageBox.No)
+        quit_msg_box.setDefaultButton(QtGui.QMessageBox.No)
+        quit_msg_box.setIcon(QtGui.QMessageBox.Information)
+        
+        #Returns Button Clicked
+        button = quit_msg_box.exec_()
+        
+        #Decision based on Button Clicked
+        if button == QtGui.QMessageBox.Yes:
+            event.accept()
+        else:
+            event.ignore()
+        
+    
+    def mousePressEvent(self, event):
+        pass      
+        
+    def mouseReleaseEvent(self, event):
+        pass
+
     def action_config(self):
         # =====================================================================
         # Configure Actions
@@ -702,8 +747,10 @@ class MyApp(QtGui.QMainWindow):
         # Configure Misc Menu
         # =====================================================================
         menu = QtGui.QMenu(self.ui.misc_button)
+        
         action0 = QtGui.QAction(QtGui.QIcon('ui/img/mail.png'), 'Mail this File', self.ui.misc_button)
         action1 = QtGui.QAction(QtGui.QIcon('ui/img/rating.png'), 'Update Rating', self.ui.misc_button)
+    
         
         #Add Menu to Action
         menu.addAction(action0)
@@ -722,31 +769,49 @@ class MyApp(QtGui.QMainWindow):
         if action.text() == 'Mail this File':
             
             #Ask for Email ID
-            mail, ok = QtGui.QInputDialog.getText(self, "Mail Audio File", "Valid Mail ID :",
+            if self.lang == 'en':
+                mail, ok = QtGui.QInputDialog.getText(self, "Mail Audio File", "Valid Mail ID :",
+                                                  text = 'shashankrnr32@gmail.com')
+            else:
+                 mail, ok = QtGui.QInputDialog.getText(self, "ಈ ಆಡಿಯೊ ಫೈಲ್ ಮೇಲ್ ಮಾಡಿ", "ಮಾನ್ಯವಾದ ಮೇಲ್ ಐಡಿ :",
                                                   text = 'shashankrnr32@gmail.com')
             
             #If Text is not Null and OK is pressed
             if ok and mail:
                 #Check for Valid Mail ID
                 if re.match(r'[^@]+@[^@]+\.[^@]+',mail):
-                    self.show_status('Sending...', 4000)
+                    if self.lang == 'en':
+                        #English Version
+                        self.show_status('Sending...', 4000)
+                    else:
+                        #Kannada Version
+                        self.show_status('ಕಳುಹಿಸಲಾಗುತ್ತಿದೆ...', 4000)
                     if Essentials.send_mail(mail,self.entry):
                         #Mail Successfully sent
-                        self.show_status('Mail sent to {}'.format(mail), 2000)
+                        if self.lang == 'en':
+                            self.show_status('Mail sent to {}'.format(mail), 2000)
+                        else:
+                            self.show_status('{} ಇವರಿಗೆ ಮೇಲ್ ಕಳುಹಿಸಲಾಗಿದೆ'.format(mail), 2000)
                     else:
                         #Some Error Occurred (Error prints on Console)
                         self.show_status('Some Error Occurred. Check Console for Details', 2000)
                 else:
                     #Invalid Mail ID
-                    self.show_status('Invalid Mail ID',2000)
+                    if self.lang == 'en':
+                        self.show_status('Invalid Mail ID',2000)
+                    else:
+                        self.show_status('ಅಮಾನ್ಯವಾದ ಮೇಲ್ ಐಡಿ',2000)
         
         #Choice = Rating
         if action.text() == 'Update Rating':
             
             #Ask for Rating
-            rating, ok = QtGui.QInputDialog.getInt(self, 'Update Rating','Enter your Rating',
+            if self.lang == 'en':
+                rating, ok = QtGui.QInputDialog.getInt(self, 'Update Rating','Enter your Rating',
                                                    value = self.entry[5], min = 0, max = 10)
-            
+            else:
+                rating, ok = QtGui.QInputDialog.getInt(self, 'ಅಪ್ಡೇಟ್ ರೇಟಿಂಗ್', 'ನಿಮ್ಮ ರೇಟಿಂಗ್ ನಮೂದಿಸಿ',
+                                                   value = self.entry[5], min = 0, max = 10)
             #If OK is pressed
             if ok:
                 self.update_rating(rating)
@@ -778,6 +843,21 @@ class MyApp(QtGui.QMainWindow):
         #Add Menubar to Window
         self.menuBar().setCornerWidget(self.right_menubar)
     
+    def translate_config(self):
+        # =====================================================================
+        # Configure Translation options
+        # =====================================================================
+        
+        if self.lang == 'en':
+            self.ui.actionKannada.triggered.connect(lambda: self.show_status(
+                    'Run the Application with -kan arguement to run the Kannada version',0))
+            self.ui.actionEnglish.setChecked(True)
+            self.ui.actionKannada.setCheckable(False)
+        
+        if self.lang == 'kn':
+            self.ui.actionKannada.setChecked(True)
+            self.ui.actionEnglish.setCheckable(False)
+        
     def show_info_box(self):
         # =====================================================================
         # Runs when close button is clicked
@@ -785,8 +865,14 @@ class MyApp(QtGui.QMainWindow):
         
         # Message Box
         info_msg_box = QtGui.QMessageBox()
-        info_msg_box.setWindowTitle('Developer Info')
-        info_msg_box.setText("This Application is designed and developed by Shashank Sharma")
+        if self.lang == 'en':
+            #English Version
+            info_msg_box.setWindowTitle('Developer Info')
+            info_msg_box.setText("This Application is designed and developed by Shashank Sharma")
+        else:
+            #Kannada Version
+            info_msg_box.setWindowTitle('ಡೆವಲಪರ್ ಮಾಹಿತಿ')
+            info_msg_box.setText("ಈ ಅಪ್ಲಿಕೇಶನ್ ಅನ್ನು ಶಶಾಂಕ್ ಶರ್ಮಾ ಅಭಿವೃದ್ಧಿಪಡಿಸಿದ್ದಾರೆ")
         info_msg_box.setStandardButtons(QtGui.QMessageBox.Ok)
         info_msg_box.setDefaultButton(QtGui.QMessageBox.Ok)
         info_msg_box.setIcon(QtGui.QMessageBox.Information)
@@ -1087,8 +1173,12 @@ class MyApp(QtGui.QMainWindow):
         
         #An Item is double clicked
         self.ui.details_table.itemDoubleClicked.connect(lambda: self.show_table(1))
+        
     
     def table_details_item_selected(self, item):
+        # =====================================================================
+        # Show status when an item is selected
+        # =====================================================================
         self.show_status(item.text() + ' (Right Click to Copy) ', 0)
         
     
@@ -1198,28 +1288,7 @@ class MyApp(QtGui.QMainWindow):
         del plot_view
         gc.collect()
         
-    def closeEvent(self, event,  *args, **kwargs):
-        # =====================================================================
-        # Runs when close button is clicked
-        # =====================================================================
-        
-        # Message Box
-        quit_msg_box = QtGui.QMessageBox()
-        quit_msg_box.setWindowTitle('Quit?')
-        quit_msg_box.setText("Do you want to close the Application?")
-        quit_msg_box.setStandardButtons(QtGui.QMessageBox.Yes | QtGui.QMessageBox.No)
-        quit_msg_box.setDefaultButton(QtGui.QMessageBox.No)
-        quit_msg_box.setIcon(QtGui.QMessageBox.Information)
-        
-        #Returns Button Clicked
-        button = quit_msg_box.exec_()
-        
-        #Decision based on Button Clicked
-        if button == QtGui.QMessageBox.Yes:
-            event.accept()
-        else:
-            event.ignore()
-            
+    
 
 def setEnv():
     # =========================================================================
