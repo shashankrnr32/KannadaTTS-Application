@@ -2,7 +2,7 @@
 
 ## Kannada Speech Synthesis Application (GUI)
 
-	v1.02 Beta 
+	v1.03 Beta 
 
 ## Kannada Speech Synthesis project (Core)
 Kannada Speech Synthesis is submitted as the final year project which is a part of the curriculum specified by the Department of Electronics and Communication of M S Ramaiah Institute of Technology, Bangalore. All the dependencies and frameworks which are used in the core project are mentioned in the About page of the application. Contact Developer to obtain the source and trained model of the core project.
@@ -62,12 +62,13 @@ Kannada Speech Synthesis is submitted as the final year project which is a part 
 3. Pitch Shifting using soundstretch
 
 ### Recent Updates on GUI Application (Added by SBS)
-1. Application now opens in Full Screen Mode
-2. Added Table of details
-3. Added Utterance and Label Files under Text Analysis
-4. Added Translation Database and Translation Table View
-5. Now, Experience the application in 6 different themes (GTK, Windows, Motif, CDE, CleanLooks, Plastique)
-6. Fixed Memory Leak due to Plots
+1. Added Desktop File to run the app on double click (Provide Suitable Permissions and Change icon if needed)
+2. Application now opens in Full Screen Mode
+3. Added Table of details
+4. Added Utterance and Label Files under Text Analysis
+5. Added Translation Database and Translation Table View
+6. Now, Experience the application in 6 different themes (GTK, Windows, Motif, CDE, CleanLooks, Plastique)
+7. Fixed Memory Leak due to Plots
 
 ## Features of GUI Application
 1. SQLite Based Database 

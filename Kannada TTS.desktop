@@ -1,0 +1,8 @@
+[Desktop Entry]
+Encoding=UTF-8
+Version=1.02 Beta
+Type=Application
+Terminal=true
+Exec=gnome-terminal --working-directory='~/' -e 'Project/KannadaTTS-Application/run.sh'
+Icon=/home/shashank/Project/KannadaTTS-Application/icon.png
+Name[en_US]=Kannada TTS

@@ -21,7 +21,8 @@
 #Developer : Shashank Sharma
 #Description : Executable File for GUI Application
 # =============================================================================
-VERSION="v1.02 Beta"
+VERSION="v1.03 Beta"
+APPDIR="/home/$USER/Project/KannadaTTS-Application"
 clear
 echo ==========================================
 echo Kannada Speech Synthesis $VERSION
@@ -83,7 +84,7 @@ then
 	echo "$VERSION"
 fi
 
-cd App/
+cd $APPDIR/App/
 echo Installing Required Packages
 
 # Soundstretch for Pitch Shift
