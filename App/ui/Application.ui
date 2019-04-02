@@ -32,7 +32,7 @@
   </property>
   <property name="windowIcon">
    <iconset resource="AppResources.qrc">
-    <normaloff>:/img/img/Icon_PNG.png</normaloff>:/img/img/Icon_PNG.png</iconset>
+    <normaloff>:/img/img/icon.svg</normaloff>:/img/img/icon.svg</iconset>
   </property>
   <property name="toolButtonStyle">
    <enum>Qt::ToolButtonIconOnly</enum>
@@ -48,13 +48,13 @@
     <property name="geometry">
      <rect>
       <x>-1</x>
-      <y>-20</y>
+      <y>-10</y>
       <width>1366</width>
       <height>111</height>
      </rect>
     </property>
     <property name="text">
-     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;img src=&quot;:/img/img/rit_logo.png&quot; width=&quot;250&quot; height=&quot;125&quot;/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;img src=&quot;:/img/img/icon.svg&quot; width=&quot;100&quot; height=&quot;100&quot;/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
     </property>
    </widget>
    <widget class="QLabel" name="project_title">

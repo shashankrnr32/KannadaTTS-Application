@@ -20,13 +20,12 @@
 # =============================================================================
 #Developers : 
 #       Shashank Sharma(shashankrnr32@gmail.com)
-#           - User Interface
+#           - User Interface (Main, About, Plot, Table)
 #           - Kannada to English Translate
 #           - SQLite Database Implementation
 #           - Media Player Integration
-#           - About Window
-#           - Table Window
-#           - Plot Window
+#           - Themes
+#           - Detail Table
 #       
 #       Varun S S(varunsridhar614@gmail.com)
 #           - FestAPI.sh
@@ -1249,7 +1248,6 @@ if __name__ == "__main__":
     app = QtGui.QApplication(sys.argv)
     myapp = MyApp(app = app)
     myapp.show()
-    
     print('Application Running...')
     
     #Remove __pycache__ Folder once execution is complete

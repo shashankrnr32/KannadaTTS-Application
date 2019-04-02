@@ -1,5 +1,6 @@
 <RCC>
   <qresource prefix="img">
+    <file>img/icon.svg</file>
     <file>img/vss.jpg</file>
     <file>img/snm.jpg</file>
     <file>img/sbs.png</file>
@@ -13,7 +14,6 @@
     <file>img/waveform.png</file>
     <file>img/previous.png</file>
     <file>img/next.png</file>
-    <file>img/Icon_PNG.png</file>
     <file>img/stop.png</file>
     <file>img/play.png</file>
     <file>img/translate_button.png</file>
