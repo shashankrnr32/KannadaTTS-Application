@@ -147,9 +147,11 @@ class SynTableView(QtGui.QDialog):
         
         #Create Actions
         action0 = QtGui.QAction('CSV File',self.ui.export_button)
+        action1 = QtGui.QAction('Image', self.ui.export_button)
         
         #Add Actions to Menu
         menu.addAction(action0)
+        menu.addAction(action1)
         
         #Get the action that is clicked
         menu.triggered.connect(self.export_menu_click)
@@ -165,6 +167,12 @@ class SynTableView(QtGui.QDialog):
                     writer = csv.writer(csv_file)
                     writer.writerows(row_header)
                     writer.writerows(entries)
+          
+        if action.text() == 'Image':
+            image = QtGui.QPixmap.grabWindow(self.ui.tableWidget.winId())
+            file_name = QtGui.QFileDialog.getSaveFileName(self,'Save Image File','SynthesisList.png')
+            if file_name != '':
+                image.save(file_name,'png')    
             
     def set_column_width(self):
         # =====================================================================
@@ -226,9 +234,11 @@ class TraTableView(QtGui.QDialog):
         
         #Create Actions
         action0 = QtGui.QAction('CSV File',self.ui.export_button)
+        action1 = QtGui.QAction('Image', self.ui.export_button)
         
         #Add Actions to Menu
         menu.addAction(action0)
+        menu.addAction(action1)
         
         #Get the action that is clicked
         menu.triggered.connect(self.export_menu_click)
@@ -245,6 +255,11 @@ class TraTableView(QtGui.QDialog):
                     writer.writerows(row_header)
                     writer.writerows(entries)
             
+        if action.text() == 'Image':
+            image = QtGui.QPixmap.grabWindow(self.ui.tableWidget.winId())
+            file_name = QtGui.QFileDialog.getSaveFileName(self,'Save Image File','TranslationList.png')
+            if file_name != '':
+                image.save(file_name,'png')
     
     
     def set_column_width(self):

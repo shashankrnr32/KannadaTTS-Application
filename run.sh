@@ -21,7 +21,7 @@
 #Developer : Shashank Sharma
 #Description : Executable File for GUI Application
 # =============================================================================
-VERSION="v1.03 Beta"
+VERSION="v1.04 Beta"
 APPDIR="/home/$USER/Project/KannadaTTS-Application"
 clear
 echo ==========================================

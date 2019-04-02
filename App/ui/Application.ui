@@ -813,10 +813,10 @@ p, li { white-space: pre-wrap; }
      </font>
     </property>
     <property name="toolTip">
-     <string>Audio Analysis</string>
+     <string>Misc. Operations</string>
     </property>
     <property name="statusTip">
-     <string>Audio Analysis and Plots</string>
+     <string>Misc. Operations</string>
     </property>
     <property name="layoutDirection">
      <enum>Qt::LeftToRight</enum>
