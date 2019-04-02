@@ -1046,27 +1046,6 @@ p, li { white-space: pre-wrap; }
      </property>
     </item>
    </widget>
-   <widget class="QLabel" name="label_2">
-    <property name="geometry">
-     <rect>
-      <x>550</x>
-      <y>710</y>
-      <width>197</width>
-      <height>11</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <pointsize>7</pointsize>
-     </font>
-    </property>
-    <property name="text">
-     <string>Designed and Developed by Shashank Sharma</string>
-    </property>
-    <property name="alignment">
-     <set>Qt::AlignCenter</set>
-    </property>
-   </widget>
    <zorder>columnView_3</zorder>
    <zorder>columnView_2</zorder>
    <zorder>listView_2</zorder>
@@ -1096,7 +1075,6 @@ p, li { white-space: pre-wrap; }
    <zorder>line_3</zorder>
    <zorder>line_4</zorder>
    <zorder>details_table</zorder>
-   <zorder>label_2</zorder>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">

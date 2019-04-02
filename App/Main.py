@@ -743,6 +743,7 @@ class MyApp(QtGui.QMainWindow):
         # =====================================================================
         self.right_menubar = QtGui.QMenuBar(self.menuBar())
         
+        
         #Quit
         action0 = QtGui.QAction(QtGui.QIcon('ui/img/close.png'),'', self)
         action0.triggered.connect(lambda : self.close())
@@ -751,12 +752,33 @@ class MyApp(QtGui.QMainWindow):
         action1 = QtGui.QAction(QtGui.QIcon('ui/img/minimize.png'),'', self)
         action1.triggered.connect(lambda : self.showMinimized())
         
-        #First Minimize then close (LR)
+        #Info
+        action2 = QtGui.QAction(QtGui.QIcon('ui/img/info.png'),'', self)
+        action2.triggered.connect(self.show_info_box)
+        
+        #Add actins to Menu Bar
+        self.right_menubar.addAction(action2)
         self.right_menubar.addAction(action1)
         self.right_menubar.addAction(action0)
         
         #Add Menubar to Window
         self.menuBar().setCornerWidget(self.right_menubar)
+    
+    def show_info_box(self):
+        # =====================================================================
+        # Runs when close button is clicked
+        # =====================================================================
+        
+        # Message Box
+        info_msg_box = QtGui.QMessageBox()
+        info_msg_box.setWindowTitle('Developer Info')
+        info_msg_box.setText("This Application is designed and developed by Shashank Sharma")
+        info_msg_box.setStandardButtons(QtGui.QMessageBox.Ok)
+        info_msg_box.setDefaultButton(QtGui.QMessageBox.Ok)
+        info_msg_box.setIcon(QtGui.QMessageBox.Information)
+        
+        #Returns Button Clicked
+        info_msg_box.exec_()
     
     def audio_config(self):
         #Defines a Audio Output Device
@@ -1046,7 +1068,11 @@ class MyApp(QtGui.QMainWindow):
         self.ui.details_table.setContextMenuPolicy(QtCore.Qt.CustomContextMenu)
         self.ui.details_table.customContextMenuRequested.connect(self.table_details_context_menu)
         
+        #An Item is clicked
         self.ui.details_table.itemClicked.connect(self.table_details_item_selected)
+        
+        #An Item is double clicked
+        self.ui.details_table.itemDoubleClicked.connect(lambda: self.show_table(1))
     
     def table_details_item_selected(self, item):
         self.show_status(item.text() + ' (Right Click to Copy) ', 0)
@@ -1158,6 +1184,28 @@ class MyApp(QtGui.QMainWindow):
         del plot_view
         gc.collect()
         
+    def closeEvent(self, event,  *args, **kwargs):
+        # =====================================================================
+        # Runs when close button is clicked
+        # =====================================================================
+        
+        # Message Box
+        quit_msg_box = QtGui.QMessageBox()
+        quit_msg_box.setWindowTitle('Quit?')
+        quit_msg_box.setText("Do you want to close the Application?")
+        quit_msg_box.setStandardButtons(QtGui.QMessageBox.Yes | QtGui.QMessageBox.No)
+        quit_msg_box.setDefaultButton(QtGui.QMessageBox.No)
+        quit_msg_box.setIcon(QtGui.QMessageBox.Information)
+        
+        #Returns Button Clicked
+        button = quit_msg_box.exec_()
+        
+        #Decision based on Button Clicked
+        if button == QtGui.QMessageBox.Yes:
+            event.accept()
+        else:
+            event.ignore()
+            
 
 def setEnv():
     # =========================================================================
