@@ -69,7 +69,7 @@ Kannada Speech Synthesis is submitted as the final year project which is a part 
 5. Added Translation Database and Translation Table View
 6. Now, Experience the application in 6 different themes (GTK, Windows, Motif, CDE, CleanLooks, Plastique)
 7. Fixed Memory Leak due to Plots
-8. Save Synthesis List as CSV or Image
+8. Save Synthesis and Translation List as CSV or Image
 
 ## Features of GUI Application
 1. SQLite Based Database 
@@ -84,7 +84,7 @@ Check the Application Screenshots in the Screenshots Directory.
 
 ## Logo
 
-<img src="https://github.com/shashankrnr32/KannadaTTS_APP/blob/master/App/ui/img/Icon_PNG.png" width=50 height=50>
+<img src="https://github.com/shashankrnr32/KannadaTTS_APP/blob/master/Screenshots/icon.svg" width=50 height=50>
 
 Designed by Shashank Sharma on [Canva](https://www.canva.com/design/DADUBs2Lr40/GAuk1CHq5jTVj26BpkOTqw/view?utm_content=DADUBs2Lr40&utm_campaign=designshare&utm_medium=link&utm_source=sharebutton)
 
