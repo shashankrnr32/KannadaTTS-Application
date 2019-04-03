@@ -21,7 +21,7 @@
 #Developer : Shashank Sharma
 #Description : Executable File for GUI Application
 # =============================================================================
-VERSION="v2.0 Beta"
+VERSION="v2.01 Beta"
 APPDIR="/home/$USER/Project/KannadaTTS-Application"
 clear
 echo ==========================================
@@ -134,6 +134,7 @@ then
 	echo Building Kannada Version
 	pyuic4 ui/ApplicationKan.ui -o Application.py
 else
+	echo Building English Version
 	pyuic4 ui/Application.ui -o Application.py
 fi
 pyuic4 ui/AboutWindow.ui -o AboutWindow.py
@@ -148,6 +149,8 @@ mkdir -p ignore
 echo Starting Application...
 python3 Main.py
 
+EXITCODE=$?
+
 echo Exiting Application...
 rm -f AppResources_rc.py
 rm -f Application.py
@@ -157,4 +160,20 @@ rm -f TraDB.py
 rm -f Plot.py
 
 cd ..
+
+#Kannada Version Trigger
+if [ $EXITCODE -eq 1 ];
+then
+./run.sh -kan
+fi
+
+#English Version Trigger
+if [ $EXITCODE -eq 2 ];
+then
+./run.sh
+fi
+
+
+
+
 

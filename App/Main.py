@@ -849,14 +849,14 @@ class MyApp(QtGui.QMainWindow):
         # =====================================================================
         
         if self.lang == 'en':
-            self.ui.actionKannada.triggered.connect(lambda: self.show_status(
-                    'Run the Application with -kan arguement to run the Kannada version',0))
             self.ui.actionEnglish.setChecked(True)
             self.ui.actionKannada.setCheckable(False)
+            self.ui.actionKannada.triggered.connect(lambda: self.app.exit(1))
         
         if self.lang == 'kn':
             self.ui.actionKannada.setChecked(True)
             self.ui.actionEnglish.setCheckable(False)
+            self.ui.actionEnglish.triggered.connect(lambda: self.app.exit(2))
         
     def show_info_box(self):
         # =====================================================================
