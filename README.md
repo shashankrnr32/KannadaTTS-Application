@@ -25,7 +25,8 @@ Kannada Speech Synthesis is submitted as the final year project which is a part 
 	- Complete User Interface (Main, About, Table and Analysis Window)
 	- Kannada Version Build
 	- SQLite Database Implementation ( Synthesis and Translation)
-	- Media Player Integration
+	- Media Player Devt.
+	- Database Search
 	- Production Code and Documentation
 	- Application Themes
 
