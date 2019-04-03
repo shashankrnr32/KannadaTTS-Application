@@ -2,7 +2,7 @@
 
 ## Kannada Speech Synthesis Application (GUI)
 
-**Application now available in Kannada Version** (`./run.sh -kan`)
+**Application now available in Kannada Version** (`./run.sh -kan` or Change language within the application)
 
 	v2.01 Beta 
 
@@ -65,7 +65,7 @@ Kannada Speech Synthesis is submitted as the final year project which is a part 
 3. Pitch Shifting using soundstretch
 
 ### Recent Updates on GUI Application (Added by SBS)
-1. **The application is now available in Kannada Version** (`./run.sh -kan`)
+1. **The application is now available in Kannada Version** (`./run.sh -kan` or Change language within the application)
 2. Added Desktop File to run the app on double click (Provide Suitable Permissions and Change icon if needed)
 3. Application now opens in Full Screen Mode
 4. Added Table of details
