@@ -96,7 +96,7 @@ p, li { white-space: pre-wrap; }
       </rect>
      </property>
      <property name="currentIndex">
-      <number>0</number>
+      <number>3</number>
      </property>
      <property name="tabSpacing">
       <number>2</number>
@@ -227,8 +227,8 @@ p, li { white-space: pre-wrap; }
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>98</width>
-        <height>28</height>
+        <width>587</width>
+        <height>253</height>
        </rect>
       </property>
       <attribute name="label">
@@ -253,7 +253,8 @@ p, li { white-space: pre-wrap; }
 &lt;td&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;img src=&quot;:/img/img/vss.jpg&quot; width=&quot;150&quot; height=&quot;150&quot; /&gt;&lt;/p&gt;&lt;/td&gt;
 &lt;td&gt;
-&lt;p style=&quot; margin-top:20px; margin-bottom:5px; margin-left:10px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Content about Varun Here&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/body&gt;&lt;/html&gt;</string>
+&lt;p style=&quot; margin-top:20px; margin-bottom:5px; margin-left:10px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;I am currently pursuing BE in Electronics and Communication Engineering at MS Ramaiah Institute of Technology, Bangalore.I am a programming enthusiast, interested in coding, logic synthesis and algorithms. &lt;/p&gt;
+&lt;p style=&quot; margin-top:20px; margin-bottom:5px; margin-left:10px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;I have worked on back-end integration of GUI with core, analysis of synthesized speech and project documentation. &lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/body&gt;&lt;/html&gt;</string>
        </property>
       </widget>
      </widget>

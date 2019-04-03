@@ -80,7 +80,7 @@ Kannada Speech Synthesis is submitted as the final year project which is a part 
 1. SQLite Based Database 
 2. In-App Media Player
 3. Easy to use UI
-4. Database View for easy selection (Synthesis and Translation)
+4. Database View for easy selection with search feature (Synthesis and Translation)
 5. Audio Analysis for Speech Enthusiasts
 6. Themes that you can choose
 
