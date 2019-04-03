@@ -1157,6 +1157,9 @@ p, li { white-space: pre-wrap; }
    <property name="shortcut">
     <string>Ctrl+P</string>
    </property>
+   <property name="menuRole">
+    <enum>QAction::AboutRole</enum>
+   </property>
   </action>
   <action name="actionLicense">
    <property name="text">
@@ -1172,6 +1175,9 @@ p, li { white-space: pre-wrap; }
    </property>
    <property name="shortcut">
     <string>Ctrl+L</string>
+   </property>
+   <property name="menuRole">
+    <enum>QAction::ApplicationSpecificRole</enum>
    </property>
    <property name="softKeyRole">
     <enum>QAction::NoSoftKey</enum>
