@@ -129,6 +129,7 @@ class SynTableView(QtGui.QDialog):
         
         #Database Object
         self.db = kwargs.get('parent').syn_db
+        self.entries = list(self.db.get_all_entries_for_table())
         
         #Set Column Width
         self.set_column_width()  
@@ -141,6 +142,29 @@ class SynTableView(QtGui.QDialog):
         
         #Export Menu
         self.export_button_config()
+
+        #Configure Search
+        self.search_config()
+
+
+    def search_config(self):
+        self.ui.search_text.textChanged.connect(self.search_translation)
+
+    def search_translation(self):
+        search_text = str(self.ui.search_text.text())
+        if search_text == '':
+            self.populate_data()
+        else:
+            self.ui.tableWidget.clearContents()
+            self.ui.tableWidget.setRowCount(0)
+            for entry in list(self.entries):
+                for column in entry:
+                    if search_text in str(column):
+                        rowPosition = self.ui.tableWidget.rowCount()
+                        self.ui.tableWidget.insertRow(rowPosition)
+                        self.ui.tableWidget.setRowHeight(rowPosition,40)
+                        for column in range(0,5):
+                            self.ui.tableWidget.setItem(rowPosition,column,QtGui.QTableWidgetItem(str(entry[column])))
 
     def export_button_config(self):
         menu = QtGui.QMenu(self.ui.export_button)
@@ -186,8 +210,9 @@ class SynTableView(QtGui.QDialog):
         # =====================================================================
         # Creates Rows and Adds Data from Database
         # =====================================================================
-        entries = self.db.get_all_entries_for_table()
-        for entry in entries:
+        self.ui.tableWidget.clearContents()
+        self.ui.tableWidget.setRowCount(0)
+        for entry in self.entries:
             rowPosition = self.ui.tableWidget.rowCount()
             self.ui.tableWidget.insertRow(rowPosition)
             self.ui.tableWidget.setRowHeight(rowPosition,40)
@@ -220,6 +245,8 @@ class TraTableView(QtGui.QDialog):
         #Database Object
         self.db = kwargs.get('parent').tra_db
         
+        self.entries = list(self.db.get_all_entries_for_table())
+        
         #Set Column Width
         self.set_column_width()  
         
@@ -229,6 +256,29 @@ class TraTableView(QtGui.QDialog):
         #Export Menu
         self.export_button_config()
 
+        #Configure Search
+        self.search_config()
+
+
+    def search_config(self):
+        self.ui.search_text.textChanged.connect(self.search_translation)
+
+    def search_translation(self):
+        search_text = str(self.ui.search_text.text())
+        if search_text == '':
+            self.populate_data()
+        else:
+            self.ui.tableWidget.clearContents()
+            self.ui.tableWidget.setRowCount(0)
+            for entry in list(self.entries):
+                for column in entry:
+                    if search_text in str(column):
+                        rowPosition = self.ui.tableWidget.rowCount()
+                        self.ui.tableWidget.insertRow(rowPosition)
+                        self.ui.tableWidget.setRowHeight(rowPosition,40)
+                        for column in range(0,3):
+                            self.ui.tableWidget.setItem(rowPosition,column,QtGui.QTableWidgetItem(str(entry[column])))
+                        
     def export_button_config(self):
         menu = QtGui.QMenu(self.ui.export_button)
         
@@ -274,8 +324,13 @@ class TraTableView(QtGui.QDialog):
         # =====================================================================
         # Creates Rows and Adds Data from Database
         # =====================================================================
-        entries = self.db.get_all_entries_for_table()
-        for entry in entries:
+        
+        #Clear Contents
+        self.ui.tableWidget.clearContents()
+        self.ui.tableWidget.setRowCount(0)
+        
+        #Populate Data
+        for entry in self.entries:
             rowPosition = self.ui.tableWidget.rowCount()
             self.ui.tableWidget.insertRow(rowPosition)
             self.ui.tableWidget.setRowHeight(rowPosition,40)
@@ -553,6 +608,7 @@ class MyApp(QtGui.QMainWindow):
         
         #Clipboard to Cut/Copy/Paste
         self.clipboard = self.app.clipboard()
+        self.clipboard.setText('KSS')
         
         #App in Full Screen
         self.showFullScreen()

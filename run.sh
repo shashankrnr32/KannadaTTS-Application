@@ -21,7 +21,7 @@
 #Developer : Shashank Sharma
 #Description : Executable File for GUI Application
 # =============================================================================
-VERSION="v2.01 Beta"
+VERSION="v2.1 Beta"
 APPDIR="/home/$USER/Project/KannadaTTS-Application"
 clear
 echo ==========================================
@@ -158,7 +158,6 @@ rm -f AboutWindow.py
 rm -f SynDB.py
 rm -f TraDB.py
 rm -f Plot.py
-
 cd ..
 
 #Kannada Version Trigger
