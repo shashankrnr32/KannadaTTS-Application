@@ -148,9 +148,22 @@ class SynTableView(QtGui.QDialog):
 
 
     def search_config(self):
-        self.ui.search_text.textChanged.connect(self.search_translation)
+        # =====================================================================
+        # Configure Search Options
+        # =====================================================================
+        
+        #Auto Complete
+        completer = QtGui.QCompleter([entry[2] for entry in self.entries], self)
+        completer.setCaseSensitivity(QtCore.Qt.CaseInsensitive)
+        self.ui.search_text.setCompleter(completer)
+    
+        #Search Text Changed
+        self.ui.search_text.textChanged.connect(self.search_synthesis)
 
-    def search_translation(self):
+    def search_synthesis(self):
+        # =====================================================================
+        # Search and Modify Table algorithm
+        # =====================================================================
         search_text = str(self.ui.search_text.text())
         if search_text == '':
             self.populate_data()
@@ -167,6 +180,9 @@ class SynTableView(QtGui.QDialog):
                             self.ui.tableWidget.setItem(rowPosition,column,QtGui.QTableWidgetItem(str(entry[column])))
 
     def export_button_config(self):
+        # =====================================================================
+        # Configure Export Button
+        # =====================================================================
         menu = QtGui.QMenu(self.ui.export_button)
         
         #Create Actions
@@ -182,6 +198,9 @@ class SynTableView(QtGui.QDialog):
         self.ui.export_button.setMenu(menu)
     
     def export_menu_click(self, action):
+        # =====================================================================
+        # Export to CSV and Image
+        # =====================================================================
         if action.text() == 'CSV File':
             entries = self.db.get_all_entries_for_table()
             file_name = QtGui.QFileDialog.getSaveFileName(self,'Save CSV File','SynthesisList.csv')
@@ -261,9 +280,23 @@ class TraTableView(QtGui.QDialog):
 
 
     def search_config(self):
+        # =====================================================================
+        # Configure Search Option
+        # =====================================================================
+        
+        #Autocomplete
+        completer_list = [entry[2] for entry in self.entries] + [entry[1] for entry in self.entries]
+        completer = QtGui.QCompleter(completer_list, self)
+        completer.setCaseSensitivity(QtCore.Qt.CaseInsensitive)
+        self.ui.search_text.setCompleter(completer)
+        
+        #Search Text Changed
         self.ui.search_text.textChanged.connect(self.search_translation)
 
     def search_translation(self):
+        # =====================================================================
+        # Search and Modify Table algorithm
+        # =====================================================================
         search_text = str(self.ui.search_text.text())
         if search_text == '':
             self.populate_data()
@@ -280,6 +313,9 @@ class TraTableView(QtGui.QDialog):
                             self.ui.tableWidget.setItem(rowPosition,column,QtGui.QTableWidgetItem(str(entry[column])))
                         
     def export_button_config(self):
+        # =====================================================================
+        # Configure Export Options
+        # =====================================================================
         menu = QtGui.QMenu(self.ui.export_button)
         
         #Create Actions
@@ -295,6 +331,9 @@ class TraTableView(QtGui.QDialog):
         self.ui.export_button.setMenu(menu)
     
     def export_menu_click(self, action):
+        # =====================================================================
+        # Export to CSV and Image
+        # =====================================================================
         if action.text() == 'CSV File':
             entries = self.db.get_all_entries_for_table()
             file_name = QtGui.QFileDialog.getSaveFileName(self,'Save CSV File','TranslationList.csv')
