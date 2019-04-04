@@ -577,7 +577,9 @@ class MyApp(QtGui.QMainWindow):
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
         
-        self.setGeometry
+        #Get Language of the application
+        self.lang = self.property('lang')
+        
         #Application Object
         self.app = kwargs.get('app')
         
@@ -602,6 +604,9 @@ class MyApp(QtGui.QMainWindow):
         #Configure Menu Bar
         self.right_menu_bar_config()
         
+        #Configure Translate
+        self.translate_config()
+        
         #Configure Status Bar
         self.statusBar = QtGui.QStatusBar()
         self.setStatusBar(self.statusBar)
@@ -616,9 +621,7 @@ class MyApp(QtGui.QMainWindow):
         #Kannada Text
         self.final_txt = ''
         
-        #Set Application Language
-        self.lang = self.property('lang')
-        self.translate_config()
+        
             
 
     def contextMenuEvent(self, event):
@@ -760,21 +763,40 @@ class MyApp(QtGui.QMainWindow):
         # =====================================================================
         menu = QtGui.QMenu(self.ui.analysis_button)
         
-        #Create 2 submenus
-        audio_analysis_menu = QtGui.QMenu(menu)
-        audio_analysis_menu.setTitle('Audio Analysis')
-        
-        text_analysis_menu = QtGui.QMenu(menu)
-        text_analysis_menu.setTitle('Text Analysis')
-        
-        #Create Actions
-        action0 = QtGui.QAction(QtGui.QIcon('ui/img/waveform.png'), 'Waveform', self.ui.analysis_button)
-        action1 = QtGui.QAction(QtGui.QIcon('ui/img/spectrum.png'), 'Spectrum', self.ui.analysis_button)
-        action2 = QtGui.QAction(QtGui.QIcon('ui/img/pitch_icon.png'), 'Pitch Contour', self.ui.analysis_button)
-        action3 = QtGui.QAction(QtGui.QIcon('ui/img/spectrogram.png'), 'Spectrogram', self.ui.analysis_button)
-        action4 = QtGui.QAction(QtGui.QIcon('ui/img/label.png'), 'Label File', self.ui.analysis_button)
-        action5 = QtGui.QAction(QtGui.QIcon('ui/img/utt.png'), 'Utterance File', self.ui.analysis_button)
-        
+        if self.lang == 'en':
+            #Create 2 submenus
+            audio_analysis_menu = QtGui.QMenu(menu)
+            audio_analysis_menu.setTitle('Audio Analysis')
+            
+            text_analysis_menu = QtGui.QMenu(menu)
+            text_analysis_menu.setTitle('Text Analysis')
+            
+            #Create Actions
+            action0 = QtGui.QAction(QtGui.QIcon('ui/img/waveform.png'), 'Waveform', self.ui.analysis_button)
+            action1 = QtGui.QAction(QtGui.QIcon('ui/img/spectrum.png'), 'Spectrum', self.ui.analysis_button)
+            action2 = QtGui.QAction(QtGui.QIcon('ui/img/pitch_icon.png'), 'Pitch Contour', self.ui.analysis_button)
+            action3 = QtGui.QAction(QtGui.QIcon('ui/img/spectrogram.png'), 'Spectrogram', self.ui.analysis_button)
+            action4 = QtGui.QAction(QtGui.QIcon('ui/img/label.png'), 'Label File', self.ui.analysis_button)
+            action5 = QtGui.QAction(QtGui.QIcon('ui/img/utt.png'), 'Utterance File', self.ui.analysis_button)
+        else:
+            #Create 2 submenus
+            audio_analysis_menu = QtGui.QMenu(menu)
+            audio_analysis_menu.setTitle('ಆಡಿಯೋ ವಿಶ್ಲೇಷಣೆ')
+            
+            text_analysis_menu = QtGui.QMenu(menu)
+            text_analysis_menu.setTitle('ಪಠ್ಯ ವಿಶ್ಲೇಷಣೆ')
+            
+            #Create Actions
+            action0 = QtGui.QAction(QtGui.QIcon('ui/img/waveform.png'), 'ತರಂಗ ರೂಪ', self.ui.analysis_button)
+            action1 = QtGui.QAction(QtGui.QIcon('ui/img/spectrum.png'), 'ಸ್ಪೆಕ್ಟ್ರಮ್', self.ui.analysis_button)
+            action2 = QtGui.QAction(QtGui.QIcon('ui/img/pitch_icon.png'), 'ಪಿಚ್ ಬಾಹ್ಯರೇಖೆ', self.ui.analysis_button)
+            action3 = QtGui.QAction(QtGui.QIcon('ui/img/spectrogram.png'), 'ಸ್ಪೆಕ್ಟ್ರೋಗ್ರಾಮ್', self.ui.analysis_button)
+            action4 = QtGui.QAction(QtGui.QIcon('ui/img/label.png'), 'ಲೇಬಲ್ ಫೈಲ್', self.ui.analysis_button)
+            action5 = QtGui.QAction(QtGui.QIcon('ui/img/utt.png'), 'ಉಚ್ಚಾರಣೆ ಫೈಲ್', self.ui.analysis_button)
+            
+            
+            
+            
         #Add Actions to Menu
         audio_analysis_menu.addAction(action0)
         audio_analysis_menu.addAction(action1)
@@ -795,7 +817,10 @@ class MyApp(QtGui.QMainWindow):
         # =====================================================================
         # Handler for Analysis MenuItem Click
         # =====================================================================
-        action_list = ('Waveform', 'Spectrum', 'Pitch Contour', 'Spectrogram','Label File','Utterance File')
+        if self.lang == 'en':
+            action_list = ('Waveform', 'Spectrum', 'Pitch Contour', 'Spectrogram','Label File','Utterance File')
+        else:
+            action_list = ('ತರಂಗ ರೂಪ', 'ಸ್ಪೆಕ್ಟ್ರಮ್', 'ಪಿಚ್ ಬಾಹ್ಯರೇಖೆ', 'ಸ್ಪೆಕ್ಟ್ರೋಗ್ರಾಮ್', 'ಲೇಬಲ್ ಫೈಲ್', 'ಉಚ್ಚಾರಣೆ ಫೈಲ್')
         self.plot_display(action_list.index(action.text())) 
 
     def misc_button_config(self):
@@ -804,9 +829,12 @@ class MyApp(QtGui.QMainWindow):
         # =====================================================================
         menu = QtGui.QMenu(self.ui.misc_button)
         
-        action0 = QtGui.QAction(QtGui.QIcon('ui/img/mail.png'), 'Mail this File', self.ui.misc_button)
-        action1 = QtGui.QAction(QtGui.QIcon('ui/img/rating.png'), 'Update Rating', self.ui.misc_button)
-    
+        if self.lang == 'en':
+            action0 = QtGui.QAction(QtGui.QIcon('ui/img/mail.png'), 'Mail this File', self.ui.misc_button)
+            action1 = QtGui.QAction(QtGui.QIcon('ui/img/rating.png'), 'Update Rating', self.ui.misc_button)
+        else:
+            action0 = QtGui.QAction(QtGui.QIcon('ui/img/mail.png'), 'ಈ ಆಡಿಯೊ ಫೈಲ್ ಮೇಲ್ ಮಾಡಿ', self.ui.misc_button)
+            action1 = QtGui.QAction(QtGui.QIcon('ui/img/rating.png'), 'ಅಪ್ಡೇಟ್ ರೇಟಿಂಗ್', self.ui.misc_button)
         
         #Add Menu to Action
         menu.addAction(action0)
@@ -822,7 +850,7 @@ class MyApp(QtGui.QMainWindow):
         # =====================================================================
         
         #Choice = Mail
-        if action.text() == 'Mail this File':
+        if action.text() == 'Mail this File' or action.text() == 'ಈ ಆಡಿಯೊ ಫೈಲ್ ಮೇಲ್ ಮಾಡಿ':
             
             #Ask for Email ID
             if self.lang == 'en':
@@ -859,7 +887,7 @@ class MyApp(QtGui.QMainWindow):
                         self.show_status('ಅಮಾನ್ಯವಾದ ಮೇಲ್ ಐಡಿ',2000)
         
         #Choice = Rating
-        if action.text() == 'Update Rating':
+        if action.text() == 'Update Rating' or action.text() == 'ಅಪ್ಡೇಟ್ ರೇಟಿಂಗ್':
             
             #Ask for Rating
             if self.lang == 'en':
