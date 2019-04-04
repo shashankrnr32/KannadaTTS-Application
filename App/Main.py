@@ -794,9 +794,6 @@ class MyApp(QtGui.QMainWindow):
             action4 = QtGui.QAction(QtGui.QIcon('ui/img/label.png'), 'ಲೇಬಲ್ ಫೈಲ್', self.ui.analysis_button)
             action5 = QtGui.QAction(QtGui.QIcon('ui/img/utt.png'), 'ಉಚ್ಚಾರಣೆ ಫೈಲ್', self.ui.analysis_button)
             
-            
-            
-            
         #Add Actions to Menu
         audio_analysis_menu.addAction(action0)
         audio_analysis_menu.addAction(action1)
@@ -1406,8 +1403,7 @@ def setEnv():
 
 #Main Function        
 if __name__ == "__main__":
-    
-    
+
     #Set Permissions and Env Variables
     setEnv()
     os.system('chmod 755 FestAPI.sh')

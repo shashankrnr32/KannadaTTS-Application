@@ -81,7 +81,7 @@ def send_mail(to_address, entry):
     <b>Kannada Transcript</b> : {1}         <br>
     <b>Processed</b> : {2}
     <p>You are allowed to use the audio for any purpose, with certain conditions of the application specified by FSF's GPL v3.0.</p>
-    <p>Check out the Project <a href="https://github.com/shashankrnr32/KannadaTTS_APP">here</a>  </p>
+    <p>Check out the Project <a href="https://github.com/shashankrnr32/KannadaTTS-Application">here</a>  </p>
     <a href="https://www.linkedin.com/in/shashank-sharma-932701108/">Shashank Sharma</a><br>
     Project Developer<br>
     RIT-Bangalore<br>
@@ -137,7 +137,7 @@ def send_mail(to_address, entry):
         return True
     
     except Exception as e :
-        print(e.with_traceback())
+        print(e)
         # Any Error
         return False
     
