@@ -129,7 +129,7 @@ fi
 
 
 echo Building User Interface
-if [ "$1" = "-kan" ];
+if [ "$1" = "-kan" ] || [ "$2" = "-kan" ];
 then
 	echo Building Kannada Version
 	pyuic4 ui/ApplicationKan.ui -o Application.py
