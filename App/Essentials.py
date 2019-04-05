@@ -158,6 +158,9 @@ class Database:
         self.cursor = self.conn.cursor()
     
     def search_duplicate(self,txt):
+        # =====================================================================
+        # Returns the list of duplicate list
+        # =====================================================================
         return list(self.cursor.execute('SELECT wav_id FROM kan WHERE txt=?',(txt,)))
     
     def get_entry(self,wid):

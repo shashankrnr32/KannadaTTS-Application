@@ -21,8 +21,9 @@
 #Developer : Shashank Sharma
 #Description : Executable File for GUI Application
 # =============================================================================
-VERSION="v2.12"
-APPDIR="/home/$USER/Project/KannadaTTS-Application"
+VERSION="v2.13"
+APPDIR=/home/$USER/Project/KannadaTTS-Application
+LOCKFILE=/home/$USER/Project/KannadaTTS-Application/kss.lock
 clear
 echo ==========================================
 echo Kannada Speech Synthesis $VERSION
@@ -39,6 +40,16 @@ Project Link 	: https://github.com/shashankrnr32/KannadaTTS-Application
 -v 		: Project Version	
 -s 		: Shortcuts"
 echo ==========================================
+
+#Check for only one instance of the application
+if [ -f "$LOCKFILE" ] && kill -0 `cat $LOCKFILE` 2>/dev/null; then
+    echo "Application is running in another Instance. Close it and Try again."
+    exit 1
+fi 
+
+#Create Lock File 
+echo $$ > $LOCKFILE
+
 if [ "$1" = "-help" ];
 then
 	echo -i \: Project Information
@@ -160,16 +171,25 @@ rm -f TraDB.py
 rm -f Plot.py
 cd ..
 
+
 #Kannada Version Trigger
-if [ $EXITCODE -eq 1 ];
+if [ $EXITCODE -eq 10 ];
 then
-./run.sh -kan
+
+	#Remove Lock File
+	rm kss.lock
+
+	./run.sh -kan
 fi
 
 #English Version Trigger
-if [ $EXITCODE -eq 2 ];
+if [ $EXITCODE -eq 20 ];
 then
-./run.sh
+
+	#Remove Lock File
+	rm kss.lock
+
+	./run.sh
 fi
 
 

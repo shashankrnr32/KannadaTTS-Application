@@ -659,9 +659,6 @@ class MyApp(QtGui.QMainWindow):
         
         #Kannada Text
         self.final_txt = ''
-        
-        
-            
 
     def contextMenuEvent(self, event):
         # =====================================================================
@@ -971,12 +968,12 @@ class MyApp(QtGui.QMainWindow):
         if self.lang == 'en':
             self.ui.actionEnglish.setChecked(True)
             self.ui.actionKannada.setCheckable(False)
-            self.ui.actionKannada.triggered.connect(lambda: self.app.exit(1))
+            self.ui.actionKannada.triggered.connect(lambda: self.app.exit(10))
         
         if self.lang == 'kn':
             self.ui.actionKannada.setChecked(True)
             self.ui.actionEnglish.setCheckable(False)
-            self.ui.actionEnglish.triggered.connect(lambda: self.app.exit(2))
+            self.ui.actionEnglish.triggered.connect(lambda: self.app.exit(20))
         
     def show_info_box(self):
         # =====================================================================

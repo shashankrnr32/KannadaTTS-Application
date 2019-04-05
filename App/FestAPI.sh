@@ -23,7 +23,7 @@
 #
 #	Primary Code : Varun S S(varunsridhar614@gmail.com)
 #	Production Code : Shashank Sharma(shashankrnr32@gmail.com)
-#   	Sox Integration : Srinivas N M(srinivasnm471@gmail.com)
+#	Sox Integration : Srinivas N M(srinivasnm471@gmail.com)
 #Description : 
 #
 #	Shell API to call Festvox Project.

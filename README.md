@@ -4,7 +4,7 @@
 
 **Application now available in Kannada Version** (`./run.sh -kan` or Change language within the application)
 
-	v2.12
+	v2.13
 
 ## Kannada Speech Synthesis project (Core)
 Kannada Speech Synthesis is submitted as the final year project which is a part of the curriculum specified by the Department of Electronics and Communication of M S Ramaiah Institute of Technology, Bangalore. All the dependencies and frameworks which are used in the core project are mentioned in the About page of the application. Contact Developer to obtain the source and trained model of the core project.
