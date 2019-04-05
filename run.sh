@@ -191,7 +191,7 @@ then
 
 	./run.sh
 fi
-
+rm kss.lock
 
 
 

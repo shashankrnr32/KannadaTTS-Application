@@ -61,7 +61,7 @@ Once the installation of Ubuntu is complete, the project folder has to be copied
 
 1. Install the compilers and Ubuntu Packages below
 
-		sudo apt-get gcc
+		sudo apt-get install gcc
 		sudo apt-get install gcc-4.8
 		sudo apt-get install libncurses5-dev
 
