@@ -10,6 +10,18 @@
     <height>458</height>
    </rect>
   </property>
+  <property name="minimumSize">
+   <size>
+    <width>603</width>
+    <height>458</height>
+   </size>
+  </property>
+  <property name="maximumSize">
+   <size>
+    <width>603</width>
+    <height>458</height>
+   </size>
+  </property>
   <property name="windowTitle">
    <string>Team</string>
   </property>
@@ -42,7 +54,7 @@
     <enum>QTabWidget::North</enum>
    </property>
    <property name="currentIndex">
-    <number>2</number>
+    <number>1</number>
    </property>
    <widget class="QWidget" name="about">
     <attribute name="title">
@@ -96,7 +108,7 @@ p, li { white-space: pre-wrap; }
       </rect>
      </property>
      <property name="currentIndex">
-      <number>0</number>
+      <number>2</number>
      </property>
      <property name="tabSpacing">
       <number>2</number>
@@ -106,8 +118,8 @@ p, li { white-space: pre-wrap; }
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>587</width>
-        <height>253</height>
+        <width>98</width>
+        <height>28</height>
        </rect>
       </property>
       <attribute name="label">
@@ -194,8 +206,8 @@ p, li { white-space: pre-wrap; }
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>98</width>
-        <height>28</height>
+        <width>587</width>
+        <height>253</height>
        </rect>
       </property>
       <attribute name="label">
@@ -218,9 +230,10 @@ p, li { white-space: pre-wrap; }
 &lt;table border=&quot;0&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;&quot; cellspacing=&quot;2&quot; cellpadding=&quot;0&quot;&gt;
 &lt;tr&gt;
 &lt;td&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;img src=&quot;:/img/img/snm.png&quot; width=&quot;150&quot; height=&quot;150&quot; /&gt;&lt;/p&gt;&lt;/td&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;img src=&quot;:/img/img/tm.png&quot; width=&quot;150&quot; height=&quot;150&quot; /&gt;&lt;/p&gt;&lt;/td&gt;
 &lt;td&gt;
-&lt;p style=&quot; margin-top:20px; margin-bottom:5px; margin-left:10px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Content about Thilak Here&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/body&gt;&lt;/html&gt;</string>
+&lt;p style=&quot; margin-top:20px; margin-bottom:5px; margin-left:10px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;I am currently pursuing BE in Electronics and Communication Engineering at MS Ramaiah Institute of Technology, Bangalore.I am a Data Enthusiast and currently taking baby steps in mastering mobile app marketing ,by analysing chunks of data. &lt;/p&gt;
+&lt;p style=&quot; margin-top:20px; margin-bottom:5px; margin-left:10px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;I am working on documentation and summing up results and conclusions.&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/body&gt;&lt;/html&gt;</string>
        </property>
       </widget>
      </widget>
