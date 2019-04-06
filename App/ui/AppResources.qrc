@@ -1,9 +1,11 @@
 <RCC>
   <qresource prefix="img">
+    <file>img/clear_button.png</file>
     <file>img/search.png</file>
     <file>img/close.png</file>
     <file>img/icon.svg</file>
     <file>img/vss.jpg</file>
+    <file>img/svc.jpg</file>
     <file>img/snm.jpg</file>
     <file>img/sbs.png</file>
     <file>img/spectrogram.png</file>
