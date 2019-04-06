@@ -79,4 +79,4 @@ Once the installation of Ubuntu is complete, the project folder has to be copied
 
 		./run.sh <path-to-test-file>
 
-3. Play the audio from the 
+3. Play the audio from the `cmu_indic_female/test/tts` Folder
