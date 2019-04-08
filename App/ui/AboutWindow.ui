@@ -108,7 +108,7 @@ p, li { white-space: pre-wrap; }
       </rect>
      </property>
      <property name="currentIndex">
-      <number>0</number>
+      <number>1</number>
      </property>
      <property name="tabSpacing">
       <number>2</number>
@@ -169,8 +169,8 @@ p, li { white-space: pre-wrap; }
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>98</width>
-        <height>28</height>
+        <width>587</width>
+        <height>253</height>
        </rect>
       </property>
       <attribute name="label">
@@ -196,7 +196,7 @@ p, li { white-space: pre-wrap; }
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;img src=&quot;:/img/img/snm.jpg&quot; width=&quot;150&quot; height=&quot;150&quot; /&gt;&lt;/p&gt;&lt;/td&gt;
 &lt;td&gt;
 &lt;p style=&quot; margin-top:20px; margin-bottom:5px; margin-left:10px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;I am pursuing B.E in Electronics and Communication Engineering at M S Ramaiah Institue of Technology,Bengaluru. I am interested in core Electronics and enthusiastic to apply programming languages in Electronics field.&lt;/p&gt;
-&lt;p style=&quot; margin-top:20px; margin-bottom:5px; margin-left:10px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;I have integrated SOX package to GUI in back-end which helps in removing electronic noise that occur in synthesis of speech .Also developed About page in the main window but it consumed more memory and was difficult to deploy&lt;/p&gt;
+&lt;p style=&quot; margin-top:20px; margin-bottom:5px; margin-left:10px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;I have integrated SoX(Sound exchange) package to GUI in back-end and worked on project documentation .Also developed About page in the main window but it was difficult to deploy&lt;/p&gt;
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/body&gt;&lt;/html&gt;</string>
        </property>
       </widget>
@@ -206,8 +206,8 @@ p, li { white-space: pre-wrap; }
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>587</width>
-        <height>253</height>
+        <width>98</width>
+        <height>28</height>
        </rect>
       </property>
       <attribute name="label">
