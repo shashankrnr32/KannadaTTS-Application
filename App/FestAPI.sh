@@ -40,9 +40,12 @@ cd $PRODIR
 
 if [ $1 = "-lab" ]
 then
+	mkdir -p prompt-lab
+	mkdir -p prompt-utt
 	./bin/do_build build_prompts etc/temp.txt > $APP/ignore/temp.txt 2>&1
 	mv prompt-lab/kan_$2.lab $APP/ignore/kan_$2.lab
 	mv prompt-utt/kan_$2.utt $APP/ignore/kan_$2.utt
+	rmdir --ignore-fail-on-non-empty -p prompt-lab prompt-utt
 	exit
 
 else
