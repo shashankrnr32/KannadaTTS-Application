@@ -1102,6 +1102,7 @@ p, li { white-space: pre-wrap; }
     <addaction name="actionMentor"/>
     <addaction name="actionLicense"/>
     <addaction name="actionAbout_Project"/>
+    <addaction name="actionReport"/>
    </widget>
    <widget class="QMenu" name="menuView">
     <property name="layoutDirection">
@@ -1280,6 +1281,11 @@ p, li { white-space: pre-wrap; }
    </property>
    <property name="text">
     <string>ಕನ್ನಡ</string>
+   </property>
+  </action>
+  <action name="actionReport">
+   <property name="text">
+    <string>ಈ ಅಪ್ಲಿಕೇಶನ್ ಬಗ್ಗೆ</string>
    </property>
   </action>
  </widget>

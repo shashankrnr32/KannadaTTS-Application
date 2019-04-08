@@ -740,6 +740,7 @@ class MyApp(QtGui.QMainWindow):
         self.ui.actionDevelopers.triggered.connect(lambda: self.about(1))
         self.ui.actionMentor.triggered.connect(lambda: self.about(2))
         self.ui.actionLicense.triggered.connect(lambda: self.about(3))
+        self.ui.actionReport.triggered.connect(lambda: self.about(-1))
         
         #Table Window
         self.ui.actionSynthesized_Text.triggered.connect(lambda: self.show_table(1))
@@ -1350,20 +1351,24 @@ class MyApp(QtGui.QMainWindow):
         # =====================================================================
         # Opens About Window after setting it to correct focus
         # =====================================================================
-        about_page = AboutDialog(parent = self)
-        
-        # Delete Object On Closing
-        about_page.setAttribute(55)
-        
-        #Set Focus to correct Tab
-        about_page.set_focus(index)
-        
-        #Show as Modal Dialog
-        about_page.exec()
-        
-        #Memory Management
-        del about_page
-        gc.collect()
+        if index == -1:
+            self.showMinimized()
+            QtGui.QDesktopServices.openUrl(QtCore.QUrl('res/report_sbs.pdf'))
+        else:
+            about_page = AboutDialog(parent = self)
+            
+            # Delete Object On Closing
+            about_page.setAttribute(55)
+            
+            #Set Focus to correct Tab
+            about_page.set_focus(index)
+            
+            #Show as Modal Dialog
+            about_page.exec()
+            
+            #Memory Management
+            del about_page
+            gc.collect()
         
     def show_table(self, table):
         # =====================================================================

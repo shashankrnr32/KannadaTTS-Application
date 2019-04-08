@@ -21,7 +21,7 @@
 #Developer : Shashank Sharma
 #Description : Executable File for GUI Application
 # =============================================================================
-VERSION="v2.13"
+VERSION="v2.14"
 APPDIR=/home/$USER/Project/KannadaTTS-Application
 LOCKFILE=/home/$USER/Project/KannadaTTS-Application/kss.lock
 clear
@@ -191,8 +191,10 @@ then
 
 	./run.sh
 fi
-rm kss.lock
-
+if [ -f kss.lock ];
+then
+	rm kss.lock
+fi
 
 
 
