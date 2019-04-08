@@ -20,10 +20,9 @@ Kannada Speech Synthesis is submitted as the final year project which is a part 
 	- Training
 	- Pitch Shift using soundtretch
 	- Testing on 
-
-		- Windows Subsystem for Linux (Ubuntu 18.04) [x]
-		- Ubuntu 18.04 on Google Cloud 
-		- CentOS7 Linux Distribution ( 
+		- Ubuntu 18.04 on Windows Subsystem for Linux(WSL)  [Operational as Expected]
+		- Ubuntu 18.04 on Google Cloud [Operational as Expected]
+		- CentOS7 Linux Distribution [Not Operational due to Missing Libraries]
 	
 	Application
 	- Complete User Interface (Main, About, Table and Analysis Window)
