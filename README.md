@@ -22,7 +22,7 @@ Kannada Speech Synthesis is submitted as the final year project which is a part 
 	- Testing on 
 		- Ubuntu 18.04 on Windows Subsystem for Linux(WSL)  [Operational as Expected]
 		- Ubuntu 18.04 on Google Cloud [Operational as Expected]
-		- CentOS7 Linux Distribution [Not Operational due to Missing Libraries]
+		- CentOS7 on Google Cloud [Not Operational due to Missing Libraries]
 	
 	Application
 	- Complete User Interface (Main, About, Table and Analysis Window)
