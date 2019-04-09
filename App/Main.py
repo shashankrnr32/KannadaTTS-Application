@@ -244,6 +244,7 @@ class SynTableView(QtGui.QDialog):
         # =====================================================================
         row = item.row()
         wav_id = self.ui.tableWidget.item(row,1).text()
+        self.parent.misc_button_config()
         self.parent.update_media_player(wav_id)
         self.done(0)
 
@@ -1260,6 +1261,19 @@ class MyApp(QtGui.QMainWindow):
                 else:
                     self.audio.setCurrentSource(Phonon.MediaSource('/{}/NoDSP/kan_{}.wav'.format(os.environ['WAVDIR'],self.entry[1])))
             
+                testset_entry = self.syn_db.search_testset(self.entry[2])
+                if len(testset_entry) != 0:
+                    misc_menu = self.ui.misc_button.menu()
+                    if self.lang == 'en':
+                        test_set_play_action = QtGui.QAction('Play Test Set Audio', misc_menu)
+                    else:
+                        test_set_play_action = QtGui.QAction('ಪರೀಕ್ಷೆ ಆಡಿಯೋ ಪ್ಲೇ ಮಾಡಿ', misc_menu)
+                    misc_menu.addAction(test_set_play_action)
+                    
+                    test_set_play_action.triggered.connect(lambda: self.play_testset_audio(testset_entry[0]))
+                else:
+                    self.misc_button_config()
+                
                 #Set Text in Text Browser
                 self.ui.text_view.setPlainText(self.entry[2])
                 self.update_table_details()
@@ -1267,6 +1281,18 @@ class MyApp(QtGui.QMainWindow):
         except :#Exception as e:
             pass
     
+    def play_testset_audio(self, testset_entry):
+        current_audio = self.audio.currentSource()
+        self.audio.setCurrentSource(Phonon.MediaSource('/{}/TestSet/{}.wav'.format(os.environ['WAVDIR'],testset_entry[1])))
+        self.ui.stop_button.setEnabled(False)
+        self.ui_update()
+        self.audio.play()
+        self.audio.finished.connect(lambda: (
+                self.audio.setCurrentSource(current_audio),
+                self.ui.stop_button.setEnabled(True),
+                self.ui_update()
+                ))
+      
     def table_details_config(self):
         # =====================================================================
         # Configure UI of Detail Table
