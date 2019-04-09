@@ -225,7 +225,15 @@ class Database:
         
         #Commit Changes
         self.conn.commit()
-
+    
+    def search_testset(self, kan_txt):
+        # =====================================================================
+        # Searches Testset for same text
+        # =====================================================================
+        testset_entry = list(self.cursor.execute('SELECT * FROM testset WHERE kan_txt=?',(kan_txt,)))
+        return testset_entry
+        
+        
 class TranslateDatabase:
     def __init__(self,database = 'res/DB'):
         
