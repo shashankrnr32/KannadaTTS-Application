@@ -22,7 +22,6 @@
 #Description : Executable File for GUI Application
 # =============================================================================
 VERSION="v2.2"
-APPDIR=/home/$USER/Project/KannadaTTS-Application
 LOCKFILE=/home/$USER/Project/KannadaTTS-Application/kss.lock
 clear
 echo ==========================================
@@ -97,7 +96,7 @@ then
 	echo "$VERSION"
 fi
 
-cd $APPDIR/App/
+cd App/
 echo Installing Required Packages
 
 # Soundstretch for Pitch Shift
