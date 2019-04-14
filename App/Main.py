@@ -244,7 +244,6 @@ class SynTableView(QtGui.QDialog):
         # =====================================================================
         row = item.row()
         wav_id = self.ui.tableWidget.item(row,1).text()
-        self.parent.misc_button_config()
         self.parent.update_media_player(wav_id)
         self.done(0)
 
@@ -1228,7 +1227,7 @@ class MyApp(QtGui.QMainWindow):
         # =====================================================================
         # Updates Media Player Text, Audio
         # =====================================================================
-        
+        self.misc_button_config()
         try:
             if wav_id == 0:
                 #Last Entry : Default and Refresh Button
