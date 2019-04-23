@@ -22,7 +22,7 @@
 #Developer : 
 #
 #	Primary Code : Varun S S(varunsridhar614@gmail.com)
-#	Production Code : Shashank Sharma(shashankrnr32@gmail.com)
+#	Production Code , Resampling Analysis : Shashank Sharma(shashankrnr32@gmail.com)
 #	Sox Integration : Srinivas N M(srinivasnm471@gmail.com)
 #Description : 
 #
@@ -63,7 +63,7 @@ else
 	a="1"
 	if [ "$b" -eq "$a" ]
 	then
-		soundstretch $WAVDIR/NoDSP/kan_$2.wav $WAVDIR/DSP/kan_$2.wav -pitch=+2.5 -tempo=-5 > $APP/ignore/temp.txt 2>&1
+		soundstretch $WAVDIR/NoDSP/kan_$2.wav $WAVDIR/DSP/kan_$2.wav -pitch=+2.25 -tempo=-5 > $APP/ignore/temp.txt 2>&1
 		
 		#==============================================================================
 		#Noise Removal using SOX
@@ -72,7 +72,8 @@ else
 		sox $WAVDIR/DSP/noise-audio.wav -n noiseprof $WAVDIR/DSP/noise.prof > $APP/ignore/temp.txt 2>&1
 		mv $WAVDIR/DSP/kan_$2.wav $WAVDIR/DSP/kan_$2_temp.wav 
 		sox $WAVDIR/DSP/kan_$2_temp.wav $WAVDIR/DSP/kan_$2.wav noisered $WAVDIR/DSP/noise.prof 0.21 > $APP/ignore/temp.txt 2>&1
-		#sox -v 1.5 $WAVDIR/NoDSP/kan_$2.wav $WAVDIR/NoDSP/kan_$2.wav
+
+		#Resampling if decided to add		
 
 		rm $WAVDIR/DSP/kan_$2_temp.wav
 		rm $WAVDIR/DSP/noise-audio.wav
