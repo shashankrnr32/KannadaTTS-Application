@@ -35,7 +35,7 @@
 # =============================================================================
 
 #INBUILT
-import sys,time,os,shutil
+import sys,time,os,shutil,subprocess
 from PyQt4 import QtCore, QtGui
 from PyQt4.phonon import Phonon
 import gc
@@ -49,7 +49,6 @@ import re
 from matplotlib.backends.backend_qt4agg import FigureCanvasQTAgg as FigureCanvas
 from matplotlib.backends.backend_qt4agg import NavigationToolbar2QT as NavigationToolbar
 from matplotlib.figure import Figure
-
 #UI
 
 from Plot import Ui_PlotDialog
@@ -421,6 +420,9 @@ class PlotView(QtGui.QDialog):
         #Delete Items in Tab3
         for i in reversed(range(self.ui.plot3.count())): 
             self.ui.plot3.itemAt(i).widget().setParent(None)
+            
+        for i in reversed(range(self.ui.plot4.count())): 
+            self.ui.plot4.itemAt(i).widget().setParent(None)
         
         #Memory Management
         gc.collect()
@@ -434,8 +436,10 @@ class PlotView(QtGui.QDialog):
         if index == 3:
             self.plot_specgram()
         if index == 4:
-            self.plot_label()
+            self.plot_mfcc()
         if index == 5:
+            self.plot_label()
+        if index == 6:
             self.plot_label()
     
     def set_focus(self,index):
@@ -585,7 +589,53 @@ class PlotView(QtGui.QDialog):
         #Memory Management
         del canvas, ax, figure, toolbar, f, t, spectrogram
         gc.collect()
-     
+    
+    def plot_mfcc(self):
+        try:
+            mfcc = self.mfcc
+        except AttributeError :
+            command = '{0}/bin/sig2fv {1} -S {2} -shift {3} -coefs "melcep" -otype ascii -window_type {4} -melcep_order {5}'.format(
+                    os.environ['ESTDIR'], '{}/DSP/kan_{}.wav'.format(os.environ['WAVDIR'],self.entry[1]), 0.01, 0.02, 'hamming', 13)
+            std_out = subprocess.Popen(command, stdout = subprocess.PIPE, shell = True, stderr = subprocess.PIPE)
+            
+            output , error = std_out.communicate()
+            error = error.decode()
+            if 'Cannot open file' in error:
+                raise IOError('Wave File Not Found ({})'.format('{}/DSP/kan_{}.wav'.format(os.environ['WAVDIR'],self.entry[1])))
+            
+            output = output.decode().split('\n')[1:-1]
+            mfcc = list()
+            for frame in output:
+                mfcc.append([float(coeff) for coeff in frame.split()])   
+            
+            mfcc = np.asarray(mfcc)
+            mfcc = np.swapaxes(mfcc, 0 ,1)
+            self.mfcc = mfcc
+        
+        finally:
+            figure = Figure()
+            canvas = FigureCanvas(figure)
+            toolbar = NavigationToolbar(canvas, self.ui.tabWidget)
+            self.ui.plot4.addWidget(canvas)
+            self.ui.plot4.addWidget(toolbar)
+            
+            ax = figure.add_subplot(111)
+            ax.clear()
+            
+            ax.imshow(self.mfcc, interpolation='nearest', 
+                cmap='magma', origin='lower', aspect = 'auto')
+    
+            ax.set_title('MFCC Colormap {}'.format(self.entry[1]), fontfamily = 'Manjari')
+            ax.set_ylabel('Frames', fontfamily = 'Manjari')
+            ax.set_xlabel('Index', fontfamily = 'Manjari')
+    
+            #Show Canvas
+            canvas.draw()
+            
+            #Memory Management
+            del canvas, ax, figure, toolbar, mfcc
+            gc.collect()
+    
     def plot_label(self):
         # =====================================================================
         # Generate label and utterance
@@ -813,8 +863,9 @@ class MyApp(QtGui.QMainWindow):
             action1 = QtGui.QAction(QtGui.QIcon('ui/img/spectrum.png'), 'Spectrum', self.ui.analysis_button)
             action2 = QtGui.QAction(QtGui.QIcon('ui/img/pitch_icon.png'), 'Pitch Contour', self.ui.analysis_button)
             action3 = QtGui.QAction(QtGui.QIcon('ui/img/spectrogram.png'), 'Spectrogram', self.ui.analysis_button)
-            action4 = QtGui.QAction(QtGui.QIcon('ui/img/label.png'), 'Label File', self.ui.analysis_button)
-            action5 = QtGui.QAction(QtGui.QIcon('ui/img/utt.png'), 'Utterance File', self.ui.analysis_button)
+            action4 = QtGui.QAction('MFCC Colormap', self.ui.analysis_button)
+            action5 = QtGui.QAction(QtGui.QIcon('ui/img/label.png'), 'Label File', self.ui.analysis_button)
+            action6 = QtGui.QAction(QtGui.QIcon('ui/img/utt.png'), 'Utterance File', self.ui.analysis_button)
         else:
             #Create 2 submenus
             audio_analysis_menu = QtGui.QMenu(menu)
@@ -828,16 +879,18 @@ class MyApp(QtGui.QMainWindow):
             action1 = QtGui.QAction(QtGui.QIcon('ui/img/spectrum.png'), 'ಸ್ಪೆಕ್ಟ್ರಮ್', self.ui.analysis_button)
             action2 = QtGui.QAction(QtGui.QIcon('ui/img/pitch_icon.png'), 'ಪಿಚ್ ಬಾಹ್ಯರೇಖೆ', self.ui.analysis_button)
             action3 = QtGui.QAction(QtGui.QIcon('ui/img/spectrogram.png'), 'ಸ್ಪೆಕ್ಟ್ರೋಗ್ರಾಮ್', self.ui.analysis_button)
-            action4 = QtGui.QAction(QtGui.QIcon('ui/img/label.png'), 'ಲೇಬಲ್ ಫೈಲ್', self.ui.analysis_button)
-            action5 = QtGui.QAction(QtGui.QIcon('ui/img/utt.png'), 'ಉಚ್ಚಾರಣೆ ಫೈಲ್', self.ui.analysis_button)
+            action4 = QtGui.QAction('MFCC Colormap', self.ui.analysis_button)
+            action5 = QtGui.QAction(QtGui.QIcon('ui/img/label.png'), 'ಲೇಬಲ್ ಫೈಲ್', self.ui.analysis_button)
+            action6 = QtGui.QAction(QtGui.QIcon('ui/img/utt.png'), 'ಉಚ್ಚಾರಣೆ ಫೈಲ್', self.ui.analysis_button)
             
         #Add Actions to Menu
         audio_analysis_menu.addAction(action0)
         audio_analysis_menu.addAction(action1)
         audio_analysis_menu.addAction(action2)
         audio_analysis_menu.addAction(action3)
-        text_analysis_menu.addAction(action4)
+        audio_analysis_menu.addAction(action4)
         text_analysis_menu.addAction(action5)
+        text_analysis_menu.addAction(action6)
         
         menu.addMenu(audio_analysis_menu)
         menu.addMenu(text_analysis_menu)
@@ -852,9 +905,9 @@ class MyApp(QtGui.QMainWindow):
         # Handler for Analysis MenuItem Click
         # =====================================================================
         if self.lang == 'en':
-            action_list = ('Waveform', 'Spectrum', 'Pitch Contour', 'Spectrogram','Label File','Utterance File')
+            action_list = ('Waveform', 'Spectrum', 'Pitch Contour', 'Spectrogram','MFCC Colormap','Label File','Utterance File')
         else:
-            action_list = ('ತರಂಗ ರೂಪ', 'ಸ್ಪೆಕ್ಟ್ರಮ್', 'ಪಿಚ್ ಬಾಹ್ಯರೇಖೆ', 'ಸ್ಪೆಕ್ಟ್ರೋಗ್ರಾಮ್', 'ಲೇಬಲ್ ಫೈಲ್', 'ಉಚ್ಚಾರಣೆ ಫೈಲ್')
+            action_list = ('ತರಂಗ ರೂಪ', 'ಸ್ಪೆಕ್ಟ್ರಮ್', 'ಪಿಚ್ ಬಾಹ್ಯರೇಖೆ', 'ಸ್ಪೆಕ್ಟ್ರೋಗ್ರಾಮ್', 'MFCC Colormap','ಲೇಬಲ್ ಫೈಲ್', 'ಉಚ್ಚಾರಣೆ ಫೈಲ್')
         self.plot_display(action_list.index(action.text())) 
 
     def misc_button_config(self):
