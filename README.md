@@ -112,3 +112,8 @@ Request Developer for the trained model of synthesizing Kannada Text. Setup Back
 
 ## License
 GNU GPL v3.0
+
+## WaveCLI 
+
+A collection of Wave Plot, Process and Manipulating utilities available in command line interface scripts and is developed by Shashank Sharma for this project. Have a look at the project [here](https://github.com/shashankrnr32/WaveCLI). The same project in modular version is used for analysis window in Kannada TTS Application.
+
