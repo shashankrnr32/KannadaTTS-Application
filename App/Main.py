@@ -626,8 +626,8 @@ class PlotView(QtGui.QDialog):
                 cmap='magma', origin='lower', aspect = 'auto')
     
             ax.set_title('MFCC Colormap {}'.format(self.entry[1]), fontfamily = 'Manjari')
-            ax.set_ylabel('Frames', fontfamily = 'Manjari')
-            ax.set_xlabel('Index', fontfamily = 'Manjari')
+            ax.set_xlabel('Frames', fontfamily = 'Manjari')
+            ax.set_ylabel('Index', fontfamily = 'Manjari')
     
             #Show Canvas
             canvas.draw()
