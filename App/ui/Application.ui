@@ -1031,6 +1031,19 @@ p, li { white-space: pre-wrap; }
       <set>AlignHCenter|AlignVCenter|AlignCenter</set>
      </property>
     </row>
+    <row>
+     <property name="text">
+      <string>Total Samples</string>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>10</pointsize>
+      </font>
+     </property>
+     <property name="textAlignment">
+      <set>AlignHCenter|AlignVCenter|AlignCenter</set>
+     </property>
+    </row>
     <column>
      <property name="text">
       <string>Details</string>

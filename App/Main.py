@@ -1351,7 +1351,7 @@ class MyApp(QtGui.QMainWindow):
         # =====================================================================
         
         #41 : Found out from Trial and Error
-        height = 41
+        height = 36
        
         #Set Equal Heights for all the rows
         for i in range(self.ui.details_table.rowCount()):
@@ -1392,6 +1392,7 @@ class MyApp(QtGui.QMainWindow):
         self.ui.details_table.setItem(3,0,QtGui.QTableWidgetItem(str(bool(self.entry[3]))))
         self.ui.details_table.setItem(4,0,QtGui.QTableWidgetItem(str(self.entry[5])))
         self.ui.details_table.setItem(5,0,QtGui.QTableWidgetItem(str(self.entry[4]) + ' s'))
+        self.ui.details_table.setItem(7,0,QtGui.QTableWidgetItem(str(int(float(self.entry[4])*16000))))
         
     def update_rating(self,val):
         # =====================================================================

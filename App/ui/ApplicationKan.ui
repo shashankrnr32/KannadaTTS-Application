@@ -1023,7 +1023,20 @@ p, li { white-space: pre-wrap; }
     </row>
     <row>
      <property name="text">
-      <string>Sampling Rate</string>
+      <string>ಸ್ಯಾಂಪಲಿಂಗ್ ಫ್ರಿಕ್ವೆನ್ಸಿ</string>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>10</pointsize>
+      </font>
+     </property>
+     <property name="textAlignment">
+      <set>AlignHCenter|AlignVCenter|AlignCenter</set>
+     </property>
+    </row>
+    <row>
+     <property name="text">
+      <string>ಒಟ್ಟು ಸ್ಯಾಂಪಲ್ಗಳು</string>
      </property>
      <property name="font">
       <font>
