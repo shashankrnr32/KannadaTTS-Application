@@ -2,8 +2,6 @@
 
 ## Kannada Speech Synthesis Application (GUI)
 
-**Application now available in Kannada Version** (`./run.sh -kan` or Change language within the application)
-
 	v2.3
 
 ## Kannada Speech Synthesis project (Core)
