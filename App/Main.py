@@ -860,9 +860,6 @@ class MyApp(QtGui.QMainWindow):
         #Analysis Button Configuration
         self.analysis_button_config()
         
-        #Misc Button Configuration
-        self.misc_button_config()
-        
         #Previous and Next Button
         self.ui.previous_button.clicked.connect(lambda : self.update_media_player(-1))
         self.ui.next_button.clicked.connect(lambda : self.update_media_player(+1))
@@ -943,13 +940,16 @@ class MyApp(QtGui.QMainWindow):
         if self.lang == 'en':
             action0 = QtGui.QAction(QtGui.QIcon('ui/img/mail.png'), 'Mail this File', self.ui.misc_button)
             action1 = QtGui.QAction(QtGui.QIcon('ui/img/rating.png'), 'Update Rating', self.ui.misc_button)
+            action2 = QtGui.QAction(QtGui.QIcon('ui/img/unprocessed.png'), 'Play Unprocessed Audio', self.ui.misc_button)
         else:
             action0 = QtGui.QAction(QtGui.QIcon('ui/img/mail.png'), 'ಈ ಆಡಿಯೊ ಫೈಲ್ ಮೇಲ್ ಮಾಡಿ', self.ui.misc_button)
             action1 = QtGui.QAction(QtGui.QIcon('ui/img/rating.png'), 'ಅಪ್ಡೇಟ್ ರೇಟಿಂಗ್', self.ui.misc_button)
-        
+            action2 = QtGui.QAction(QtGui.QIcon('ui/img/unprocessed.png'), 'ಸಂಸ್ಕರಿಸದ ಆಡಿಯೋ ಪ್ಲೇ ಮಾಡಿ', self.ui.misc_button)
+
         #Add Menu to Action
         menu.addAction(action0)
         menu.addAction(action1)
+        menu.addAction(action2)
         
         #Get the Action that is clicked
         menu.triggered.connect(self.misc_menu_click)
@@ -1010,6 +1010,10 @@ class MyApp(QtGui.QMainWindow):
             #If OK is pressed
             if ok:
                 self.update_rating(rating)
+    
+        if action.text() == 'Play Unprocessed Audio' or action.text() == 'ಸಂಸ್ಕರಿಸದ ಆಡಿಯೋ ಪ್ಲೇ ಮಾಡಿ':
+            self.play_unprocessed_audio()
+            
     
     def right_menu_bar_config(self):
         # =====================================================================
@@ -1335,12 +1339,13 @@ class MyApp(QtGui.QMainWindow):
                     self.audio.setCurrentSource(Phonon.MediaSource('/{}/NoDSP/kan_{}.wav'.format(os.environ['WAVDIR'],self.entry[1])))
             
                 testset_entry = self.syn_db.search_testset(self.entry[2])
+                
                 if len(testset_entry) != 0:
                     misc_menu = self.ui.misc_button.menu()
                     if self.lang == 'en':
-                        test_set_play_action = QtGui.QAction('Play Test Set Audio', misc_menu)
+                        test_set_play_action = QtGui.QAction(QtGui.QIcon('ui/img/testset.png'),'Play Test Set Audio', misc_menu)
                     else:
-                        test_set_play_action = QtGui.QAction('ಪರೀಕ್ಷೆ ಆಡಿಯೋ ಪ್ಲೇ ಮಾಡಿ', misc_menu)
+                        test_set_play_action = QtGui.QAction(QtGui.QIcon('ui/img/testset.png'),'ಪರೀಕ್ಷೆ ಆಡಿಯೋ ಪ್ಲೇ ಮಾಡಿ', misc_menu)
                     misc_menu.addAction(test_set_play_action)
                     
                     test_set_play_action.triggered.connect(lambda: self.play_testset_audio(testset_entry[0]))
@@ -1351,8 +1356,8 @@ class MyApp(QtGui.QMainWindow):
                 self.ui.text_view.setPlainText(self.entry[2])
                 self.update_table_details()
                  
-        except :#Exception as e:
-            pass
+        except Exception as e:
+            print(e)
     
     def play_testset_audio(self, testset_entry):
         current_audio = self.audio.currentSource()
@@ -1365,7 +1370,20 @@ class MyApp(QtGui.QMainWindow):
                 self.ui.stop_button.setEnabled(True),
                 self.ui_update()
                 ))
+    
+    def play_unprocessed_audio(self):
+        current_audio = self.audio.currentSource()
+        self.audio.setCurrentSource(Phonon.MediaSource('/{}/NoDSP/kan_{}.wav'.format(os.environ['WAVDIR'],self.entry[1])))
+        self.ui.stop_button.setEnabled(False)
+        self.ui_update()
+        self.audio.play()
+        self.audio.finished.connect(lambda: (
+                self.audio.setCurrentSource(current_audio),
+                self.ui.stop_button.setEnabled(True),
+                self.ui_update()
+                ))
       
+    
     def table_details_config(self):
         # =====================================================================
         # Configure UI of Detail Table
