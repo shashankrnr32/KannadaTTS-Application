@@ -18,18 +18,9 @@
 # =============================================================================
 
 # =============================================================================
-#Developers : 
+#Developer : 
 #       Shashank Sharma(shashankrnr32@gmail.com)
-#           - User Interface (Main, About, Plot, Table)
-#           - Kannada to English Translate
-#           - SQLite Database Implementation
-#           - Media Player Integration
-#           - Themes
-#           - Detail Table
 #       
-#       Varun S S(varunsridhar614@gmail.com)
-#           - FestAPI.sh
-#
 #Description : 
 #       Main Application Executable
 # =============================================================================
@@ -709,6 +700,39 @@ class MyApp(QtGui.QMainWindow):
         
         #Kannada Text
         self.final_txt = ''
+        
+        self.shortcut_config()
+        
+        
+
+    def shortcut_config(self):
+        #Shortcut to start a terminal in Base Project Directory
+        terminal_sc0 = QtGui.QShortcut(self)
+        terminal_sc0.setKey(QtGui.QKeySequence('Alt+T'))
+        terminal_sc0.setContext(QtCore.Qt.ApplicationShortcut)
+        terminal_sc0.activated.connect(lambda: self.start_terminal(os.environ['PRODIR']+'/../..'))
+        
+        
+        #Shortcut to start a terminal in Voice Directory
+        terminal_sc1 = QtGui.QShortcut(self)
+        terminal_sc1.setKey(QtGui.QKeySequence('Alt+P'))
+        terminal_sc1.setContext(QtCore.Qt.ApplicationShortcut)
+        terminal_sc1.activated.connect(lambda: self.start_terminal(os.environ['PRODIR']))
+        
+        #Start Terminal in GUI Directory
+        terminal_sc2 = QtGui.QShortcut(self)
+        terminal_sc2.setKey(QtGui.QKeySequence('Alt+G'))
+        terminal_sc2.setContext(QtCore.Qt.ApplicationShortcut)
+        terminal_sc2.activated.connect(lambda: self.start_terminal(os.environ['APP']+'/..'))
+        
+    def start_terminal(self, directory):
+        #Create a new process
+        terminal = QtCore.QProcess(parent = self)
+
+        terminal.setWorkingDirectory(directory)
+        
+        #Start Process
+        terminal.start('gnome-terminal')
 
     def contextMenuEvent(self, event):
         # =====================================================================
@@ -1121,11 +1145,8 @@ class MyApp(QtGui.QMainWindow):
                 
                 #DSP option Checked/Unchecked
                 dsp = self.ui.dsp.isChecked()
-                if dsp:
-                    os.system('./FestAPI.sh 1 {}'.format(wavenum))
-                else:
-                    os.system('./FestAPI.sh 0 {}'.format(wavenum))
-                
+                os.system('./FestAPI.sh {} {}'.format(int(dsp), wavenum))
+
                 #All Done...
                 self.show_status('Done... ({}s)'.format('%.3f'%(time.time()-start_time)),2500)                          
                 

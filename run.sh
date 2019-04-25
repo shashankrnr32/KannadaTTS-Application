@@ -21,7 +21,7 @@
 #Developer : Shashank Sharma
 #Description : Executable File for GUI Application
 # =============================================================================
-VERSION="v2.31"
+VERSION="v2.4"
 LOCKFILE=/home/$USER/Project/KannadaTTS-Application/kss.lock
 clear
 echo ==========================================
@@ -87,7 +87,11 @@ Alt + Right			Next
 Ctrl + Enter			Synthesize
 Alt + Enter			Translate
 			
-Ctrl + Del			Delete All Text"
+Ctrl + Del			Delete All Text
+
+Alt + T				Open New Terminal in Base Directory
+Alt + P				Open New Terminal in Project Directory
+Alt + G				Open New Terminal in GUI Directory"
 	echo ===========================================	
 fi
 

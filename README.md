@@ -42,7 +42,7 @@ Kannada Speech Synthesis is submitted as the final year project which is a part 
 	
 	Core Project 
 	- Testing
-	- Testing on Fedora [Not Operational due to Missing Libraries]
+	
 
 	Application
 	- Synthesis Handler
@@ -56,6 +56,7 @@ Kannada Speech Synthesis is submitted as the final year project which is a part 
 
 	Core Project 
 	- Noise Removal using SOX
+	- Testing on Fedora [Not Operational due to Missing Libraries]
 	
 	Application
 	- SOX integration
@@ -70,10 +71,10 @@ Kannada Speech Synthesis is submitted as the final year project which is a part 
 3. Pitch Shifting using soundstretch
 
 ### Recent Updates on GUI Application (Added by SBS)
-1. Added MFCC colormap plot
-2. **The application is now available in Kannada Version** (`./run.sh -kan` or Change language within the application)
-3. The audio if in testset can now be played in the misc. menu. 
-4. Search option is available in Database view with autocomplete feature(Synthesis and Translation)
+1. Open Terminal from the Application (Alt + T/P/G )
+2. Added MFCC colormap plot
+3. **The application is now available in Kannada Version** (`./run.sh -kan` or Change language within the application)
+4. The audio if in testset can now be played in the misc. menu. 
 
 ## Features of GUI Application
 1. SQLite Based Database 
