@@ -1059,26 +1059,14 @@ class MyApp(QtGui.QMainWindow):
         
     def show_info_box(self):
         # =====================================================================
-        # Runs when close button is clicked
+        # Runs when info button is clicked
         # =====================================================================
         
-        # Message Box
-        info_msg_box = QtGui.QMessageBox()
         if self.lang == 'en':
-            #English Version
-            info_msg_box.setWindowTitle('Developer Info')
-            info_msg_box.setText("This Application is designed and developed by Shashank Sharma")
+            info_msg_box = QtGui.QMessageBox.about(self, 'Developer','This application is designed and developed by Shashank Sharma')
         else:
-            #Kannada Version
-            info_msg_box.setWindowTitle('ಡೆವಲಪರ್ ಮಾಹಿತಿ')
-            info_msg_box.setText("ಈ ಅಪ್ಲಿಕೇಶನ್ ಅನ್ನು ಶಶಾಂಕ್ ಶರ್ಮಾ ಅಭಿವೃದ್ಧಿಪಡಿಸಿದ್ದಾರೆ")
-        info_msg_box.setStandardButtons(QtGui.QMessageBox.Ok)
-        info_msg_box.setDefaultButton(QtGui.QMessageBox.Ok)
-        info_msg_box.setIcon(QtGui.QMessageBox.Information)
-        
-        #Returns Button Clicked
-        info_msg_box.exec_()
-    
+            info_msg_box = QtGui.QMessageBox.about(self, 'ಡೆವಲಪರ್ ಮಾಹಿತಿ','ಈ ಅಪ್ಲಿಕೇಶನ್ ಅನ್ನು ಶಶಾಂಕ್ ಶರ್ಮಾ ಅಭಿವೃದ್ಧಿಪಡಿಸಿದ್ದಾರೆ')
+
     def audio_config(self):
         #Defines a Audio Output Device
         self.audio_output = Phonon.AudioOutput(Phonon.MusicCategory,self)
@@ -1360,6 +1348,9 @@ class MyApp(QtGui.QMainWindow):
             print(e)
     
     def play_testset_audio(self, testset_entry):
+        # =====================================================================
+        # When Play Testset Audio Action is clicked
+        # =====================================================================
         current_audio = self.audio.currentSource()
         self.audio.setCurrentSource(Phonon.MediaSource('/{}/TestSet/{}.wav'.format(os.environ['WAVDIR'],testset_entry[1])))
         self.ui.stop_button.setEnabled(False)
@@ -1372,6 +1363,9 @@ class MyApp(QtGui.QMainWindow):
                 ))
     
     def play_unprocessed_audio(self):
+        # =====================================================================
+        # Play Unprocessed audio action is clicked
+        # =====================================================================
         current_audio = self.audio.currentSource()
         self.audio.setCurrentSource(Phonon.MediaSource('/{}/NoDSP/kan_{}.wav'.format(os.environ['WAVDIR'],self.entry[1])))
         self.ui.stop_button.setEnabled(False)
@@ -1382,7 +1376,6 @@ class MyApp(QtGui.QMainWindow):
                 self.ui.stop_button.setEnabled(True),
                 self.ui_update()
                 ))
-      
     
     def table_details_config(self):
         # =====================================================================
