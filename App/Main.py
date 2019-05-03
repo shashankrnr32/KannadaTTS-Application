@@ -1140,7 +1140,7 @@ class MyApp(QtGui.QMainWindow):
                 os.system('./FestAPI.sh {} {}'.format(int(dsp), wavenum))
 
                 #All Done...
-                self.show_status('Done... ({}s)'.format('%.3f'%(time.time()-start_time)),2500)                          
+                self.show_status('Done... ({}s)'.format('%.3f'%(time.time()-start_time)),0)                          
                 
                 #Store all Synthesized Files Database
                 if reverse:
