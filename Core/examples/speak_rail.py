@@ -6,8 +6,18 @@
 # Developer : Shashank Sharma
 # =============================================================================
 
-
 import util
+import sys
+print('========================================================')
+print('Railway Announcement Demo')
+print('Developed by Shashank Sharma')
+print('========================================================')
+print('''Copyright (C) 2019  Shashank Sharma
+This program comes with ABSOLUTELY NO WARRANTY.
+This is free software, and you are welcome 
+to redistribute it under certain conditions.''')
+print('========================================================')
+
 
 chutuku = ['ಪ್ರಯಾಣಿಕರೆ ದಯವಿಟ್ಟು ಗಮನಿಸಿ ','ಗಾಡಿ ಸಂಖ್ಯೆ ',
            util.number2kn(4),
@@ -41,7 +51,7 @@ os.system('./festivalrun.sh')
 for num in wavenum:
     os.system('soundstretch $WAVDIR/kan_{0}.wav $WAVDIR/kan_{0}_dsp.wav -pitch=+2.5 > logfile 2>&1'.format(num))
     
-song = AudioSegment.from_wav('rail.wav')
+song = AudioSegment.from_wav('sound/rail.wav')
 play(song)
 for num in wavenum:
     

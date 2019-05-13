@@ -10,6 +10,16 @@ import os, datetime
 
 import util
 
+print('========================================================')
+print('Speak Time Demo')
+print('Developed by Shashank Sharma')
+print('========================================================')
+print('''Copyright (C) 2019  Shashank Sharma
+This program comes with ABSOLUTELY NO WARRANTY.
+This is free software, and you are welcome 
+to redistribute it under certain conditions.''')
+print('========================================================')
+
 # Set Working directory to this file's directory
 os.chdir(os.path.dirname(os.path.realpath(__file__)))
 
