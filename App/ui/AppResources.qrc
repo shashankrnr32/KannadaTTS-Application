@@ -1,6 +1,7 @@
 <RCC>
   <qresource prefix="img">
     <file>img/tm.png</file>
+    <file>img/raw_audio.png</file>
     <file>img/clear_button.png</file>
     <file>img/close.png</file>
     <file>img/icon.svg</file>

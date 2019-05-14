@@ -843,7 +843,9 @@ class MyApp(QtGui.QMainWindow):
         
         #Play Button Action
         self.ui.play_button.clicked.connect(self.play)
-        
+        self.ui.play_unproc.clicked.connect(self.play_unprocessed_audio)
+
+
         #Stop Button Action
         self.ui.stop_button.clicked.connect(self.stop)
         

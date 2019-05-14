@@ -108,17 +108,20 @@ def send_mail(to_address, entry):
         mail.attach(msg_text)
         
         #Check for DSP
-        if bool(entry[3]):
-            wav_file = os.environ['WAVDIR'] + '/DSP/kan_' + entry[1] + '.wav'
-        else:
-            wav_file = os.environ['WAVDIR'] +'/NoDSP/kan_'+entry[1]+'.wav'
+        wav_file_proc = os.environ['WAVDIR'] + '/DSP/kan_' + entry[1] + '.wav'
+        wav_file_unproc = os.environ['WAVDIR'] +'/NoDSP/kan_'+entry[1]+'.wav'
         
         #Read Audio to attach
-        with open(wav_file,'rb') as audio_file:
+        with open(wav_file_proc,'rb') as audio_file:
             audio = MIMEAudio(audio_file.read())
-        audio.add_header('Content-Disposition', 'attachment', filename= 'kan_' + entry[1] + '.wav')
+        audio.add_header('Content-Disposition', 'attachment', filename= 'kan_' + entry[1] + '_proc.wav')
         mail.attach(audio)
         
+        with open(wav_file_unproc,'rb') as audio_file:
+            audio = MIMEAudio(audio_file.read())
+        audio.add_header('Content-Disposition', 'attachment', filename= 'kan_' + entry[1] + '_unproc.wav')
+        mail.attach(audio)
+
         #Ping
         server.ehlo()
         server.starttls()
