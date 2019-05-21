@@ -7,7 +7,7 @@
 ## Kannada Speech Synthesis project (Core)
 Kannada Speech Synthesis is submitted as the final year project which is a part of the curriculum specified by the Department of Electronics and Communication of M S Ramaiah Institute of Technology, Bangalore. All the dependencies and frameworks which are used in the core project are mentioned in the About page of the application. Contact Developer to obtain the source and trained model of the core project.
 
-## Developers 
+## Developer 
 <details>
 <summary>Shashank Sharma (Click to Expand)</summary>
 
@@ -33,33 +33,6 @@ Kannada Speech Synthesis is submitted as the final year project which is a part 
 	- Production Code and Documentation
 	- Application Themes
 	- Testset Integration with App
-
-</details>
-
-<details>
-<summary>Varun S S</summary>
-
-[MAIL](mailto:varunsridhar614@gmail.com)
-	
-	Core Project 
-	- Testings
-
-	Application
-	- Synthesis Handler
-	- Festival API
-
-</details>
-<details>
-<summary>Srinivas N M</summary>
-
-[MAIL](mailto:srinivasnm471@gmail.com) 
-
-	Core Project 
-	- Noise Removal using SOX
-	- Testing on Fedora [Not Operational due to Missing Libraries]
-	
-	Application
-	- SOX integration
 
 </details>
 
