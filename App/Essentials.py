@@ -183,8 +183,42 @@ def number2kn(num):
             tens_place = number_dict[int(str(num)[0]*2)].split()[0]
             units_place = number_dict[int(str(num)[1])]
             return tens_place + ' ' + units_place
+        
+    if num >= 100 and num < 1000:
+        if num % 100 == 0:
+            hundreds_dig = int(str(num)[0])
+            hundreds_str = number2kn(hundreds_dig)
+            return hundreds_str + ' ನೂರು '
+        
+        hundreds_dig = int(str(num)[0])
+        if hundreds_dig != 0:
+            hundreds_str = number2kn(hundreds_dig)
+            prefix = hundreds_str + ' ನೂರಾ '    
+        else:
+            prefix = ''
+        return prefix + number2kn(int(str(num)[1:]))
 
-   
+    if num >= 1000 and num < 10000:
+        if num % 1000 == 0:
+            thousands_dig = int(str(num)[0])
+            thousands_str = number2kn(thousands_dig)
+            return thousands_str + ' ಸಾವಿರ '
+        thousands_dig = int(str(num)[0])
+        thousands_str = number2kn(thousands_dig)
+        prefix = thousands_str + ' ಸಾವಿರದ '
+        return prefix + number2kn(int(str(num)[1:]))
+    
+    if num >= 10000 and num < 100000:
+        if num % 1000 == 0:
+            thousands_dig = int(str(num)[0:2])
+            thousands_str = number2kn(thousands_dig)
+            return thousands_str + ' ಸಾವಿರ '
+        
+        thousands_dig = int(str(num)[0:2])
+        thousands_str = number2kn(thousands_dig)
+        prefix = thousands_str + ' ಸಾವಿರದ '
+        return prefix + number2kn(int(str(num)[2:]))
+
 # =============================================================================
 #Developer : Shashank Sharma(shashankrnr32@gmail.com)
 #Description : 

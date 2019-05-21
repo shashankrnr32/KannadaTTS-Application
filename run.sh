@@ -21,7 +21,7 @@
 #Developer : Shashank Sharma
 #Description : Executable File for GUI Application
 # =============================================================================
-VERSION="v2.6"
+VERSION="v3"
 LOCKFILE=/home/$USER/Project/KannadaTTS-Application/kss.lock
 clear
 echo ==========================================
