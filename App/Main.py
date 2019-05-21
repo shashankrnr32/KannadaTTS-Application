@@ -1120,6 +1120,9 @@ class MyApp(QtGui.QMainWindow):
         #Acquire Text
         kan_txt = self.ui.kan_input.toPlainText()
         
+		#Check for numbers
+        kan_txt = Essentials.validate_text(kan_txt)
+
         #Search For Duplicate
         wav_id = self.syn_db.search_duplicate(kan_txt)
         
@@ -1225,7 +1228,8 @@ class MyApp(QtGui.QMainWindow):
                 for x in range(len(kan_txt)):
                     if ord(kan_txt[x]) in range(3200,3315) or kan_txt[x]== ' ':
                         self.final_txt += kan_txt[x]
-                        
+                    elif kan_txt[x] in [str(x) for x in range(0,9)] :
+                        self.final_txt += kan_txt[x]
                 
                 self.ui.kan_input.setPlainText(self.final_txt)
                 

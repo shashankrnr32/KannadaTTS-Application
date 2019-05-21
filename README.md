@@ -2,7 +2,7 @@
 
 ## Kannada Speech Synthesis Application (GUI)
 
-	v2.5 Stable Release
+	v2.6 Stable Release
 
 ## Kannada Speech Synthesis project (Core)
 Kannada Speech Synthesis is submitted as the final year project which is a part of the curriculum specified by the Department of Electronics and Communication of M S Ramaiah Institute of Technology, Bangalore. All the dependencies and frameworks which are used in the core project are mentioned in the About page of the application. Contact Developer to obtain the source and trained model of the core project.
@@ -23,6 +23,7 @@ Kannada Speech Synthesis is submitted as the final year project which is a part 
 		- CentOS7 on Google Cloud [Not Operational due to Missing Libraries]
 	
 	Application
+	- Handle Numbers in input
 	- Complete User Interface (Main, About, Table and Analysis Window)
 	- Plots (Wave, Spectrum, Spectrogram, MFCC) and Text analysis
 	- Kannada Version Build
@@ -70,11 +71,12 @@ Kannada Speech Synthesis is submitted as the final year project which is a part 
 3. Pitch Shifting using soundstretch
 
 ### Recent Updates on GUI Application (Added by SBS)
-1. Play unprocessed audio from the misc menu
-2. Open Terminal from the Application (Alt + T/P/G )
-3. Added MFCC colormap plot
-4. **The application is now available in Kannada Version** (`./run.sh -kan` or Change language within the application)
-5. The audio if in testset can now be played in the misc. menu. 
+1. Handles Number input (Currently supporting 0,99)
+2. Play unprocessed audio from the misc menu
+3. Open Terminal from the Application (Alt + T/P/G )
+4. Added MFCC colormap plot
+5. **The application is now available in Kannada Version** (`./run.sh -kan` or Change language within the application)
+6. The audio if in testset can now be played in the misc. menu. 
 
 ## Features of GUI Application
 1. SQLite Based Database 

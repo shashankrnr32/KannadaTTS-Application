@@ -76,7 +76,7 @@ def send_mail(to_address, entry):
     #HTML Message
     mail_text = '''
     Hey There,<br>
-    Thank you for using Kannada Speech Synthesis GUI Application. We have attached the audio file in this mail (.wav)  <br><br>
+    Thank you for using Kannada Speech Synthesis GUI Application. We have attached the audio file in this mail (.wav). This application is developed by Shashank Sharma.   <br><br>
     <b>File Name</b> : {0}                  <br>
     <b>Kannada Transcript</b> : {1}         <br>
     <b>Processed</b> : {2}
@@ -114,12 +114,12 @@ def send_mail(to_address, entry):
         #Read Audio to attach
         with open(wav_file_proc,'rb') as audio_file:
             audio = MIMEAudio(audio_file.read())
-        audio.add_header('Content-Disposition', 'attachment', filename= 'kan_' + entry[1] + '_proc.wav')
+        audio.add_header('Content-Disposition', 'attachment', filename= 'kan_' + entry[1] + '_processed.wav')
         mail.attach(audio)
         
         with open(wav_file_unproc,'rb') as audio_file:
             audio = MIMEAudio(audio_file.read())
-        audio.add_header('Content-Disposition', 'attachment', filename= 'kan_' + entry[1] + '_unproc.wav')
+        audio.add_header('Content-Disposition', 'attachment', filename= 'kan_' + entry[1] + '_unprocessed.wav')
         mail.attach(audio)
 
         #Ping
@@ -143,7 +143,48 @@ def send_mail(to_address, entry):
         print(e)
         # Any Error
         return False
-    
+
+
+# =============================================================================
+#Developer : Shashank Sharma(shashankrnr32@gmail.com)
+#Description : 
+#       Text Validator       
+# =============================================================================
+def validate_text(kan_txt):
+	word_list = list()
+	temp = kan_txt.split()
+	for word in temp:
+		try :
+			temp_num = int(word)
+			word_list.append(number2kn(temp_num))
+		except :
+			word_list.append(word)
+	return ' '.join(word_list)
+
+
+# =============================================================================
+#Developer : Shashank Sharma(shashankrnr32@gmail.com)
+#Description : 
+#       Number to Kannada       
+# =============================================================================
+number_dict = {0 : 'ಸೊನ್ನೆ', 1 : 'ಒಂದು', 2 : 'ಎರಡು', 3: 'ಮೂರು',
+               4 : 'ನಾಲ್ಕು', 5 : 'ಐದು', 6 : 'ಆರು',
+               7 : 'ಏಳು', 8 : 'ಎಂಟು', 9 : 'ಒಂಬತ್ತು' , 10 : 'ಹತ್ತು', 
+               11 : 'ಹನ್ನೊಂದು', 12 : 'ಹನ್ನೆರಡು', 13 : 'ಹದಿಮೂರು', 14 : 'ಹದಿನಾಲ್ಕು', 15 : 'ಹದಿನೈದು',
+               16 : 'ಹದಿನಾರು', 17 : 'ಹದಿನೇಳು', 18 : 'ಹದಿನೆಂಟು', 19 : 'ಹತ್ತೊಂಬತ್ತು', 20 : 'ಇಪ್ಪತ್ತು',
+               22 : 'ಇಪ್ಪತ್ತ್ ಎರಡು', 30 : 'ಮೂವತ್ತು' , 33 : 'ಮೂವತ್ತ್ ಮೂರು' , 40 : 'ನಲವತ್ತು' , 44 : 'ನಲವತ್ತ್ ನಾಲ್ಕು',
+               50 : 'ಐವತ್ತು', 55 : 'ಐವತ್ತ್ ಐದು', 60 : 'ಅರವತ್ತು', 66 : 'ಅರವತ್ತ್ ಆರು' , 70 : 'ಎಪ್ಪತ್ತು', 77 : 'ಎಪ್ಪತ್ತ್ ಏಳು',
+               80 : 'ಎಂಬತ್ತು', 88 : 'ಎಂಬತ್ತ್ ಎಂಟು', 90 : 'ತೊಂಬತ್ತು', 99 : 'ತೊಂಬತ್ತ್ ಒಂಬತ್ತು'  }
+def number2kn(num):
+    if num < 100:
+        try : 
+            return number_dict[num]
+        except :
+            tens_place = number_dict[int(str(num)[0]*2)].split()[0]
+            units_place = number_dict[int(str(num)[1])]
+            return tens_place + ' ' + units_place
+
+   
 # =============================================================================
 #Developer : Shashank Sharma(shashankrnr32@gmail.com)
 #Description : 

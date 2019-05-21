@@ -21,7 +21,7 @@
 #Developer : Shashank Sharma
 #Description : Executable File for GUI Application
 # =============================================================================
-VERSION="v2.5"
+VERSION="v2.6"
 LOCKFILE=/home/$USER/Project/KannadaTTS-Application/kss.lock
 clear
 echo ==========================================
@@ -58,7 +58,7 @@ if [ "$1" = "-i" ];
 then
 	echo "Kannada Speech Synthesis is submitted as a part of final year project by
 	1. Shashank Sharma (shashankrnr32@gmail.com)		2. Srinivas N M (srinivasnm471@gmail.com)
-	3. Thilak M (reddythilak13@gmail.com)			4. Varun S S (varunsridhar614@gmail.com)"
+	4. Varun S S (varunsridhar614@gmail.com)"
 	echo
 	echo "Under the guidance of Sadashiva V Chakrasali, Asst. Prof., Dept. of E&C, MSRIT, Bangalore"	
 	echo ==========================================
