@@ -43,7 +43,7 @@ Kannada Speech Synthesis is submitted as the final year project which is a part 
 2. Noise removal using SOX
 3. Pitch Shifting using soundstretch
 
-### Recent Updates on GUI Application (Added by SBS)
+### Recent Updates on GUI Application
 1. Handles Number input (Currently supporting 0-1 Lakh)
 2. Play unprocessed audio from the misc menu
 3. Open Terminal from the Application (Alt + T/P/G )
